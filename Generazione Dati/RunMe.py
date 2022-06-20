@@ -51,13 +51,16 @@ def choose_option():
     return val 
 
 def referencing_PC():
-    for i in range(N_POST):
+    for i in range(10000):
         POST.append({"AK" : i, "A1" : i%N_ATT1, "A2" : i%N_ATT2, "A3" : i%N_ATT3, "A4" : i%N_ATT1, "A5" : i%N_ATT2, "A6" : i%N_ATT3, "A7" : "In vel mauris felis. Cras consectetur nisi quis diam molestie dapibus. Donec faucibus non urna et blandit. In ac gravida turpis, suscipit pulvinar arcu. Aenean eros purus, vehicula quis facilisis sit amet, luctus non est. Vestibulum at sapien odio. Nulla at scelerisque justo, vel tristique magna. Nullam semper porta lacinia. Integer neque odio, iaculis quis aliquam sit amet, ultrices quis libero. Vestibulum non feugiat lectus. Aliquam erat volutpat. Proin dignissim sollicitudin pretium. Donec laoreet, nisi a feugiat tristique, enim felis aliquam dui, sed eleifend quam massa eu lorem. Proin pulvinar nunc sit amet eros consequat tristique. Pellentesque sed nisl elit.Fusce elementum fermentum diam, quis tristique turpis vulputate eu. Curabitur laoreet odio enim, at faucibus lacus sodales quis. Proin porta justo vel vestibulum lobortis. Nulla eros turpis, accumsan id efficitur quis, scelerisque eu ex. In eleifend nisi at purus condimentum, nec semper urna sodales. Suspendisse interdum dui."})
         #file.write(json.dumps({"AK" : i, "A1" : i%N_ATT1, "A2" : i%N_ATT2, "A3" : i%N_ATT3, "A4" : i%N_ATT1, "A5" : i%N_ATT2, "A6" : i%N_ATT3, "A7" : "cacca"}))
-    file_p.write(json.dumps(POST))
+        #lists = {"id" : 1 , "POST" : POST}
+    lists = {"id" : 1 , "Post" : POST}
+    file_p.write(json.dumps(lists))
     for i in range(N_COMMENT):
         COMMENT.append({"BK" : i, "AK" : random.randint(0, N_POST -1) , "B1" : i%N_ATT1, "B2" : i%N_ATT2, "B3" : i%N_ATT3, "B4" : i%N_ATT1, "B5" : i%N_ATT2, "B6" : i%N_ATT3, "B7" : "In vel mauris felis. Cras consectetur nisi quis diam molestie dapibus. Donec faucibus non urna et blandit. In ac gravida turpis, suscipit pulvinar arcu. Aenean eros purus, vehicula quis facilisis sit amet, luctus non est. Vestibulum at sapien odio. Nulla at scelerisque justo, vel tristique magna. Nullam semper porta lacinia. Integer neque odio, iaculis quis aliquam sit amet, ultrices quis libero. Vestibulum non feugiat lectus. Aliquam erat volutpat. Proin dignissim sollicitudin pretium. Donec laoreet, nisi a feugiat tristique, enim felis aliquam dui, sed eleifend quam massa eu lorem. Proin pulvinar nunc sit amet eros consequat tristique. Pellentesque sed nisl elit.Fusce elementum fermentum diam, quis tristique turpis vulputate eu. Curabitur laoreet odio enim, at faucibus lacus sodales quis. Proin porta justo vel vestibulum lobortis. Nulla eros turpis, accumsan id efficitur quis, scelerisque eu ex. In eleifend nisi at purus condimentum, nec semper urna sodales. Suspendisse interdum dui."})
-    file_c.write(json.dumps(COMMENT))
+    lists = {"id" : 2, "Comment" : COMMENT}
+    file_c.write(json.dumps(lists))
 
 
 def referencing_CP():
