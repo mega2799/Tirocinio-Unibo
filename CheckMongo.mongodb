@@ -51,19 +51,181 @@ db.post.aggregate(
   ]
 )
 
-
-db.relation.aggregate(
+db.mediumRelation.aggregate(
   [
      {
       $match: {
-        "A3" : 1
+        "A1" : 412
       }
     },
     {
-      $count : "totale"
+      $count : "tot"
     }
   ]
 )
+
+// db.mediumRelation.aggregate(
+//   [
+//      {
+//       $match: {
+//         "A1" :  
+//       }
+//     },
+//     {
+//       $count : "tot"
+//     } 
+//   ]
+// )
+
+
+db.mediumRelation.aggregate(
+  [
+    {
+      $match: {
+        // "AK" : {$exists : true}
+        "AK" : 23
+      }
+    }
+  ]
+)
+
+db.mediumRelation.aggregate(
+  [
+     {
+      $match: {
+        "A1" : 404
+      }
+    },
+    {
+      $count : "tot"
+    }
+  ]
+)
+
+db.mediumRelation.aggregate(
+  [
+    {
+      $match : {
+        "BK" : {$exists : true}
+      }
+    },
+    {
+      $project : 
+      {
+        "_id" : 0,
+        "BK" : 1
+      }
+    },
+    {
+      $sample: {
+        size: 10
+      }
+    }
+  ]
+)
+
+var bho = db.mediumRelation.aggregate(
+  [
+    {
+      $match : {
+        "AK" : {$exists : true}
+      }
+    },
+    {
+      $project : 
+      {
+        "_id" : 1,
+        "AK" : 1
+      }
+    },
+    {
+      $sample: {
+        size: 1
+      }
+    }
+  ]
+)
+
+cacca = bho.toArray()
+cacca[0]._id
+
+
+var child = db.mediumRelation.aggregate(
+  [
+    {
+      $match : {
+        "BK" : {$exists : true}
+      }
+    },
+    {
+      $project : 
+      {
+        "_id" : 1,
+        "BK" : 1
+      }
+    },
+    {
+      $sample: {
+        size: 10
+      }
+    }
+  ]
+)
+
+
+childList = child.toArray()
+// childList
+// childList.forEach(function(i){print(i._id)})
+// childList[4]._id
+
+db.mediumRelation.aggregate(
+  [
+    {
+      $match : {
+        "AK" : {$exists : true}
+      }
+    },
+    {
+      $project : 
+      {
+        "_id" : 1,
+        "AK" : 1
+      }
+    },
+    {
+      $sample: {
+        size: 1
+      }
+    },
+    {
+      /**
+       * newField: The new field name.
+       * expression: The new field expression.
+       */
+      $addFields: {
+        "BK": childList 
+      }
+    }
+  ]
+)
+
+
+// var id = db.mediumRelation.findOne()
+
+// id._id
+
+// 
+// 
+// db.mediumRelation.find(
+  // {
+    // "A1" : {$exists : true}
+  // }
+// ).count()
+// 
+// db.mediumRelation.distinct(
+  // "A2"
+// ).length 
+// 
 
 // db.cp.aggregate(
   // [
