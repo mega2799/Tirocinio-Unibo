@@ -52,6 +52,19 @@ db.post.aggregate(
 )
 
 
+db.relation.aggregate(
+  [
+     {
+      $match: {
+        "A3" : 1
+      }
+    },
+    {
+      $count : "totale"
+    }
+  ]
+)
+
 // db.cp.aggregate(
   // [
     // {
