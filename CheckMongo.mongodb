@@ -7,7 +7,7 @@ const collection = 'NEW_COLLECTION_NAME';
 // The current database to use.
 use(database);
 
-// Create a new collection.
+// Create a new collection
 
 db.post.aggregate(
   [
@@ -32,6 +32,34 @@ db.post.aggregate(
     }
   ]
 )
+
+db.post.aggregate(
+  [
+    {
+      $unwind : {
+        path : "$Post"
+      }
+    },
+    {
+      /**
+       * query: The query in MQL.
+       */
+      $match: {
+        "Post.AK" : 1
+      }
+    }
+  ]
+)
+
+
+// db.cp.aggregate(
+  // [
+    // {
+      // $unwind : {path : "$Comment with post"}
+    // }
+  // ]
+// )
+// 
 
 // The prototype form to create a regular collection:
 /* db.createCollection( <name>,
