@@ -124,141 +124,156 @@ db.mediumRelation.aggregate(
   ]
 )
 
-var bho = db.mediumRelation.aggregate(
+// var bho = db.mediumRelation.aggregate(
+//   [
+//     {
+//       $match : {
+//         "AK" : {$exists : true}
+//       }
+//     },
+//     {
+//       $project : 
+//       {
+//         "_id" : 1,
+//         "AK" : 1
+//       }
+//     },
+//     {
+//       $sample: {
+//         size: 1
+//       }
+//     }
+//   ]
+// )
+
+// cacca = bho.toArray()
+// cacca[0]._id
+
+
+// var child = db.mediumRelation.aggregate(
+//   [
+//     {
+//       $match : {
+//         "BK" : {$exists : true}
+//       }
+//     },
+//     {
+//       $project : 
+//       {
+//         "_id" : 1,
+//         "BK" : 1
+//       }
+//     },
+//     {
+//       $sample: {
+//         size: 10
+//       }
+//     }
+//   ]
+// )
+
+
+// childList = child.toArray()
+// // childList
+// // childList.forEach(function(i){print(i._id)})
+// // childList[4]._id
+
+// db.mediumRelation.aggregate(
+//   [
+//     {
+//       $match : {
+//         "AK" : {$exists : true}
+//       }
+//     },
+//     {
+//       $project : 
+//       {
+//         "_id" : 1,
+//         "AK" : 1
+//       }
+//     },
+//     // {
+//       // $sample: {
+//         // size: 1
+//       // }
+//     // },
+//     {
+//       $addFields: {
+//         "BK": childList 
+//       }
+//     }
+//   ]
+// )
+
+
+// Query per ottenere referencing di B in A
+
+db.relation.aggregate(
   [
     {
-      $match : {
-        "AK" : {$exists : true}
-      }
-    },
-    {
-      $project : 
-      {
-        "_id" : 1,
-        "AK" : 1
-      }
-    },
-    {
-      $sample: {
-        size: 1
-      }
-    }
-  ]
-)
-
-cacca = bho.toArray()
-cacca[0]._id
-
-
-var child = db.mediumRelation.aggregate(
-  [
-    {
-      $match : {
-        "BK" : {$exists : true}
-      }
-    },
-    {
-      $project : 
-      {
-        "_id" : 1,
+      $project : {
+        "_id" : 0,
+        "FAK" : 1,
         "BK" : 1
       }
     },
     {
+      $match: {
+        "BK" : {$exists : true}
+      }
+    },
+    {
+      /**
+       * size: The number of documents to sample.
+       */
       $sample: {
-        size: 10
+        size: 3
+      }
+    },
+    {
+      /**
+       * from: The target collection.
+       * localField: The local join field.
+       * foreignField: The target join field.
+       * as: The name for the results.
+       * pipeline: The pipeline to run on the joined collection.
+       * let: Optional variables to use in the pipeline field stages.
+       */
+      $lookup: {
+        from: 'relation',
+        localField: 'FAK',
+        foreignField: 'AK',
+        as: 'arr'
+      }
+    },
+    {
+      $unwind : "$arr"
+    },
+    {
+      /**
+       * specifications: The fields to
+       *   include or exclude.
+       */
+      $project: {
+        "FAK" : 0,
+        "arr._id" : 0
+      }
+    },{
+      /**
+       * specifications: The fields to
+       *   include or exclude.
+       */
+      $project: {
+        "AK" : "$arr.AK",
+        "BK" : "$BK",
+        "A1" : "$arr.A1",
+        "A2" : "$arr.A2",
+        "A3" : "$arr.A3",
+        "A4" : "$arr.A4",
+        "A5" : "$arr.A5",
+        "A6" : "$arr.A6",
+        "A7" : "$arr.A7",
       }
     }
   ]
 )
-
-
-childList = child.toArray()
-// childList
-// childList.forEach(function(i){print(i._id)})
-// childList[4]._id
-
-db.mediumRelation.aggregate(
-  [
-    {
-      $match : {
-        "AK" : {$exists : true}
-      }
-    },
-    {
-      $project : 
-      {
-        "_id" : 1,
-        "AK" : 1
-      }
-    },
-    // {
-      // $sample: {
-        // size: 1
-      // }
-    // },
-    {
-      $addFields: {
-        "BK": childList 
-      }
-    }
-  ]
-)
-
-
-// var id = db.mediumRelation.findOne()
-
-// id._id
-
-// 
-// 
-// db.mediumRelation.find(
-  // {
-    // "A1" : {$exists : true}
-  // }
-// ).count()
-// 
-// db.mediumRelation.distinct(
-  // "A2"
-// ).length 
-// 
-
-// db.cp.aggregate(
-  // [
-    // {
-      // $unwind : {path : "$Comment with post"}
-    // }
-  // ]
-// )
-// 
-
-// The prototype form to create a regular collection:
-/* db.createCollection( <name>,
-  {
-    capped: <boolean>,
-    autoIndexId: <boolean>,
-    size: <number>,
-    max: <number>,
-    storageEngine: <document>,
-    validator: <document>,
-    validationLevel: <string>,
-    validationAction: <string>,
-    indexOptionDefaults: <document>,
-    viewOn: <string>,
-    pipeline: <pipeline>,
-    collation: <document>,
-    writeConcern: <document>
-  }
-) */
-
-// The prototype form to create a time-series collection:
-/* db.createCollection( <name>,
-  {
-    timeseries: {
-      timeField: <string>,
-      metaField: <string>,
-      granularity: <string>
-    },
-    expireAfterSeconds: <number>
-  }
-) */
