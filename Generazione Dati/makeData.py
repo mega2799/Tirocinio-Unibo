@@ -53,6 +53,7 @@ def getAndDel(array):
 if __name__ == "__main__":
     file_AB = open("AB.json", "w")
     for i in range(N_A):
+        AK = getAndDel(A)
         el_A1 = getAndDel(A1)
         if el_A1 == "pythonSucks":
             A1 = populateList(N_A1)
@@ -65,18 +66,18 @@ if __name__ == "__main__":
         if el_A3 == "pythonSucks":
             A3 = populateList(N_A3)
             el_A3 = getAndDel(A3) 
-        file_AB.write(json.dumps({"AK" : getAndDel(A),"A1" : el_A1, "A2" : el_A2, "A3" : el_A3, "A4" : el_A1, "A5" : el_A2,"A6" : el_A3 , "A7" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia eget arcu et maximus. Ut tempus est sit amet tortor commodo, sit amet facilisis mi rhoncus. Donec et elit venenatis, consequat tellus eu, tristique orci. Duis tristique sem ut nulla ullamcorper, a porta risus efficitur. Cras sed neque et nisl tincidunt vestibulum. Phasellus tristique tempor facilisis. Sed facilisis lectus eros, sed aliquet lacus elementum sed. Integer vel dictum mi. Maecenas pharetra tempus eros, efficitur mattis erat cursus in. Nulla sit amet quam velit. Nullam tempus dictum lacus id porttitor. Vestibulum facilisis pulvinar fermentum. Ut elementum maximus feugiat. In at mollis leo, eu facilisis magna. Vestibulum sed nisi ultricies, tincidunt enim ac, fringilla ex. Phasellus pharetra mollis nisi a fermentum. In nec faucibus nulla, eget molestie magna. Vivamus in gravida ex. Aenean scelerisque gravida ipsum, nec congue enim posuere sit amet. Donec vitae felis id sem congue blandit eget non justo quis." }) + "\n")
-    for y in range(N_B):
-        el_B1 = getAndDel(B1)
-        if el_B1 == "pythonSucks":
-            B1 = populateList(N_B1)
+        file_AB.write(json.dumps({"AK" : AK,"A1" : el_A1, "A2" : el_A2, "A3" : el_A3, "A4" : el_A1, "A5" : el_A2,"A6" : el_A3 , "A7" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia eget arcu et maximus. Ut tempus est sit amet tortor commodo, sit amet facilisis mi rhoncus. Donec et elit venenatis, consequat tellus eu, tristique orci. Duis tristique sem ut nulla ullamcorper, a porta risus efficitur. Cras sed neque et nisl tincidunt vestibulum. Phasellus tristique tempor facilisis. Sed facilisis lectus eros, sed aliquet lacus elementum sed. Integer vel dictum mi. Maecenas pharetra tempus eros, efficitur mattis erat cursus in. Nulla sit amet quam velit. Nullam tempus dictum lacus id porttitor. Vestibulum facilisis pulvinar fermentum. Ut elementum maximus feugiat. In at mollis leo, eu facilisis magna. Vestibulum sed nisi ultricies, tincidunt enim ac, fringilla ex. Phasellus pharetra mollis nisi a fermentum. In nec faucibus nulla, eget molestie magna. Vivamus in gravida ex. Aenean scelerisque gravida ipsum, nec congue enim posuere sit amet. Donec vitae felis id sem congue blandit eget non justo quis." }) + "\n")
+        for y in range(10):
             el_B1 = getAndDel(B1)
-        el_B2 = getAndDel(B2)
-        if el_B2 == "pythonSucks":
-            B2 = populateList(N_B2)
+            if el_B1 == "pythonSucks":
+                B1 = populateList(N_B1)
+                el_B1 = getAndDel(B1)
             el_B2 = getAndDel(B2)
-        el_B3 = getAndDel(B3)
-        if el_B1 == "pythonSucks":
-            B3 = populateList(N_B3)
+            if el_B2 == "pythonSucks":
+                B2 = populateList(N_B2)
+                el_B2 = getAndDel(B2)
             el_B3 = getAndDel(B3)
-        file_AB.write(json.dumps({"BK" : getAndDel(B),"B1" : el_B1, "B2" : el_B2, "B3" : el_B3, "B4" : el_B1, "B5" : el_B2, "B6" : el_B3 , "B7" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia eget arcu et maximus. Ut tempus est sit amet tortor commodo, sit amet facilisis mi rhoncus. Donec et elit venenatis, consequat tellus eu, tristique orci. Duis tristique sem ut nulla ullamcorper, a porta risus efficitur. Cras sed neque et nisl tincidunt vestibulum. Phasellus tristique tempor facilisis. Sed facilisis lectus eros, sed aliquet lacus elementum sed. Integer vel dictum mi. Maecenas pharetra tempus eros, efficitur mattis erat cursus in. Nulla sit amet quam velit. Nullam tempus dictum lacus id porttitor. Vestibulum facilisis pulvinar fermentum. Ut elementum maximus feugiat. In at mollis leo, eu facilisis magna. Vestibulum sed nisi ultricies, tincidunt enim ac, fringilla ex. Phasellus pharetra mollis nisi a fermentum. In nec faucibus nulla, eget molestie magna. Vivamus in gravida ex. Aenean scelerisque gravida ipsum, nec congue enim posuere sit amet. Donec vitae felis id sem congue blandit eget non justo quis." }) + "\n")
+            if el_B3 == "pythonSucks":
+                B3 = populateList(N_B3)
+                el_B3 = getAndDel(B3)
+            file_AB.write(json.dumps({"BK" : getAndDel(B), "FAK" : AK, "B1" : el_B1, "B2" : el_B2, "B3" : el_B3, "B4" : el_B1, "B5" : el_B2, "B6" : el_B3 , "B7" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia eget arcu et maximus. Ut tempus est sit amet tortor commodo, sit amet facilisis mi rhoncus. Donec et elit venenatis, consequat tellus eu, tristique orci. Duis tristique sem ut nulla ullamcorper, a porta risus efficitur. Cras sed neque et nisl tincidunt vestibulum. Phasellus tristique tempor facilisis. Sed facilisis lectus eros, sed aliquet lacus elementum sed. Integer vel dictum mi. Maecenas pharetra tempus eros, efficitur mattis erat cursus in. Nulla sit amet quam velit. Nullam tempus dictum lacus id porttitor. Vestibulum facilisis pulvinar fermentum. Ut elementum maximus feugiat. In at mollis leo, eu facilisis magna. Vestibulum sed nisi ultricies, tincidunt enim ac, fringilla ex. Phasellus pharetra mollis nisi a fermentum. In nec faucibus nulla, eget molestie magna. Vivamus in gravida ex. Aenean scelerisque gravida ipsum, nec congue enim posuere sit amet. Donec vitae felis id sem congue blandit eget non justo quis." }) + "\n")

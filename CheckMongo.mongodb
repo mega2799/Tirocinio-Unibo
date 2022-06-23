@@ -93,7 +93,7 @@ db.mediumRelation.aggregate(
   [
      {
       $match: {
-        "A1" : 404
+        "A3" : 9
       }
     },
     {
@@ -192,16 +192,12 @@ db.mediumRelation.aggregate(
         "AK" : 1
       }
     },
+    // {
+      // $sample: {
+        // size: 1
+      // }
+    // },
     {
-      $sample: {
-        size: 1
-      }
-    },
-    {
-      /**
-       * newField: The new field name.
-       * expression: The new field expression.
-       */
       $addFields: {
         "BK": childList 
       }
