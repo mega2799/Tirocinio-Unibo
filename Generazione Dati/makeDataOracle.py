@@ -111,7 +111,7 @@ if __name__ == "__main__":
             if el_B3 == "pythonSucks":
                 B3 = populateList(N_B3)
                 el_B3 = getAndDel(B3)
-            s += ((BK, AK, el_A1, el_A2, el_A3, el_A1, el_A2, el_A3, tt),)
+            s += ((BK, AK, el_B1, el_B2, el_B3, el_B1, el_B2, el_B3, tt),)
     file_A.write(str(t))
     file_A.write("INSERT INTO B VALUES ")
     file_A.write(str(s))
