@@ -1,6 +1,6 @@
 from ast import expr_context
 import random
-import json
+from tqdm import tqdm
 
 expA = 4
 
@@ -82,7 +82,7 @@ if __name__ == "__main__":
         "FOREIGN KEY(B_AK) REFERENCIES A(A_K));" +          "\n"
     )
     file_A.write("INSERT INTO A VALUES ")
-    for i in range(N_A):
+    for i in tqdm(range(N_A)):
         AK = getAndDel(A)
         el_A1 = getAndDel(A1)
         if el_A1 == "pythonSucks":

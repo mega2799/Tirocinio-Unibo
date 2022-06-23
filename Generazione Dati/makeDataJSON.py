@@ -1,6 +1,7 @@
 from ast import expr_context
 import random
 import json
+from tqdm import tqdm
 
 expA = 4
 
@@ -52,7 +53,7 @@ def getAndDel(array):
 
 if __name__ == "__main__":
     file_AB = open("AB.json", "w")
-    for i in range(N_A):
+    for i in tqdm(range(N_A)):
         AK = getAndDel(A)
         el_A1 = getAndDel(A1)
         if el_A1 == "pythonSucks":
