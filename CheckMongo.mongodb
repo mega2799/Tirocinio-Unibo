@@ -208,71 +208,108 @@ db.mediumRelation.aggregate(
 
 // Query per ottenere referencing di B in A
 
+// db.relation.aggregate(
+//   [
+//     {
+//       $project : {
+//         "_id" : 0,
+//         "FAK" : 1,
+//         "BK" : 1
+//       }
+//     },
+//     {
+//       $match: {
+//         "BK" : {$exists : true}
+//       }
+//     }
+//     ,
+//     // {
+//       // /**
+//       //  * size: The number of documents to sample.
+//       //  */
+//       // $sample: {
+//         // size: 3
+//       // }
+//     // },
+//     {
+//       $lookup: {
+//         from: 'relation',
+//         localField: 'FAK',
+//         foreignField: 'AK',
+//         as: 'arr'
+//       }
+//     },
+//     {
+//       $unwind : "$arr"
+//     },
+//     {
+//       /**
+//        * specifications: The fields to
+//        *   include or exclude.
+//        */
+//       $project: {
+//         "FAK" : 0,
+//         "arr._id" : 0
+//       }
+//     },{
+//       /**
+//        * specifications: The fields to
+//        *   include or exclude.
+//        */
+//       $project: {
+//         "AK" : "$arr.AK",
+//         "BK" : "$BK",
+//         "A1" : "$arr.A1",
+//         "A2" : "$arr.A2",
+//         "A3" : "$arr.A3",
+//         "A4" : "$arr.A4",
+//         "A5" : "$arr.A5",
+//         "A6" : "$arr.A6",
+//         "A7" : "$arr.A7",
+//       }
+//     },{
+//       $out : "refBinA"
+//     }
+//   ]
+// )
+
+
+
+// Query per l'embedding
 db.relation.aggregate(
   [
     {
-      $project : {
-        "_id" : 0,
-        "FAK" : 1,
-        "BK" : 1
-      }
-    },
-    {
       $match: {
-        "BK" : {$exists : true}
+        "BK" : {$exists : true},
+        "FAK" : 1000
       }
     },
     {
       /**
-       * size: The number of documents to sample.
+       * _id: The id of the group.
+       * fieldN: The first field name.
        */
-      $sample: {
-        size: 3
+      $group: {
+        _id: {"AK" : "$FAK"}, "BK": {$addToSet : "$BK"}
+      }
+    },
+      {
+        $lookup: {
+          from: 'relation',
+          localField: 'BK',
+          foreignField: 'BK',
+          as: 'embB'
       }
     },
     {
-      /**
-       * from: The target collection.
-       * localField: The local join field.
-       * foreignField: The target join field.
-       * as: The name for the results.
-       * pipeline: The pipeline to run on the joined collection.
-       * let: Optional variables to use in the pipeline field stages.
-       */
+      $project : {"BK" : 0, "embB.FAK" : 0}
+    },
+    {
       $lookup: {
         from: 'relation',
-        localField: 'FAK',
+        localField: 'AK',
         foreignField: 'AK',
-        as: 'arr'
-      }
-    },
-    {
-      $unwind : "$arr"
-    },
-    {
-      /**
-       * specifications: The fields to
-       *   include or exclude.
-       */
-      $project: {
-        "FAK" : 0,
-        "arr._id" : 0
-      }
-    },{
-      /**
-       * specifications: The fields to
-       *   include or exclude.
-       */
-      $project: {
-        "AK" : "$arr.AK",
-        "BK" : "$BK",
-        "A1" : "$arr.A1",
-        "A2" : "$arr.A2",
-        "A3" : "$arr.A3",
-        "A4" : "$arr.A4",
-        "A5" : "$arr.A5",
-        "A6" : "$arr.A6",
-        "A7" : "$arr.A7",
+        as: 'AKAK'
       }
     }
   ]
