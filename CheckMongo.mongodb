@@ -275,13 +275,13 @@ db.mediumRelation.aggregate(
 
 
 
-// Query per l'embedding
+// Query per l'embedding ma non riesco a fare il join con A
 db.relation.aggregate(
   [
     {
       $match: {
         "BK" : {$exists : true},
-        "FAK" : 1000
+        "FAK" : 1000            // da rimuovere
       }
     },
     {
@@ -290,27 +290,37 @@ db.relation.aggregate(
        * fieldN: The first field name.
        */
       $group: {
-        _id: {"AK" : "$FAK"}, "BK": {$addToSet : "$BK"}
-      }
-    },
-      {
-        $lookup: {
-          from: 'relation',
-          localField: 'BK',
-          foreignField: 'BK',
-          as: 'embB'
+        _id: {"AK" : "$FAK"}, "BK": {$addToSet : "$$ROOT"}
       }
     },
     {
-      $project : {"BK" : 0, "embB.FAK" : 0}
-    },
-    {
+      /**
+       * from: The target collection.
+       * localField: The local join field.
+       * foreignField: The target join field.
+       * as: The name for the results.
+       * pipeline: The pipeline to run on the joined collection.
+       * let: Optional variables to use in the pipeline field stages.
+       */
       $lookup: {
         from: 'relation',
-        localField: 'AK',
+        localField: 'FAK',
         foreignField: 'AK',
-        as: 'AKAK'
+        as: 'AKAKA'
       }
     }
-  ]
+    //   {
+    //     $lookup: {
+    //       from: 'relation',
+    //       localField: 'BK',
+    //       foreignField: 'BK',
+    //       as: 'embB'
+    //   }
+    // },
+    {
+      $project : {/*"BK" : 0,*/ "BK.FAK" : 0}
+    } 
+   ]
 )
+
+// db.relation.findOne({"BK" : {$exists : true}})
