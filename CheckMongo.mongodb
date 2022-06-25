@@ -275,7 +275,7 @@ db.mediumRelation.aggregate(
 
 
 
-// Query per l'embedding ma non riesco a fare il join con A
+// Query per l'embedding
 db.relation.aggregate(
   [
     {
@@ -283,55 +283,29 @@ db.relation.aggregate(
         "BK" : {$exists : true},
         "FAK" : 1000            // da rimuovere
         // ma ho
-
         // PlanExecutor error during aggregation :: caused by :: Exceeded memory limit 
         // for $group, but didn't allow external sort. Pass allowDiskUse:true to opt in.
       }
-    },
-    {
-      /**
-       * _id: The id of the group.
-       * fieldN: The first field name.
-       */
+    },{
       $group: {
         _id: {"AK" : "$FAK"}, "BK": {$addToSet : "$$ROOT"}
       }
     },
     {
-      /**
-       * from: The target collection.
-       * localField: The local join field.
-       * foreignField: The target join field.
-       * as: The name for the results.
-       * pipeline: The pipeline to run on the joined collection.
-       * let: Optional variables to use in the pipeline field stages.
-       */
       $lookup: {
         from: 'relation',
         localField: '_id.AK',
         foreignField: 'AK',
         as: 'AK'
       }
-    },
-    //   {
-    //     $lookup: {
-    //       from: 'relation',
-    //       localField: 'BK',
-    //       foreignField: 'BK',
-    //       as: 'embB'
-    //   }
-    // },
-    {
-      $project : {/*"BK" : 0,*/ "_id" : 0,"BK.FAK" : 0}
-    }, {/**
-     * path: Path to the array field.
-     * includeArrayIndex: Optional name for index.
-     * preserveNullAndEmptyArrays: Optional
-     *   toggle to unwind null and empty values.
-     */
+    },{
+      $project : {"_id" : 0,"BK.FAK" : 0}
+    },{
     $unwind: {
       path: "$AK",
-    }}
+    }},{
+      $project : {"A" : "$AK", "B" : "$BK"} // li voglio in quest ordine
+    }
    ]
 )
 
