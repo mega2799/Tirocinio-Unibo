@@ -272,7 +272,7 @@ db.mediumRelation.aggregate(
 //     }
 //   ]
 // )
-
+ 
 
 
 // Query per l'embedding
@@ -309,4 +309,43 @@ db.relation.aggregate(
    ]
 )
 
-// db.relation.findOne({"BK" : {$exists : true}})
+//query per il referencing
+db.relation.aggregate(
+  [
+    {
+      $match : { "BK" : {$exists : true }, 
+      "BK" : 1000 //temp
+      }
+    },{
+      $project: {
+        "_id" : 0,
+        "AK" : "$FAK",
+        "BK" : "$BK"
+        }
+    },{
+      $lookup: {
+        from: 'relation',
+        localField: 'AK',
+        foreignField: 'AK',
+        as: 'A'
+      }
+    },{
+      $unwind: {
+        path: "$A",
+      }
+    },{
+      $project: { // ordine di visualizzazione preferito
+        "_id" :"$A._id",
+        "AK" : "$A.AK",
+        "FBK" : "$BK",
+        "A1" : "$A.A1",
+        "A2" : "$A.A2",
+        "A3" : "$A.A3",
+        "A4" : "$A.A4",
+        "A5" : "$A.A5",
+        "A6" : "$A.A6",
+        "A7" : "$A.A7"
+      }
+    }
+  ]
+)
