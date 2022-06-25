@@ -309,7 +309,7 @@ db.relation.aggregate(
    ]
 )
 
-//query per il referencing
+//query per il referencing di B in A
 db.relation.aggregate(
   [
     {
@@ -349,3 +349,30 @@ db.relation.aggregate(
     }
   ]
 )
+
+// Query per l'embedding B in A
+db.relation.aggregate(
+  [
+    {
+      $match: {
+        "BK" : {$exists : true},
+        "BK" : 1000            // da rimuovere
+        // ma ho
+        // PlanExecutor error during aggregation :: caused by :: Exceeded memory limit 
+        // for $group, but didn't allow external sort. Pass allowDiskUse:true to opt in.
+      }
+    },{
+      $lookup: {
+        from: 'relation',
+        localField: 'FAK',
+        foreignField: 'AK',
+        as: 'A'
+      }
+    },{
+      $project: {
+        "FAK" : 0
+      }
+    }
+  ]
+)
+
