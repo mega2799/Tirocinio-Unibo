@@ -3,6 +3,21 @@ import json
 from tqdm import tqdm
 
 couch = couchdb.Server("http://admin:admin@127.0.0.1:5984")
+
+db = couch.create("a")
+
+with open("A.json") as jsonfile:
+        for row in tqdm(jsonfile):
+            db_entry = json.loads(row) 
+            db.save(db_entry)
+
+db = couch.create("b")
+
+with open("B.json") as jsonfile:
+        for row in tqdm(jsonfile):
+            db_entry = json.loads(row) 
+            db.save(db_entry)
+
 try:
     db = couch.create("referencing_a_in_b")
     with open("referencing_A_in_B.json") as jsonfile:

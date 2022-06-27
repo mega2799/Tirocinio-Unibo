@@ -13,7 +13,7 @@ Query su couchDb ma non utilizza indici
    }
 }
 
-
+{
  "dbname": "social",
  "index": {
   "ddoc": null,
@@ -68,4 +68,11 @@ Query su couchDb ma non utilizza indici
 }
 ```
 
-credo che vadano creati
+# indici
+
+documentazione [here](https://docs.couchdb.org/en/latest/api/database/find.html#post--db-_index)
+
+tramite postman sono in grado di effettuare delle query con l'uso di POST e GET
+
+esiste l'immagine su docker hub di [couchDB](https://hub.docker.com/_/couchdb), in questo modo si potrebbe poter limitare l'uso di cache (?)
+attraverso docker potrebbe essere facile poter creare un cluster.
