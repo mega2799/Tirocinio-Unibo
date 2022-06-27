@@ -1,0 +1,90 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+const database = 'tirocinio';
+const collection = 'NEW_COLLECTION_NAME';
+
+// The current database to use.
+use(database);
+
+//query per il referencing di B in A
+db.B.aggregate(
+  [
+    {
+      $project: {
+        "_id" : 0,
+        "AK" : "$FAK",
+        "BK" : "$BK"
+        }
+    },{
+      $lookup: {
+        from: 'A',
+        localField: 'AK',
+        foreignField: 'AK',
+        as: 'A'
+      }
+    }
+    
+    // ,{
+    //   $unwind: {
+    //     path: "$A",
+    //   }
+    // }
+    // ,{
+    //   $project: { // ordine di visualizzazione preferito
+    //     "_id" :"$A._id",
+    //     "AK" : "$A.AK",
+    //     "FBK" : { $addToSet : "$BK"},
+    //     "A1" : "$A.A1",
+    //     "A2" : "$A.A2",
+    //     "A3" : "$A.A3",
+    //     "A4" : "$A.A4",
+    //     "A5" : "$A.A5",
+    //     "A6" : "$A.A6",
+    //     "A7" : "$A.A7"
+    //   }
+    // }
+    
+    // ,{
+    //   $out : "ref_B_in_A"
+    // }
+  ]
+)
+
+/*
+PlanExecutor error during aggregation :: caused by :: 
+E11000 duplicate key error collection: 
+tirocinio.tmp.agg_out.0203721a-2cc0-46c4-963d-e95ea0c04b00 
+index: _id_ dup
+key: { _id: ObjectId('62b976d503da3961fd8b8d86') }
+*/
+
+
+db.B.aggregate(
+  [
+   {
+      $group: {
+        _id: {"AK" : "$FAK"}, "BK": {$addToSet : "$BK"}
+      }
+    },
+    {
+      $lookup: {
+        from: 'A',
+        localField: '_id.AK',
+        foreignField: 'AK',
+        as: 'AK'
+      }
+    },{
+      $project : {"_id" : 0,"BK.FAK" : 0}
+    },{
+    $unwind: {
+      path: "$AK",
+    }},{
+      $project : {"A" : "$AK", "B" : "$BK"} // li voglio in quest ordine
+    }
+    
+    ,{
+        $out : "referencing_B_in_A"
+    }
+  ],{allowDiskUse:true}
+)

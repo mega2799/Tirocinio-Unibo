@@ -1,0 +1,36 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+const database = 'tirocinio';
+const collection = 'NEW_COLLECTION_NAME';
+
+// The current database to use.
+use(database);
+
+// Query per l'embedding di B in A
+db.B.aggregate(
+  [
+   {
+      $group: {
+        _id: {"AK" : "$FAK"}, "BK": {$addToSet : "$$ROOT"}
+      }
+    },
+    {
+      $lookup: {
+        from: 'A',
+        localField: '_id.AK',
+        foreignField: 'AK',
+        as: 'AK'
+      }
+    },{
+      $project : {"_id" : 0,"BK.FAK" : 0}
+    },{
+    $unwind: {
+      path: "$AK",
+    }},{
+      $project : {"A" : "$AK", "B" : "$BK"} // li voglio in quest ordine
+    },{
+        $out : "embedding_B_in_A"
+    }
+  ],{allowDiskUse:true}
+)

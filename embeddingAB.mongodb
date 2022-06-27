@@ -1,0 +1,36 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+const database = 'tirocinio';
+
+
+// The current database to use.
+use(database);
+
+// Query per l'embedding B in A
+db.B.aggregate(
+  [
+    // {
+      // $match: {
+        // "BK" : 1000            // da rimuovere
+        // ma ho
+        // PlanExecutor error during aggregation :: caused by :: Exceeded memory limit 
+        // for $group, but didn't allow external sort. Pass allowDiskUse:true to opt in.
+      // }
+    // },
+    {
+      $lookup: {
+        from: 'A',
+        localField: 'FAK',
+        foreignField: 'AK',
+        as: 'A'
+      }
+    },{
+      $project: {
+        "FAK" : 0
+      }
+    },{
+      $out : "embedding_A_in_B"
+    }
+  ]
+)
