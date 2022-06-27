@@ -30,6 +30,8 @@ db.B.aggregate(
     }},{
       $project : {"A" : "$AK", "B" : "$BK"} // li voglio in quest ordine
     },{
+        $project : { "A._id" : 0, "B._id" : 0}
+    },{
         $out : "embedding_B_in_A"
     }
   ],{allowDiskUse:true}

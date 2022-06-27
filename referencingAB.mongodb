@@ -1,0 +1,39 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+const database = 'tirocinio';
+const collection = 'NEW_COLLECTION_NAME';
+
+// The current database to use.
+use(database);
+
+db.A.aggregate(
+    [
+        {
+            $lookup: {
+              from: 'B',
+              localField: 'AK',
+              foreignField: 'FAK',
+              as: 'B'
+            }
+        },{
+            /**
+             * path: Path to the array field.
+             * includeArrayIndex: Optional name for index.
+             * preserveNullAndEmptyArrays: Optional
+             *   toggle to unwind null and empty values.
+             */
+            $unwind: {
+              path: "$B",
+            }
+        }, {
+            $project : {"B" : 1, "_id" : 0, "A" : "$B.FAK"}
+        },{
+            $project: {
+              "B._id" : 0
+            }
+        },{
+            $out : "referencing_A_in_B"
+        }
+   ]
+)

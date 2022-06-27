@@ -7,17 +7,9 @@ const database = 'tirocinio';
 // The current database to use.
 use(database);
 
-// Query per l'embedding B in A
+// Query per l'embedding A in B
 db.B.aggregate(
   [
-    // {
-      // $match: {
-        // "BK" : 1000            // da rimuovere
-        // ma ho
-        // PlanExecutor error during aggregation :: caused by :: Exceeded memory limit 
-        // for $group, but didn't allow external sort. Pass allowDiskUse:true to opt in.
-      // }
-    // },
     {
       $lookup: {
         from: 'A',
@@ -27,10 +19,13 @@ db.B.aggregate(
       }
     },{
       $project: {
-        "FAK" : 0
+        "FAK" : 0,
+        "_id" : 0,
+        "A._id" : 0
       }
-    },{
-      $out : "embedding_A_in_B"
     }
+    // ,{
+      // $out : "embedding_A_in_B"
+    // }
   ]
 )
