@@ -24,8 +24,8 @@ db.B.aggregate(
         "A._id" : 0
       }
     }
-    // ,{
-      // $out : "embedding_A_in_B"
-    // }
+    ,{
+      $out : "embedding_A_in_B"
+    }
   ]
 )

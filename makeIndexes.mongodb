@@ -1,0 +1,30 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// The current database to use.
+use('tirocinio');
+
+
+
+const doc = ['embedding_A_in_B', 'embedding_B_in_A', 'referencing_A_in_B', 'referencing_B_in_A']
+
+const indexes = ['A4', 'A5', 'A6']
+
+doc.forEach(function(dbs){
+  indexes.forEach(function(index){
+    console.log("db.getCollection('" + dbs + "').createIndex({'"+ index + "': -1, '" + index + "': 'hashed' });")
+  })
+})
+
+db.getCollection('embedding_A_in_B').createIndex({'B4': -1, 'B4': 'hashed' });
+db.getCollection('embedding_A_in_B').createIndex({'B5': -1, 'B5': 'hashed' });
+db.getCollection('embedding_A_in_B').createIndex({'B6': -1, 'B6': 'hashed' });
+db.getCollection('embedding_B_in_A').createIndex({'A4': -1, 'A4': 'hashed' });
+db.getCollection('embedding_B_in_A').createIndex({'A5': -1, 'A5': 'hashed' });
+db.getCollection('embedding_B_in_A').createIndex({'A6': -1, 'A6': 'hashed' });
+db.getCollection('referencing_A_in_B').createIndex({'B.B4': -1, 'B.B4': 'hashed' });
+db.getCollection('referencing_A_in_B').createIndex({'B.B5': -1, 'B.B5': 'hashed' });
+db.getCollection('referencing_A_in_B').createIndex({'B.B6': -1, 'B.B6': 'hashed' });
+db.getCollection('referencing_B_in_A').createIndex({'A.A4': -1, 'A.A4': 'hashed' });
+db.getCollection('referencing_B_in_A').createIndex({'A.A5': -1, 'A.A5': 'hashed' });
+db.getCollection('referencing_B_in_A').createIndex({'A.A6': -1, 'A.A6': 'hashed' });
