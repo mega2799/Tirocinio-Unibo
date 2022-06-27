@@ -7,122 +7,27 @@ const collection = 'NEW_COLLECTION_NAME';
 // The current database to use.
 use(database);
 
-// Create a new collection
-
-db.post.aggregate(
-  [
-    {
-      /**
-       * path: Path to the array field.
-       * includeArrayIndex: Optional name for index.
-       * preserveNullAndEmptyArrays: Optional
-       *   toggle to unwind null and empty values.
-       */
-      $unwind: {
-        path: "$Post"
-      }
-    },
-    {
-      $match: {
-        "Post.A1" : 1
-      }
-    },
-    {
-      $count: "total"
-    }
-  ]
-)
-
-db.post.aggregate(
-  [
-    {
-      $unwind : {
-        path : "$Post"
-      }
-    },
-    {
-      /**
-       * query: The query in MQL.
-       */
-      $match: {
-        "Post.AK" : 1
-      }
-    }
-  ]
-)
-
-db.mediumRelation.aggregate(
-  [
-     {
-      $match: {
-        "A1" : 412
-      }
-    },
-    {
-      $count : "tot"
-    }
-  ]
-)
-
 // db.mediumRelation.aggregate(
 //   [
-//      {
-//       $match: {
-//         "A1" :  
+//     {
+//       $match : {
+//         "BK" : {$exists : true}
 //       }
 //     },
 //     {
-//       $count : "tot"
-//     } 
+//       $project : 
+//       {
+//         "_id" : 0,
+//         "BK" : 1
+//       }
+//     },
+//     {
+//       $sample: {
+//         size: 10
+//       }
+//     }
 //   ]
 // )
-
-
-db.mediumRelation.aggregate(
-  [
-    {
-      $match: {
-        // "AK" : {$exists : true}
-        "AK" : 23
-      }
-    }
-  ]
-)
-
-db.mediumRelation.aggregate(
-  [
-     {
-      $match: {
-        "A3" : 9
-      }
-    },
-    {
-      $count : "tot"
-    }
-  ]
-)
-
-db.mediumRelation.aggregate(
-  [
-    {
-      $match : {
-        "BK" : {$exists : true}
-      }
-    },
-    {
-      $project : 
-      {
-        "_id" : 0,
-        "BK" : 1
-      }
-    },
-    {
-      $sample: {
-        size: 10
-      }
-    }
-  ]
-)
 
 // var bho = db.mediumRelation.aggregate(
 //   [
@@ -206,6 +111,7 @@ db.mediumRelation.aggregate(
 // )
 
 
+
 // Query per ottenere referencing di B in A
 
 // db.relation.aggregate(
@@ -273,18 +179,16 @@ db.mediumRelation.aggregate(
 //   ]
 // )
  
-
-
 // Query per l'embedding
-db.relation.aggregate(
+db.B.aggregate(
   [
     {
       $match: {
-        "BK" : {$exists : true},
-        "FAK" : 1000            // da rimuovere
+        "FAK" : 1000
         // ma ho
         // PlanExecutor error during aggregation :: caused by :: Exceeded memory limit 
         // for $group, but didn't allow external sort. Pass allowDiskUse:true to opt in.
+      
       }
     },{
       $group: {
@@ -293,7 +197,7 @@ db.relation.aggregate(
     },
     {
       $lookup: {
-        from: 'relation',
+        from: 'A',
         localField: '_id.AK',
         foreignField: 'AK',
         as: 'AK'
@@ -306,15 +210,14 @@ db.relation.aggregate(
     }},{
       $project : {"A" : "$AK", "B" : "$BK"} // li voglio in quest ordine
     }
-   ]
+  ]
 )
 
 //query per il referencing di B in A
-db.relation.aggregate(
+db.B.aggregate(
   [
     {
-      $match : { "BK" : {$exists : true }, 
-      "BK" : 1000 //temp
+      $match : { "BK" : 1000 //temp
       }
     },{
       $project: {
@@ -324,7 +227,7 @@ db.relation.aggregate(
         }
     },{
       $lookup: {
-        from: 'relation',
+        from: 'A',
         localField: 'AK',
         foreignField: 'AK',
         as: 'A'
@@ -351,19 +254,19 @@ db.relation.aggregate(
 )
 
 // Query per l'embedding B in A
-db.relation.aggregate(
+db.B.aggregate(
   [
-    {
-      $match: {
-        "BK" : {$exists : true},
-        "BK" : 1000            // da rimuovere
+    // {
+      // $match: {
+        // "BK" : 1000            // da rimuovere
         // ma ho
         // PlanExecutor error during aggregation :: caused by :: Exceeded memory limit 
         // for $group, but didn't allow external sort. Pass allowDiskUse:true to opt in.
-      }
-    },{
+      // }
+    // },
+    {
       $lookup: {
-        from: 'relation',
+        from: 'A',
         localField: 'FAK',
         foreignField: 'AK',
         as: 'A'
@@ -372,7 +275,8 @@ db.relation.aggregate(
       $project: {
         "FAK" : 0
       }
+    },{
+      $out : "embedding_B_in_A"
     }
   ]
 )
-
