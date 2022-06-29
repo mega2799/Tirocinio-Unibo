@@ -1,6 +1,10 @@
 # Export
 
- .\mongoexport.exe --collection embedding_A_in_B --db tirocinio --out .\embedding_A_in_B.json
+.\mongoimport.exe --collection A --db tirocinio .\A.json
+
+.\mongoimport.exe --collection B --db tirocinio .\B.json
+
+.\mongoexport.exe --collection embedding_A_in_B --db tirocinio --out .\embedding_A_in_B.json
 
 .\mongoexport.exe --collection embedding_B_in_A --db tirocinio --out .\embedding_B_in_A.json
 

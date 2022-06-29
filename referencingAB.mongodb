@@ -27,13 +27,23 @@ db.A.aggregate(
               path: "$B",
             }
         }, {
-            $project : {"B" : 1, "_id" : 0, "A" : "$B.FAK"}
+            $project : { 
+            "BK" : "$B.BK", 
+            "AK" : "$B.FAK",
+            "B1" : "$B.B1", 
+            "B2" : "$B.B2", 
+            "B3" : "$B.B3", 
+            "B4" : "$B.B4",
+            "B5" : "$B.B5",
+            "B6" : "$B.B6",
+            "B7" : "$B.B7", 
+            "_id" : 0}
         },{
             $project: {
               "B._id" : 0
             }
         },{
-            $out : "referencing_A_in_B"
+          $out : "referencing_A_in_B"
         }
    ]
 )

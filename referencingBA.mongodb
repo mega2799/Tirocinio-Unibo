@@ -8,48 +8,48 @@ const collection = 'NEW_COLLECTION_NAME';
 use(database);
 
 //query per il referencing di B in A
-db.B.aggregate(
-  [
-    {
-      $project: {
-        "_id" : 0,
-        "AK" : "$FAK",
-        "BK" : "$BK"
-        }
-    },{
-      $lookup: {
-        from: 'A',
-        localField: 'AK',
-        foreignField: 'AK',
-        as: 'A'
-      }
-    }
-    
-    // ,{
-    //   $unwind: {
-    //     path: "$A",
-    //   }
-    // }
-    // ,{
-    //   $project: { // ordine di visualizzazione preferito
-    //     "_id" :"$A._id",
-    //     "AK" : "$A.AK",
-    //     "FBK" : { $addToSet : "$BK"},
-    //     "A1" : "$A.A1",
-    //     "A2" : "$A.A2",
-    //     "A3" : "$A.A3",
-    //     "A4" : "$A.A4",
-    //     "A5" : "$A.A5",
-    //     "A6" : "$A.A6",
-    //     "A7" : "$A.A7"
-    //   }
-    // }
-    
-    // ,{
-    //   $out : "ref_B_in_A"
-    // }
-  ]
-)
+// db.B.aggregate(
+//   [
+//     {
+//       $project: {
+//         "_id" : 0,
+//         "AK" : "$FAK",
+//         "BK" : "$BK"
+//         }
+//     },{
+//       $lookup: {
+//         from: 'A',
+//         localField: 'AK',
+//         foreignField: 'AK',
+//         as: 'A'
+//       }
+//     }
+//     
+//     // ,{
+//     //   $unwind: {
+//     //     path: "$A",
+//     //   }
+//     // }
+//     // ,{
+//     //   $project: { // ordine di visualizzazione preferito
+//     //     "_id" :"$A._id",
+//     //     "AK" : "$A.AK",
+//     //     "FBK" : { $addToSet : "$BK"},
+//     //     "A1" : "$A.A1",
+//     //     "A2" : "$A.A2",
+//     //     "A3" : "$A.A3",
+//     //     "A4" : "$A.A4",
+//     //     "A5" : "$A.A5",
+//     //     "A6" : "$A.A6",
+//     //     "A7" : "$A.A7"
+//     //   }
+//     // }
+//     
+//     // ,{
+//     //   $out : "ref_B_in_A"
+//     // }
+//   ]
+// )
 
 /*
 PlanExecutor error during aggregation :: caused by :: 
@@ -80,7 +80,15 @@ db.B.aggregate(
     $unwind: {
       path: "$AK",
     }},{
-      $project : {"A" : "$AK", "B" : "$BK"} // li voglio in quest ordine
+      $project : {
+      "A1" : "$AK.A1", 
+      "A2" : "$AK.A2", 
+      "A3" : "$AK.A3", 
+      "A4" : "$AK.A4",
+      "A5" : "$AK.A5",
+      "A6" : "$AK.A6",
+      "A7" : "$AK.A7",
+       "B" : "$BK"} // li voglio in quest ordine
     },{
         $project : {"A._id" : 0}
     },{
