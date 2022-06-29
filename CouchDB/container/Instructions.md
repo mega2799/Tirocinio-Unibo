@@ -10,6 +10,14 @@
 Provero con il .yml e il compose, magari condividendo i file di configurazione dal SO host
 
 
+# docker compose 
+
+[info su memoria](https://linuxhint.com/docker_compose_memory_limits/)
+
+[tutti i parametri di compose](https://docs.docker.com/compose/compose-file/)
+
+Comando per poter visualizzare tutte le info
+> docker stats --all
 
 # Linux <3 
 
@@ -20,3 +28,6 @@ Stoppare il server con il comando
 
 Avviare il container con il compose nella directory con il comando:
 > docker-compose up -d
+
+Entrare all interno del docker con il comando:
+> $ docker exec -it CouchDbServerMega bash

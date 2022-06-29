@@ -1,10 +1,13 @@
 version: '3'
 services:
   couchserver:
-    image: couchdb
+    container_name: CouchDbServerMega
+    image: couchdb:latest
     restart: always
     ports:
       - "5984:5984"
+    mem_limit: 512m
+    cpu_count: 1
     environment:
       - COUCHDB_USER=admin
       - COUCHDB_PASSWORD=admin
