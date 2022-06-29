@@ -8,3 +8,15 @@
 
 
 Provero con il .yml e il compose, magari condividendo i file di configurazione dal SO host
+
+
+
+# Linux <3 
+
+Installare couchDb server
+
+Stoppare il server con il comando 
+> $ sudo systemctl stop couchdb
+
+Avviare il container con il compose nella directory con il comando:
+> docker-compose up -d
