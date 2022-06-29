@@ -13,3 +13,4 @@ services:
       - COUCHDB_PASSWORD=admin
     volumes:
         - ./dbdata:/opt/couchdb/data
+        #- ./file.sh:/home/matte.sh
