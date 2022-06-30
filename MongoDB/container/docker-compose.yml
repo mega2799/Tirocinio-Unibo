@@ -9,6 +9,7 @@ services:
       - MONGO_INITDB_DATABASE=test
     volumes:
       - mongodb-data:/data/db
+      - dataJson:/home/data
     networks:
       - mongodb_network
     ports:
@@ -47,5 +48,7 @@ services:
     restart: unless-stopped
 volumes:
   mongodb-data:
+    name: mongodb-data
 networks:
   mongodb_network:
+    name: mongodb_network
