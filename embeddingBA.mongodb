@@ -28,7 +28,15 @@ db.B.aggregate(
     $unwind: {
       path: "$AK",
     }},{
-      $project : {"A" : "$AK", "B" : "$BK"} // li voglio in quest ordine
+      $project : {"AK" : "$AK.AK", 
+        "A1" : "$AK.A1", 
+        "A2" : "$AK.A2", 
+        "A3" : "$AK.A3", 
+        "A4" : "$AK.A4",
+        "A5" : "$AK.A5",
+        "A6" : "$AK.A6",
+        "A7" : "$AK.A7",
+        "B" : "$BK"} // li voglio in quest ordine
     },{
         $project : { "A._id" : 0, "B._id" : 0}
     },{
