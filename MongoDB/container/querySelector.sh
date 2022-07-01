@@ -1,6 +1,6 @@
 #!/bin/bash
 
-COLLECTIONS=("embedding_A_in_B.json"  "embedding_B_in_A.json"  "referencing_A_in_B.json"  "referencing_B_in_A.json");
+COLLECTIONS=("embedding_A_in_B"  "embedding_B_in_A"  "referencing_A_in_B"  "referencing_B_in_A");
 INDEXESA=("A1"  "A2" "A3"  "A4"  "A5" "A6" )
 INDEXESB=("B1"  "B2" "B3"  "B4"  "B5" "B6" )
 
@@ -31,4 +31,4 @@ echo -e "printjson(db.getCollection('$col').explain('queryPlanner').aggregate([ 
 echo -e "printjson(db.getCollection('$col').explain('executionStats').aggregate([ { \$match: { \"$ind\" : $v}}]))" 	>> "queries/on_"${col}"ind_"${ind}".js"	
 
 echo -e "docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f \"on_\"${col}\"ind_\"${ind}\".js\"  > /result/\"on_\"${col}\"ind_\"${ind}\"_Result.js"
-docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}".js"  >> "./result/on_"${col}"ind_"${ind}"_Result.js"
+docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}".js" >> "./result/on_"${col}"ind_"${ind}"_Result.json"

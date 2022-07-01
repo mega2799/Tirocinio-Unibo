@@ -32,3 +32,8 @@ Query per poter leggere le stats
 
 Confermo di ricevere 10 copie dello stesso A.....
 
+Le query vengono eseguite e funzionano perfettamente
+
+sarebbe il caso di separare i json dell explainPlan e del exex cost in modo da poterli parsare separati
+
+ma ancora ho le prime 25 righe intasate di roba, magari con un sed 1,25d riesco a levare tutto, sarebbe da fare sulla cartella result
