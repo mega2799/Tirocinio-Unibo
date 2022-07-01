@@ -18,4 +18,17 @@ alla fine per importare ho fatto uno script che instanzia il container, aspetta 
 comando per caricare i file con mongosh 
 > mongosh -u root -p pass12345 --authenticationDatabase admin
 
-verra usato per creare gli indici e poi chissà
+verra usato per creare gli indici 
+
+query d esempio:
+
+> db.getCollection('embedding_B_in_A').aggregate([ { $match: { "AK" : 99 } }]);
+
+Mi ritorna molte copie dello stesso A, non so perche' !CONTROLLARE! 
+
+
+Query per poter leggere le stats
+> db.getCollection('embedding_B_in_A').explain('executionStats').aggregate([ { $match: { "AK" : 99 } }]); 
+
+Confermo di ricevere 10 copie dello stesso A.....
+
