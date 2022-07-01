@@ -7,9 +7,15 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=pass12345
       - MONGO_INITDB_DATABASE=test
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin1234
     volumes:
       - mongodb-data:/data/db
-      - dataJson:/home/data
+      - ../../dataJSON:/home/data
+      - ./init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+      - ./import.sh:/home/import.sh
+      - ./loadMovies.js:/home/loadMovies.js
+      - /bin/nvim:/bin/nvim
     networks:
       - mongodb_network
     ports:
@@ -22,6 +28,12 @@ services:
     restart: unless-stopped
     mem_limit: 1024m 
     cpu_count: 1
+      #command:
+      #  - /bin/bash 
+      #  - -c 
+      #  - | 
+      #    sleep 60 
+      #    sh /home/import.sh 
   mongo-express:
     image: mongo-express:0.54.0 # 0.54.0 to see server status
     container_name: mongo-express
