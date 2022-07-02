@@ -30,5 +30,4 @@ echo -e "use('tirocinio')"												>> "queries/on_"${col}"ind_"${ind}".js"
 echo -e "printjson(db.getCollection('$col').explain('queryPlanner').aggregate([ { \$match: { \"$ind\" : $v}}]))"  	>> "queries/on_"${col}"ind_"${ind}".js"
 echo -e "printjson(db.getCollection('$col').explain('executionStats').aggregate([ { \$match: { \"$ind\" : $v}}]))" 	>> "queries/on_"${col}"ind_"${ind}".js"	
 
-echo -e "docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f \"on_\"${col}\"ind_\"${ind}\".js\"  > /result/\"on_\"${col}\"ind_\"${ind}\"_Result.js"
 docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}".js" >> "./result/on_"${col}"ind_"${ind}"_Result.json"
