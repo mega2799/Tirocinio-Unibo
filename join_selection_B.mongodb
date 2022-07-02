@@ -1,0 +1,48 @@
+const database = 'tirocinio';
+
+// The current database to use.
+use(database);
+
+//join di a su b referencing
+
+db.referencing_A_in_B.aggregate(
+  [
+    {
+      $match: {
+        "B3" : 6
+      }
+    },{
+      $lookup: {
+        from: 'referencing_B_in_A',
+        localField: 'AK',
+        foreignField: 'AK',
+        as: 'A'
+      }
+    }
+    ,{
+        $unwind: {
+          path: "$A",
+        }
+    }
+   ,{
+   $project : {
+     "BK" : "$BK",   
+     "B1" : "$B1",    
+     "B2" : "$B2",
+     "B3" : "$B3",
+     "B4" : "$B4",
+     "B5" : "$B5",
+     "B6" : "$B6",
+     "B7" : "$B7",    
+     "AK" : "$A.AK",
+     "A1" : "$A.A1", 
+     "A2" : "$A.A2", 
+     "A3" : "$A.A3", 
+     "A4" : "$A.A4",
+     "A5" : "$A.A5",
+     "A6" : "$A.A6",
+     "A7" : "$A.A7"
+   }
+   }
+  ]
+)
