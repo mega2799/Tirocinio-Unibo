@@ -26,8 +26,11 @@ echo "Which value ?"
 read v
 
 
-echo -e "use('tirocinio')"												>> "queries/on_"${col}"ind_"${ind}".js" 
-echo -e "printjson(db.getCollection('$col').explain('queryPlanner').aggregate([ { \$match: { \"$ind\" : $v}}]))"  	>> "queries/on_"${col}"ind_"${ind}".js"
-echo -e "printjson(db.getCollection('$col').explain('executionStats').aggregate([ { \$match: { \"$ind\" : $v}}]))" 	>> "queries/on_"${col}"ind_"${ind}".js"	
+echo -e "use('tirocinio')"												>> "queries/on_"${col}"ind_"${ind}"_query_plan.js" 
+echo -e "printjson(db.getCollection('$col').explain('queryPlanner').aggregate([ { \$match: { \"$ind\" : $v}}]))"  	>> "queries/on_"${col}"ind_"${ind}"_query_plan.js"
 
-docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}".js" >> "./result/on_"${col}"ind_"${ind}"_Result.json"
+echo -e "use('tirocinio')"												>> "queries/on_"${col}"ind_"${ind}"_exec_stats.js" 
+echo -e "printjson(db.getCollection('$col').explain('executionStats').aggregate([ { \$match: { \"$ind\" : $v}}]))" 	>> "queries/on_"${col}"ind_"${ind}"_exec_stats.js"	
+
+docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}"_query_plan.js" >> "./result/on_"${col}"ind_"${ind}"_query_plan_Result.json"
+docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}"_exec_stats.js" >> "./result/on_"${col}"ind_"${ind}"_exec_stats_Result.json"
