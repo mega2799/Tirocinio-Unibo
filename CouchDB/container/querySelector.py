@@ -40,8 +40,11 @@ headers = {
   'Content-Type': 'application/json'
 }
 
-print(payload)
 
 response = requests.request("POST", url, headers=headers, data=payload)
 
-print(response.text)
+print(type(response))
+resp = json.loads(response.text)
+
+print(type(resp))
+print(resp["execution_stats"])
