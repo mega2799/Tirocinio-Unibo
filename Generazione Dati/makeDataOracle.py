@@ -56,30 +56,30 @@ s = ()
 if __name__ == "__main__":
     file_A = open("A.sql", "w")
     file_A.write(
-        "Create or replace table A( " + "\n" +
-        "A_K NUMBER(6,0) " +   "\n" +
-        "A_1 NUMBER(6,0) " +   "\n" +
-        "A_2 NUMBER(6,0) " +   "\n" +
-        "A_3 NUMBER(6,0) " +   "\n" +
-        "A_4 NUMBER(6,0) " +   "\n" +
-        "A_5 NUMBER(6,0) " +   "\n" +
-        "A_6 NUMBER(6,0) " +   "\n" +
-        "A_7 VARCHAR(1000) " + "\n" +
-        "PRIMARY KEY(AK));" + "\n"
+        "Create table A( " + "\n" +
+        "A_AK NUMBER(6,0), " +   "\n" +
+        "A_A1 NUMBER(6,0), " +   "\n" +
+        "A_A2 NUMBER(6,0), " +   "\n" +
+        "A_A3 NUMBER(6,0), " +   "\n" +
+        "A_A4 NUMBER(6,0), " +   "\n" +
+        "A_A5 NUMBER(6,0), " +   "\n" +
+        "A_A6 NUMBER(6,0), " +   "\n" +
+        "A_A7 VARCHAR(1000), " + "\n" +
+        "PRIMARY KEY(A_AK));" + "\n"
     )
     file_A.write(
-        "\n" + "Create or replace table B( " + "\n" +
-        "B_K NUMBER(6,0) " +   "\n" +
-        "B_AK NUMBER(6,0) " +   "\n" +
-        "B_1 NUMBER(6,0) " +   "\n" +
-        "B_2 NUMBER(6,0) " +   "\n" +
-        "B_3 NUMBER(6,0) " +   "\n" +
-        "B_4 NUMBER(6,0) " +   "\n" +
-        "B_5 NUMBER(6,0) " +   "\n" +
-        "B_6 NUMBER(6,0) " +   "\n" +
-        "B_7 VARCHAR(1000) " + "\n" +
-        "PRIMARY KEY(BK) " + "\n"
-        "FOREIGN KEY(B_AK) REFERENCIES A(A_K));" +          "\n"
+        "\n" + "Create table B( " + "\n" +
+        "B_BK NUMBER(6,0), " +   "\n" +
+        "B_AK NUMBER(6,0), " +   "\n" +
+        "B_B1 NUMBER(6,0), " +   "\n" +
+        "B_B2 NUMBER(6,0), " +   "\n" +
+        "B_B3 NUMBER(6,0), " +   "\n" +
+        "B_B4 NUMBER(6,0), " +   "\n" +
+        "B_B5 NUMBER(6,0), " +   "\n" +
+        "B_B6 NUMBER(6,0), " +   "\n" +
+        "B_B7 VARCHAR(1000), " + "\n" +
+        "PRIMARY KEY(B_BK), " + "\n"
+        "FOREIGN KEY(B_AK) REFERENCES A(A_AK));" +          "\n"
     )
     file_A.write("INSERT INTO A VALUES ")
     for i in tqdm(range(N_A)):
@@ -113,5 +113,5 @@ if __name__ == "__main__":
                 el_B3 = getAndDel(B3)
             s += ((BK, AK, el_B1, el_B2, el_B3, el_B1, el_B2, el_B3, tt),)
     file_A.write(str(t))
-    file_A.write("INSERT INTO B VALUES ")
+    file_A.write("\nINSERT INTO B VALUES ")
     file_A.write(str(s))
