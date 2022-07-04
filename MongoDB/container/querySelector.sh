@@ -27,10 +27,12 @@ read v
 
 
 echo -e "use('tirocinio')"												>> "queries/on_"${col}"ind_"${ind}"_query_plan.js" 
-echo -e "printjson(db.getCollection('$col').explain('queryPlanner').aggregate([ { \$match: { \"$ind\" : $v}}]))"  	>> "queries/on_"${col}"ind_"${ind}"_query_plan.js"
+echo -e "result = db.getCollection('$col').explain('queryPlanner').aggregate([ { \$match: { \"$ind\" : $v}}])"  	>> "queries/on_"${col}"ind_"${ind}"_query_plan.js"
+echo -e "print(EJSON.stringify(result, null, \"  \")"  	>> "queries/on_"${col}"ind_"${ind}"_query_plan.js"
 
 echo -e "use('tirocinio')"												>> "queries/on_"${col}"ind_"${ind}"_exec_stats.js" 
-echo -e "printjson(db.getCollection('$col').explain('executionStats').aggregate([ { \$match: { \"$ind\" : $v}}]))" 	>> "queries/on_"${col}"ind_"${ind}"_exec_stats.js"	
+echo -e "result = db.getCollection('$col').explain('executionStats').aggregate([ { \$match: { \"$ind\" : $v}}])" 	>> "queries/on_"${col}"ind_"${ind}"_exec_stats.js"	
+echo -e "print(EJSON.stringify(result, null, \" \"))" >> "queries/on_"${col}"ind_"${ind}"_exec_stats.js"	
 
 docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}"_query_plan.js" | sed 1,25d >> "./result/on_"${col}"ind_"${ind}"_query_plan_Result.json"
 docker exec -it mongodb mongosh -u root -p pass12345 --authenticationDatabase admin -f "/home/queries/on_"${col}"ind_"${ind}"_exec_stats.js" | sed 1,25d >> "./result/on_"${col}"ind_"${ind}"_exec_stats_Result.json"
