@@ -27,6 +27,8 @@ for file in files:
         data.setdefault(collection, [])
         data[collection].append({ind : time})
 
+print(data)
+
 #[data.get(x) for x in collections] 
 collections = data.keys()
 for i in ([y for y in [data.get(x) for x in collections]]):
