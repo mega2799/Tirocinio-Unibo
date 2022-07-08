@@ -1,0 +1,15 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+const database = 'tirocinio';
+
+// The current database to use.
+use(database);
+
+db.embedding_A_in_B.aggregate([{$match: {"A.A4" : 5}},{$project: {"A" : 1}}])
+
+db.embedding_B_in_A.aggregate([{$match: {"B.B4" : 5}},{$project: {"B" : 1}},{$unwind : {path : "$B"}},{$match : {"B.B4" : 5}}])
+
+db.referencing_A_in_B.aggregate([{$lookup: {from: 'referencing_B_in_A',localField: 'A',foreignField: 'A.AK',as: 'A'}},{$project : {"A.A.B" : 0, "B" : 0, "_id" : 0, "A.B" : 0}}])
+
+db.referencing_B_in_A.aggregate([{$unwind: {  path: "$B"}},{$lookup: {  from: 'referencing_A_in_B',  localField: 'B',  foreignField: 'B.BK',  as: 'B'}},{$project: {"A" : 0, "_id" : 0 }},{$match : {"B.B.B4" : 4}}])
