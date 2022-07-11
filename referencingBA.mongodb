@@ -81,6 +81,7 @@ db.B.aggregate(
       path: "$AK",
     }},{
       $project : {
+      "_id" : "$AK.AK",
       "AK" : "$AK.AK",
       "A1" : "$AK.A1", 
       "A2" : "$AK.A2", 
@@ -90,8 +91,6 @@ db.B.aggregate(
       "A6" : "$AK.A6",
       "A7" : "$AK.A7",
        "B" : "$BK"} // li voglio in quest ordine
-    },{
-        $project : {"A._id" : 0}
     },{
       $out : "referencing_B_in_A"
     }

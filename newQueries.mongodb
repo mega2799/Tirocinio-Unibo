@@ -6,10 +6,79 @@ const database = 'tirocinio';
 // The current database to use.
 use(database);
 
+<<<<<<< HEAD
 db.embedding_A_in_B.aggregate([{$match: {"A.A4" : 327}},{$project: {"A" : 1}}])
+=======
+// db.embedding_A_in_B.aggregate([{$match: {"A.A4" : 5}},{$project: {"A" : 1}}])
+>>>>>>> 2ecc87e927d6fdf7273de72f0aa2db2b92e4c82c
 
-db.embedding_B_in_A.aggregate([{$match: {"B.B4" : 5}},{$project: {"B" : 1}},{$unwind : {path : "$B"}},{$match : {"B.B4" : 5}}])
+// db.embedding_B_in_A.aggregate([{$match: {"B.B4" : 5}},{$project: {"B" : 1}},{$unwind : {path : "$B"}},{$match : {"B.B4" : 5}}])
 
-db.referencing_A_in_B.aggregate([{$lookup: {from: 'referencing_B_in_A',localField: 'A',foreignField: 'A.AK',as: 'A'}},{$project : {"A.A.B" : 0, "B" : 0, "_id" : 0, "A.B" : 0}}])
+// db.referencing_A_in_B.explain('queryPlanner').aggregate([{$lookup: {from: 'referencing_B_in_A',localField: 'A',foreignField: 'A.AK',as: 'A'}},{$project : {"A.A.B" : 0, "B" : 0, "_id" : 0, "A.B" : 0}}])
 
+<<<<<<< HEAD
 db.referencing_B_in_A.aggregate([{$unwind: {  path: "$B"}},{$lookup: {  from: 'referencing_A_in_B',  localField: 'B',  foreignField: 'B.BK',  as: 'B'}},{$project: {"A" : 0, "_id" : 0 }},{$match : {"B.B.B4" : 4}}], {allowDiskUse : true })
+=======
+//db.referencing_B_in_A.aggregate([{$unwind: {  path: "$B"}},{$lookup: {  from: 'referencing_A_in_B',  localField: 'B',  foreignField: 'B.BK',  as: 'B'}},{$project: {"A" : 0, "_id" : 0 }},{$match : {"B.B.B4" : 4}}])
+
+//db.referencing_B_in_A.getIndexes()
+
+//db.getCollection('referencing_B_in_A').createIndex({'BK': 1});
+
+// ref a in b -> A4 = 89
+
+db.referencing_B_in_A.aggregate([
+    {
+        $match : { "A.A4"  : 89 }
+    }, {
+        /**
+         * from: The target collection.
+         * localField: The local join field.
+         * foreignField: The target join field.
+         * as: The name for the results.
+         * pipeline: The pipeline to run on the joined collection.
+         * let: Optional variables to use in the pipeline field stages.
+         */
+        $lookup: {
+          from: 'referencing_A_in_B',
+          localField: 'A.AK',
+          foreignField: 'B.FAK',
+          as: 'Ad'
+        }
+    },{
+        /**
+         * path: Path to the array field.
+         * includeArrayIndex: Optional name for index.
+         * preserveNullAndEmptyArrays: Optional
+         *   toggle to unwind null and empty values.
+         */
+        $unwind: {
+          path: "$Ad"
+        }
+    }
+])
+
+
+db.referencing_B_in_A.aggregate([
+ {
+        $match : { "A.A4"  : 89 } 
+    }, {
+        /**
+         * path: Path to the array field.
+         * includeArrayIndex: Optional name for index.
+         * preserveNullAndEmptyArrays: Optional
+         *   toggle to unwind null and empty values.
+         */
+        $unwind: {
+          path: "$B"
+        }
+    }, {
+            $lookup: {
+          from: 'referencing_A_in_B',
+          localField: 'B',
+          foreignField: 'B.BK',
+          as: 'B'
+        }
+    }
+])
+>>>>>>> 2ecc87e927d6fdf7273de72f0aa2db2b92e4c82c
