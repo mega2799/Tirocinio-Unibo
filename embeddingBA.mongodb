@@ -28,7 +28,9 @@ db.B.aggregate(
     $unwind: {
       path: "$AK",
     }},{
-      $project : {"AK" : "$AK.AK", 
+      $project : {
+        "_id" : "$AK.AK",
+        "AK" : "$AK.AK", 
         "A1" : "$AK.A1", 
         "A2" : "$AK.A2", 
         "A3" : "$AK.A3", 
@@ -41,6 +43,6 @@ db.B.aggregate(
         $project : { "A._id" : 0, "B._id" : 0}
     },{
         $out : "embedding_B_in_A"
-    }
+   }
   ],{allowDiskUse:true}
 )

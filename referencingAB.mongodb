@@ -7,43 +7,53 @@ const collection = 'NEW_COLLECTION_NAME';
 // The current database to use.
 use(database);
 
-db.A.aggregate(
-    [
-        {
-            $lookup: {
-              from: 'B',
-              localField: 'AK',
-              foreignField: 'FAK',
-              as: 'B'
-            }
-        },{
-            /**
-             * path: Path to the array field.
-             * includeArrayIndex: Optional name for index.
-             * preserveNullAndEmptyArrays: Optional
-             *   toggle to unwind null and empty values.
-             */
-            $unwind: {
-              path: "$B",
-            }
-        }, {
-            $project : { 
-            "BK" : "$B.BK", 
-            "AK" : "$B.FAK",
-            "B1" : "$B.B1", 
-            "B2" : "$B.B2", 
-            "B3" : "$B.B3", 
-            "B4" : "$B.B4",
-            "B5" : "$B.B5",
-            "B6" : "$B.B6",
-            "B7" : "$B.B7", 
-            "_id" : 0}
-        },{
-            $project: {
-              "B._id" : 0
-            }
-        },{
-          $out : "referencing_A_in_B"
-        }
-   ]
-)
+//db.A.aggregate(
+//    [
+//        {
+//            $lookup: {
+//              from: 'B',
+//              localField: 'AK',
+//              foreignField: 'FAK',
+//              as: 'B'
+//            }
+//        },{
+//            $unwind: {
+//              path: "$B",
+//            }
+//        }, {
+//            $project : { 
+//            "_id" : "$B.BK",
+//            "BK" : "$B.BK", 
+//            "AK" : "$B.FAK",
+//            "B1" : "$B.B1", 
+//            "B2" : "$B.B2", 
+//            "B3" : "$B.B3", 
+//            "B4" : "$B.B4",
+//            "B5" : "$B.B5",
+//            "B6" : "$B.B6",
+//            "B7" : "$B.B7"}
+//        }     
+//       // ,{
+//       //   $out : "referencing_A_in_B2"
+//       // }
+//   ]
+//)
+
+db.B.aggregate([
+  {
+    $project: {
+      "_id" : "$BK",
+      "BK" : "$BK",
+      "AK" : "$FAK",
+      "B1" : "$B1",   
+      "B2" : "$B2",
+      "B3" : "$B3",
+      "B4" : "$B4",
+      "B5" : "$B5",
+      "B6" : "$B6",
+      "B7" : "$B7"
+    }
+  },{
+  $out : "referencing_A_in_B"
+}
+])
