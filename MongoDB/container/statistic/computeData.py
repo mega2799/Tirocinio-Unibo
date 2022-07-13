@@ -19,11 +19,20 @@ for file in files:
         name = "../result/" + file
         with open(name, "r") as file:
             j = json.load(file)
-        time = (j["executionStats"]["executionTimeMillis"])
+        #for key, value in j.items():
+        #    print("----" ,key, "--->", value)
+        #print(j.get('stages'))
+        #print(j["$cursor"]["executionStats"]["executionTimeMillis"])
+        #time = (j["$cursor"]["executionStats"]["executionTimeMillis"])
+        if "stages" in list(j.keys()):
+            time = (j["stages"][0]["$cursor"]["executionStats"]["executionTimeMillis"])
+        else:
+            time = (j["executionStats"]["executionTimeMillis"])
+        print(name, time)
         splitted = (name.split("@"))
         collection= (splitted[0].split('/')[2])
         colls.append(collection)
-        ind = (splitted[1] )
+        ind = (splitted[1])
         data.setdefault(collection, [])
         data[collection].append({ind : time})
 
@@ -50,11 +59,12 @@ for arr in [data.get(x) for x in collections]:
 #
 #plt.show()
 
-
 t = np.array(times)
-idx = np.array(indexes)
+idx = np.array(colls)
 
-left = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+print(t, idx)
+#left = [1, 2, 3, 4 , 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+left = np.arange(1, len(t) + 1, 1)
 
 plt.bar(left, t, tick_label = idx,
         width = 0.8, color = ['red', 'green'])

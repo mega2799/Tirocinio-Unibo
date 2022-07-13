@@ -72,24 +72,57 @@ if __name__ == "__main__":
 
         for collection in ["embedding_B_in_A",  "referencing_B_in_A"]:
             start_time = time.time()
-            res = simple_aggregate(collection, query)
-            file = open("result/" + collection + "@" + ind + "exec_stats.json", "w") 
+            res = exec_cost(collection, query)
             print("--- %s seconds ---" % (time.time() - start_time))
+            file = open("result/" + collection + "@" + ind + "@exec_stats.json", "w") 
             file.write(json.dumps(res, indent=4))
 
+        # ref di A in B
+        query = ([{'$match' : { ind  : val } }, {'$unwind': {  'path': "$B"}},{'$lookup': {'from': 'referencing_A_in_B','localField': 'B','foreignField': '_id','as': 'B'}}])
+
+        start_time = time.time()
+        res = exec_cost("referencing_B_in_A", query)
+        file = open("result/referencing_A_in_B" + "@" + ind + "@exec_stats.json", "w") 
+        print("--- %s seconds ---" % (time.time() - start_time))
+        file.write(json.dumps(res, indent=4))
+
+        query = ([{'$match': {("A." + ind) : val}}])
+        start_time = time.time()
+        res = exec_cost("embedding_A_in_B", query)
+        file = open("result/embedding_A_in_B" + "@" + ind + "@exec_stats.json", "w") 
+        print("--- %s seconds ---" % (time.time() - start_time))
+        file.write(json.dumps(res, indent=4))
+    else:
         query = (
             [
                 {
-
+                    '$match' : { ind : val}
                 }
             ]
         )
-        for collection in ["embedding_A_in_B",  "referencing_B_in_A"]:
+
+        for collection in ["embedding_A_in_B",  "referencing_A_in_B"]:
             start_time = time.time()
-            res = simple_aggregate(collection, query)
-            file = open("result/" + collection + "@" + ind + "exec_stats.json", "w") 
+            res = exec_cost(collection, query)
             print("--- %s seconds ---" % (time.time() - start_time))
+            file = open("result/" + collection + "@" + ind + "@exec_stats.json", "w") 
             file.write(json.dumps(res, indent=4))
+
+        # ref di B in A
+        query = ([{'$match' : { ind  : val } } ,{'$lookup' : {'from' : 'referencing_B_in_A','localField' : 'AK','foreignField' : '_id','as' : 'A'}}, {'$project' : {"A.B" : 0}}, {'$unwind' : {'path' : "$A"}}])
+
+        start_time = time.time()
+        res = exec_cost("referencing_A_in_B", query)
+        file = open("result/referencing_B_in_A" + "@" + ind + "@exec_stats.json", "w") 
+        print("--- %s seconds ---" % (time.time() - start_time))
+        file.write(json.dumps(res, indent=4))
+
+        query = ([{'$match': { str("B." + ind) : val}}, {'$unwind': {  'path': "$B",}},{'$match' : { str("B." + ind) : val}}])
+        start_time = time.time()
+        res = exec_cost("embedding_B_in_A", query)
+        file = open("result/embedding_B_in_A" + "@" + ind + "@exec_stats.json", "w") 
+        print("--- %s seconds ---" % (time.time() - start_time))
+        file.write(json.dumps(res, indent=4))
 
 
 
