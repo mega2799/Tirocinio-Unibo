@@ -1,0 +1,139 @@
+{
+    "explainVersion": "1",
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.referencing_A_in_B",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "B3": {
+                            "$eq": 99
+                        }
+                    },
+                    "queryHash": "9293680B",
+                    "planCacheKey": "1AD42898",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "B3": {
+                                "$eq": 99
+                            }
+                        },
+                        "direction": "forward"
+                    },
+                    "rejectedPlans": []
+                },
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 0,
+                    "executionTimeMillis": 1484,
+                    "totalKeysExamined": 0,
+                    "totalDocsExamined": 1000000,
+                    "executionStages": {
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "B3": {
+                                "$eq": 99
+                            }
+                        },
+                        "nReturned": 0,
+                        "executionTimeMillisEstimate": 198,
+                        "works": 1000002,
+                        "advanced": 0,
+                        "needTime": 1000001,
+                        "needYield": 0,
+                        "saveState": 1001,
+                        "restoreState": 1001,
+                        "isEOF": 1,
+                        "direction": "forward",
+                        "docsExamined": 1000000
+                    }
+                }
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1478
+        },
+        {
+            "$lookup": {
+                "from": "referencing_B_in_A",
+                "as": "A",
+                "localField": "AK",
+                "foreignField": "_id"
+            },
+            "totalDocsExamined": 0,
+            "totalKeysExamined": 0,
+            "collectionScans": 0,
+            "indexesUsed": [],
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1478
+        },
+        {
+            "$project": {
+                "A": {
+                    "B": false
+                },
+                "_id": true
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1478
+        },
+        {
+            "$unwind": {
+                "path": "$A"
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1478
+        }
+    ],
+    "serverInfo": {
+        "host": "2b39dd094270",
+        "port": 27017,
+        "version": "5.0.9",
+        "gitVersion": "6f7dae919422dcd7f4892c10ff20cdc721ad00e6"
+    },
+    "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "referencing_A_in_B",
+        "pipeline": [
+            {
+                "$match": {
+                    "B3": 99
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "referencing_B_in_A",
+                    "localField": "AK",
+                    "foreignField": "_id",
+                    "as": "A"
+                }
+            },
+            {
+                "$project": {
+                    "A.B": 0
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$A"
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
+    "ok": 1.0
+}

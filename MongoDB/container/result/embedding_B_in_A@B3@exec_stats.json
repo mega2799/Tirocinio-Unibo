@@ -1,0 +1,116 @@
+{
+    "explainVersion": "1",
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.embedding_B_in_A",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "B.B3": {
+                            "$eq": 99
+                        }
+                    },
+                    "queryHash": "27DCF006",
+                    "planCacheKey": "AA8729A9",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "B.B3": {
+                                "$eq": 99
+                            }
+                        },
+                        "direction": "forward"
+                    },
+                    "rejectedPlans": []
+                },
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 0,
+                    "executionTimeMillis": 1165,
+                    "totalKeysExamined": 0,
+                    "totalDocsExamined": 100000,
+                    "executionStages": {
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "B.B3": {
+                                "$eq": 99
+                            }
+                        },
+                        "nReturned": 0,
+                        "executionTimeMillisEstimate": 708,
+                        "works": 100002,
+                        "advanced": 0,
+                        "needTime": 100001,
+                        "needYield": 0,
+                        "saveState": 102,
+                        "restoreState": 102,
+                        "isEOF": 1,
+                        "direction": "forward",
+                        "docsExamined": 100000
+                    }
+                }
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1155
+        },
+        {
+            "$unwind": {
+                "path": "$B"
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1155
+        },
+        {
+            "$match": {
+                "B.B3": {
+                    "$eq": 99
+                }
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1155
+        }
+    ],
+    "serverInfo": {
+        "host": "2b39dd094270",
+        "port": 27017,
+        "version": "5.0.9",
+        "gitVersion": "6f7dae919422dcd7f4892c10ff20cdc721ad00e6"
+    },
+    "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "embedding_B_in_A",
+        "pipeline": [
+            {
+                "$match": {
+                    "B.B3": 99
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$B"
+                }
+            },
+            {
+                "$match": {
+                    "B.B3": 99
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
+    "ok": 1.0
+}

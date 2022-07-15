@@ -1,0 +1,124 @@
+{
+    "explainVersion": "1",
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.referencing_B_in_A",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "A3": {
+                            "$eq": 63
+                        }
+                    },
+                    "queryHash": "17BDDE21",
+                    "planCacheKey": "669C484C",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "A3": {
+                                "$eq": 63
+                            }
+                        },
+                        "direction": "forward"
+                    },
+                    "rejectedPlans": []
+                },
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 0,
+                    "executionTimeMillis": 118,
+                    "totalKeysExamined": 0,
+                    "totalDocsExamined": 100000,
+                    "executionStages": {
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "A3": {
+                                "$eq": 63
+                            }
+                        },
+                        "nReturned": 0,
+                        "executionTimeMillisEstimate": 16,
+                        "works": 100002,
+                        "advanced": 0,
+                        "needTime": 100001,
+                        "needYield": 0,
+                        "saveState": 101,
+                        "restoreState": 101,
+                        "isEOF": 1,
+                        "direction": "forward",
+                        "docsExamined": 100000
+                    }
+                }
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 118
+        },
+        {
+            "$unwind": {
+                "path": "$B"
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 118
+        },
+        {
+            "$lookup": {
+                "from": "referencing_A_in_B",
+                "as": "B",
+                "localField": "B",
+                "foreignField": "_id"
+            },
+            "totalDocsExamined": 0,
+            "totalKeysExamined": 0,
+            "collectionScans": 0,
+            "indexesUsed": [],
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 118
+        }
+    ],
+    "serverInfo": {
+        "host": "2b39dd094270",
+        "port": 27017,
+        "version": "5.0.9",
+        "gitVersion": "6f7dae919422dcd7f4892c10ff20cdc721ad00e6"
+    },
+    "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "referencing_B_in_A",
+        "pipeline": [
+            {
+                "$match": {
+                    "A3": 63
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$B"
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "referencing_A_in_B",
+                    "localField": "B",
+                    "foreignField": "_id",
+                    "as": "B"
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
+    "ok": 1.0
+}

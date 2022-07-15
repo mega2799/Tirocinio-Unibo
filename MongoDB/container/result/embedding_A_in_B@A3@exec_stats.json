@@ -1,0 +1,81 @@
+{
+    "explainVersion": "1",
+    "queryPlanner": {
+        "namespace": "tirocinio.embedding_A_in_B",
+        "indexFilterSet": false,
+        "parsedQuery": {
+            "A.A3": {
+                "$eq": 63
+            }
+        },
+        "optimizedPipeline": true,
+        "maxIndexedOrSolutionsReached": false,
+        "maxIndexedAndSolutionsReached": false,
+        "maxScansToExplodeReached": false,
+        "winningPlan": {
+            "stage": "COLLSCAN",
+            "filter": {
+                "A.A3": {
+                    "$eq": 63
+                }
+            },
+            "direction": "forward"
+        },
+        "rejectedPlans": []
+    },
+    "executionStats": {
+        "executionSuccess": true,
+        "nReturned": 0,
+        "executionTimeMillis": 2794,
+        "totalKeysExamined": 0,
+        "totalDocsExamined": 1000000,
+        "executionStages": {
+            "stage": "COLLSCAN",
+            "filter": {
+                "A.A3": {
+                    "$eq": 63
+                }
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 552,
+            "works": 1000002,
+            "advanced": 0,
+            "needTime": 1000001,
+            "needYield": 0,
+            "saveState": 1000,
+            "restoreState": 1000,
+            "isEOF": 1,
+            "direction": "forward",
+            "docsExamined": 1000000
+        }
+    },
+    "command": {
+        "aggregate": "embedding_A_in_B",
+        "pipeline": [
+            {
+                "$match": {
+                    "A.A3": 63
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
+    "serverInfo": {
+        "host": "2b39dd094270",
+        "port": 27017,
+        "version": "5.0.9",
+        "gitVersion": "6f7dae919422dcd7f4892c10ff20cdc721ad00e6"
+    },
+    "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "ok": 1.0
+}

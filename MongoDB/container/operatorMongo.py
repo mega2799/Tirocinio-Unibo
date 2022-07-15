@@ -59,7 +59,7 @@ if __name__ == "__main__":
         ind = ind_b[int(i)]
     
     print(ind)
-    val = input("On which value?\n\n")
+    val = int(input("On which value?\n\n"))
     
     if ind in ind_a:
         query = (

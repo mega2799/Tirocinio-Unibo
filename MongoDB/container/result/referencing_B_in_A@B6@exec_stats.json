@@ -1,0 +1,183 @@
+{
+    "explainVersion": "1",
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.referencing_A_in_B",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "B6": {
+                            "$eq": 91
+                        }
+                    },
+                    "queryHash": "E1CB11A2",
+                    "planCacheKey": "5A70E005",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "FETCH",
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "keyPattern": {
+                                "B6": 1
+                            },
+                            "indexName": "B6_1",
+                            "isMultiKey": false,
+                            "multiKeyPaths": {
+                                "B6": []
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "B6": [
+                                    "[91, 91]"
+                                ]
+                            }
+                        }
+                    },
+                    "rejectedPlans": []
+                },
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 0,
+                    "executionTimeMillis": 0,
+                    "totalKeysExamined": 0,
+                    "totalDocsExamined": 0,
+                    "executionStages": {
+                        "stage": "FETCH",
+                        "nReturned": 0,
+                        "executionTimeMillisEstimate": 0,
+                        "works": 1,
+                        "advanced": 0,
+                        "needTime": 0,
+                        "needYield": 0,
+                        "saveState": 1,
+                        "restoreState": 1,
+                        "isEOF": 1,
+                        "docsExamined": 0,
+                        "alreadyHasObj": 0,
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "nReturned": 0,
+                            "executionTimeMillisEstimate": 0,
+                            "works": 1,
+                            "advanced": 0,
+                            "needTime": 0,
+                            "needYield": 0,
+                            "saveState": 1,
+                            "restoreState": 1,
+                            "isEOF": 1,
+                            "keyPattern": {
+                                "B6": 1
+                            },
+                            "indexName": "B6_1",
+                            "isMultiKey": false,
+                            "multiKeyPaths": {
+                                "B6": []
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "B6": [
+                                    "[91, 91]"
+                                ]
+                            },
+                            "keysExamined": 0,
+                            "seeks": 1,
+                            "dupsTested": 0,
+                            "dupsDropped": 0
+                        }
+                    }
+                }
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 0
+        },
+        {
+            "$lookup": {
+                "from": "referencing_B_in_A",
+                "as": "A",
+                "localField": "AK",
+                "foreignField": "_id"
+            },
+            "totalDocsExamined": 0,
+            "totalKeysExamined": 0,
+            "collectionScans": 0,
+            "indexesUsed": [],
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 0
+        },
+        {
+            "$project": {
+                "A": {
+                    "B": false
+                },
+                "_id": true
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 0
+        },
+        {
+            "$unwind": {
+                "path": "$A"
+            },
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 0
+        }
+    ],
+    "serverInfo": {
+        "host": "2b39dd094270",
+        "port": 27017,
+        "version": "5.0.9",
+        "gitVersion": "6f7dae919422dcd7f4892c10ff20cdc721ad00e6"
+    },
+    "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "referencing_A_in_B",
+        "pipeline": [
+            {
+                "$match": {
+                    "B6": 91
+                }
+            },
+            {
+                "$lookup": {
+                    "from": "referencing_B_in_A",
+                    "localField": "AK",
+                    "foreignField": "_id",
+                    "as": "A"
+                }
+            },
+            {
+                "$project": {
+                    "A.B": 0
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$A"
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
+    "ok": 1.0
+}

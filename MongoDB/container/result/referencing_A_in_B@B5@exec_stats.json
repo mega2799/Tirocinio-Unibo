@@ -1,0 +1,125 @@
+{
+    "explainVersion": "1",
+    "queryPlanner": {
+        "namespace": "tirocinio.referencing_A_in_B",
+        "indexFilterSet": false,
+        "parsedQuery": {
+            "B5": {
+                "$eq": 12
+            }
+        },
+        "optimizedPipeline": true,
+        "maxIndexedOrSolutionsReached": false,
+        "maxIndexedAndSolutionsReached": false,
+        "maxScansToExplodeReached": false,
+        "winningPlan": {
+            "stage": "FETCH",
+            "inputStage": {
+                "stage": "IXSCAN",
+                "keyPattern": {
+                    "B5": 1
+                },
+                "indexName": "B5_1",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                    "B5": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                    "B5": [
+                        "[12, 12]"
+                    ]
+                }
+            }
+        },
+        "rejectedPlans": []
+    },
+    "executionStats": {
+        "executionSuccess": true,
+        "nReturned": 1000,
+        "executionTimeMillis": 93,
+        "totalKeysExamined": 1000,
+        "totalDocsExamined": 1000,
+        "executionStages": {
+            "stage": "FETCH",
+            "nReturned": 1000,
+            "executionTimeMillisEstimate": 87,
+            "works": 1001,
+            "advanced": 1000,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 5,
+            "restoreState": 5,
+            "isEOF": 1,
+            "docsExamined": 1000,
+            "alreadyHasObj": 0,
+            "inputStage": {
+                "stage": "IXSCAN",
+                "nReturned": 1000,
+                "executionTimeMillisEstimate": 0,
+                "works": 1001,
+                "advanced": 1000,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 5,
+                "restoreState": 5,
+                "isEOF": 1,
+                "keyPattern": {
+                    "B5": 1
+                },
+                "indexName": "B5_1",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                    "B5": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                    "B5": [
+                        "[12, 12]"
+                    ]
+                },
+                "keysExamined": 1000,
+                "seeks": 1,
+                "dupsTested": 0,
+                "dupsDropped": 0
+            }
+        }
+    },
+    "command": {
+        "aggregate": "referencing_A_in_B",
+        "pipeline": [
+            {
+                "$match": {
+                    "B5": 12
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
+    "serverInfo": {
+        "host": "2b39dd094270",
+        "port": 27017,
+        "version": "5.0.9",
+        "gitVersion": "6f7dae919422dcd7f4892c10ff20cdc721ad00e6"
+    },
+    "serverParameters": {
+        "internalQueryFacetBufferSizeBytes": 104857600,
+        "internalQueryFacetMaxOutputDocSizeBytes": 104857600,
+        "internalLookupStageIntermediateDocumentMaxSizeBytes": 104857600,
+        "internalDocumentSourceGroupMaxMemoryBytes": 104857600,
+        "internalQueryMaxBlockingSortMemoryUsageBytes": 104857600,
+        "internalQueryProhibitBlockingMergeOnMongoS": 0,
+        "internalQueryMaxAddToSetBytes": 104857600,
+        "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "ok": 1.0
+}

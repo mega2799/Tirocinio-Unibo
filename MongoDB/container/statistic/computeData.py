@@ -2,6 +2,8 @@ import json
 import numpy as np
 import os 
 import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
 
 #data = numpy.zeros(shape=(4, 6), dtype=int)
 data = {}
@@ -60,16 +62,35 @@ for arr in [data.get(x) for x in collections]:
 #plt.show()
 
 t = np.array(times)
-idx = np.array(colls)
+idx = np.array(indexes)
 
 print(t, idx)
 #left = [1, 2, 3, 4 , 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
 left = np.arange(1, len(t) + 1, 1)
 
-plt.bar(left, t, tick_label = idx,
-        width = 0.8, color = ['red', 'green'])
+def add_value_label(x_list,y_list):
+    for i in range(1, len(x_list)+1):
+        plt.text(i,y_list[i-1],str(y_list[i-1]), ha = 'center')
 
-plt.xlabel('referencing_A_in_B  referencing_B_in_A    embedding_B_in_A     embedding_A_in_B')
+barlist = plt.bar(left, t, tick_label = idx, 
+        width = 0.6)
+
+#plt.xlabel(t)
+#plt.text(left, t, t)
+add_value_label(t, t)
+#plt.xlabel('referencing_A_in_B  referencing_B_in_A    embedding_B_in_A     embedding_A_in_B')
+
+colors = ['r', 'b', 'g', 'y']
+
+for color, bar_group in zip(colors, np.array_split(barlist, 4)):
+    for bar in bar_group:
+        bar.set_color(color)
+
+red_patch = mpatches.Patch(color='red', label='embedding_A_in_B')
+blu_patch = mpatches.Patch(color='b', label='referencing_B_in_A')
+green_patch = mpatches.Patch(color='g', label='referencing_A_in_B')
+yellow_patch = mpatches.Patch(color='y', label='embedding_B_in_A')
+plt.legend(handles=[red_patch, blu_patch, green_patch, yellow_patch])
 
 plt.show()
 
