@@ -24,16 +24,8 @@ query d esempio:
 
 > db.getCollection('embedding_B_in_A').aggregate([ { $match: { "AK" : 99 } }]);
 
-Mi ritorna molte copie dello stesso A, non so perche' !CONTROLLARE! 
-
 
 Query per poter leggere le stats
 > db.getCollection('embedding_B_in_A').explain('executionStats').aggregate([ { $match: { "AK" : 99 } }]); 
 
-Confermo di ricevere 10 copie dello stesso A.....
 
-Le query vengono eseguite e funzionano perfettamente tranne gli exec cost dei join......
-
-sarebbe il caso di separare i json dell explainPlan e del exex cost in modo da poterli parsare separati
-
-ma ancora ho le prime 25 righe intasate di roba, magari con un sed 1,25d riesco a levare tutto, sarebbe da fare sulla cartella result
