@@ -3,9 +3,9 @@ import random
 import json
 from tqdm import tqdm
 
-expA = 4
+expA = 5
 
-expB = 5
+expB = 6
 
 N_A = 10**expA 
 

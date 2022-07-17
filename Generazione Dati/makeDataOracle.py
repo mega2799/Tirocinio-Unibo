@@ -2,9 +2,9 @@ from ast import expr_context
 import random
 from tqdm import tqdm
 
-expA = 4
+expA = 5
 
-expB = 5
+expB = 6
 
 N_A = 10**expA 
 
@@ -54,7 +54,7 @@ t = ()
 s = ()
 
 if __name__ == "__main__":
-    file_A = open("A.sql", "w")
+    file_A = open("data.sql", "w")
     file_A.write(
         "Create table A( " + "\n" +
         "A_AK NUMBER(6,0), " +   "\n" +
@@ -64,7 +64,7 @@ if __name__ == "__main__":
         "A_A4 NUMBER(6,0), " +   "\n" +
         "A_A5 NUMBER(6,0), " +   "\n" +
         "A_A6 NUMBER(6,0), " +   "\n" +
-        "A_A7 VARCHAR(1000), " + "\n" +
+        "A_A7 VARCHAR(1005), " + "\n" +
         "PRIMARY KEY(A_AK));" + "\n"
     )
     file_A.write(
@@ -77,41 +77,40 @@ if __name__ == "__main__":
         "B_B4 NUMBER(6,0), " +   "\n" +
         "B_B5 NUMBER(6,0), " +   "\n" +
         "B_B6 NUMBER(6,0), " +   "\n" +
-        "B_B7 VARCHAR(1000), " + "\n" +
+        "B_B7 VARCHAR(1005), " + "\n" +
         "PRIMARY KEY(B_BK), " + "\n"
         "FOREIGN KEY(B_AK) REFERENCES A(A_AK));" +          "\n"
     )
-    file_A.write("INSERT INTO A VALUES ")
-    for i in tqdm(range(N_A)):
-        AK = getAndDel(A)
-        el_A1 = getAndDel(A1)
-        if el_A1 == "pythonSucks":
-            A1 = populateList(N_A1)
-            el_A1 = getAndDel(A1) 
-        el_A2 = getAndDel(A2)
-        if el_A2 == "pythonSucks":
-            A2 = populateList(N_A2)
-            el_A2 = getAndDel(A2) 
-        el_A3 = getAndDel(A3)
-        if el_A3 == "pythonSucks":
-            A3 = populateList(N_A3)
-            el_A3 = getAndDel(A3) 
-        t += ((AK, el_A1, el_A2, el_A3, el_A1, el_A2, el_A3, tt),)
-        for y in range(10):
-            BK = getAndDel(B)
-            el_B1 = getAndDel(B1)
-            if el_B1 == "pythonSucks":
-                B1 = populateList(N_B1)
+    for j in range(4):
+        for i in tqdm(range(int(N_A/4))):
+            AK = getAndDel(A)
+            el_A1 = getAndDel(A1)
+            if el_A1 == "pythonSucks":
+                A1 = populateList(N_A1)
+                el_A1 = getAndDel(A1) 
+            el_A2 = getAndDel(A2)
+            if el_A2 == "pythonSucks":
+                A2 = populateList(N_A2)
+                el_A2 = getAndDel(A2) 
+            el_A3 = getAndDel(A3)
+            if el_A3 == "pythonSucks":
+                A3 = populateList(N_A3)
+                el_A3 = getAndDel(A3) 
+            t = (AK, el_A1, el_A2, el_A3, el_A1, el_A2, el_A3, tt)
+            file_A.write("INSERT INTO A VALUES " + str(t) + ";\n")
+            for y in range(10):
+                BK = getAndDel(B)
                 el_B1 = getAndDel(B1)
-            el_B2 = getAndDel(B2)
-            if el_B2 == "pythonSucks":
-                B2 = populateList(N_B2)
+                if el_B1 == "pythonSucks":
+                    B1 = populateList(N_B1)
+                    el_B1 = getAndDel(B1)
                 el_B2 = getAndDel(B2)
-            el_B3 = getAndDel(B3)
-            if el_B3 == "pythonSucks":
-                B3 = populateList(N_B3)
+                if el_B2 == "pythonSucks":
+                    B2 = populateList(N_B2)
+                    el_B2 = getAndDel(B2)
                 el_B3 = getAndDel(B3)
-            s += ((BK, AK, el_B1, el_B2, el_B3, el_B1, el_B2, el_B3, tt),)
-    file_A.write(str(t))
-    file_A.write("\nINSERT INTO B VALUES ")
-    file_A.write(str(s))
+                if el_B3 == "pythonSucks":
+                    B3 = populateList(N_B3)
+                    el_B3 = getAndDel(B3)
+                s = (BK, AK, el_B1, el_B2, el_B3, el_B1, el_B2, el_B3, tt)
+                file_A.write("\nINSERT INTO B VALUES " + str(s)+ ";\n")
