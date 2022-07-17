@@ -5,9 +5,9 @@ import csv
 import xlsxwriter
 
 
-expA = 1
+expA = 5
 
-expB = 2
+expB = 6
 
 N_A = 10**expA 
 
@@ -57,103 +57,71 @@ t = ()
 s = ()
 
 if __name__ == "__main__":
-   # Create an new Excel file and add a worksheet.
-    workbook = xlsxwriter.Workbook('demo.xlsx')
-    worksheet = workbook.add_worksheet()
+   ## Create an new Excel file and add a worksheet.
+   # workbook = xlsxwriter.Workbook('demo.xlsx')
+   # worksheet = workbook.add_worksheet()
 
-    # Widen the first column to make the text clearer.
-    worksheet.set_column('A:A', 20)
+   # # Widen the first column to make the text clearer.
+   # worksheet.set_column('A:A', 20)
 
-    # Add a bold format to use to highlight cells.
-    bold = workbook.add_format({'bold': True})
+   # # Add a bold format to use to highlight cells.
+   # bold = workbook.add_format({'bold': True})
 
-    # Write some simple text.
-    worksheet.write('A1', 'Hello')
+   # # Write some simple text.
+   # worksheet.write('A1', 'Hello')
 
-    # Text with formatting.
-    worksheet.write('A2', 'World', bold)
+   # # Text with formatting.
+   # worksheet.write('A2', 'World', bold)
 
-    # Write some numbers, with row/column notation.
-    worksheet.write(2, 0, 123)
-    worksheet.write(3, 0, 123.456)
+   # # Write some numbers, with row/column notation.
+   # worksheet.write(2, 0, 123)
+   # worksheet.write(3, 0, 123.456)
 
-    # Insert an image.
-    worksheet.insert_image('B5', 'logo.png')
+   # # Insert an image.
+   # worksheet.insert_image('B5', 'logo.png')
 
-    workbook.close() 
+   # workbook.close() 
 
 
-    # with open('framework_dict.csv', mode='w', newline='') as csv_file:
-        # colonne = ['Nome', 'Linguaggio', 'Utilizzo(%)']
-        # writer = csv.DictWriter(csv_file, fieldnames=colonne)
-# 
-        # writer.writeheader()
-        # writer.writerow({'Nome': 'Django', 'Linguaggio': 'Python', 'Utilizzo(%)': 40})
+    with open('A.csv', mode='w', newline='') as csv_file:
+        colonne = ['AK', 'A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7']
+        writerA = csv.DictWriter(csv_file, fieldnames=colonne)
+
+        writerA.writeheader()
         # writer.writerow({'Nome': 'Blazor', 'Linguaggio': 'C#', 'Utilizzo(%)': 20})
         # writer.writerow({'Nome': 'NodeJS', 'Linguaggio': 'Javascript', 'Utilizzo(%)': 60})
+        with open('B.csv', mode='w', newline='') as csv_fileB:
+            colonne = ['BK', 'FAK','B1', 'B2', 'B3', 'B4', 'B5', 'B6', 'B7']
+            writerB = csv.DictWriter(csv_fileB, fieldnames=colonne)
 
-    exit(0)
-    file_A = open("data.sql", "w")
-    file_A.write(
-        "Create table A( " + "\n" +
-        "A_AK NUMBER(6,0), " +   "\n" +
-        "A_A1 NUMBER(6,0), " +   "\n" +
-        "A_A2 NUMBER(6,0), " +   "\n" +
-        "A_A3 NUMBER(6,0), " +   "\n" +
-        "A_A4 NUMBER(6,0), " +   "\n" +
-        "A_A5 NUMBER(6,0), " +   "\n" +
-        "A_A6 NUMBER(6,0), " +   "\n" +
-        "A_A7 VARCHAR(1005), " + "\n" +
-        "PRIMARY KEY(A_AK));" + "\n"
-    )
-    file_A.write(
-        "\n" + "Create table B( " + "\n" +
-        "B_BK NUMBER(6,0), " +   "\n" +
-        "B_AK NUMBER(6,0), " +   "\n" +
-        "B_B1 NUMBER(6,0), " +   "\n" +
-        "B_B2 NUMBER(6,0), " +   "\n" +
-        "B_B3 NUMBER(6,0), " +   "\n" +
-        "B_B4 NUMBER(6,0), " +   "\n" +
-        "B_B5 NUMBER(6,0), " +   "\n" +
-        "B_B6 NUMBER(6,0), " +   "\n" +
-        "B_B7 VARCHAR(1005), " + "\n" +
-        "PRIMARY KEY(B_BK), " + "\n"
-        "FOREIGN KEY(B_AK) REFERENCES A(A_AK));" +          "\n"
-    )
-    for j in range(4):
-        t = ()
-        s = ()
-        for i in tqdm(range(int(N_A/4))):
-            AK = getAndDel(A)
-            el_A1 = getAndDel(A1)
-            if el_A1 == "pythonSucks":
-                A1 = populateList(N_A1)
-                el_A1 = getAndDel(A1) 
-            el_A2 = getAndDel(A2)
-            if el_A2 == "pythonSucks":
-                A2 = populateList(N_A2)
-                el_A2 = getAndDel(A2) 
-            el_A3 = getAndDel(A3)
-            if el_A3 == "pythonSucks":
-                A3 = populateList(N_A3)
-                el_A3 = getAndDel(A3) 
-            t += ((AK, el_A1, el_A2, el_A3, el_A1, el_A2, el_A3, tt),)
-            for y in range(10):
-                BK = getAndDel(B)
-                el_B1 = getAndDel(B1)
-                if el_B1 == "pythonSucks":
-                    B1 = populateList(N_B1)
+            writerB.writeheader()
+
+            for i in tqdm(range(N_A)):
+                AK = getAndDel(A)
+                el_A1 = getAndDel(A1)
+                if el_A1 == "pythonSucks":
+                    A1 = populateList(N_A1)
+                    el_A1 = getAndDel(A1) 
+                el_A2 = getAndDel(A2)
+                if el_A2 == "pythonSucks":
+                    A2 = populateList(N_A2)
+                    el_A2 = getAndDel(A2) 
+                el_A3 = getAndDel(A3)
+                if el_A3 == "pythonSucks":
+                    A3 = populateList(N_A3)
+                    el_A3 = getAndDel(A3) 
+                writerA.writerow({"AK" : AK,"A1" : el_A1, "A2" : el_A2, "A3" : el_A3, "A4" : el_A1, "A5" : el_A2,"A6" : el_A3 , "A7" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia eget arcu et maximus. Ut tempus est sit amet tortor commodo, sit amet facilisis mi rhoncus. Donec et elit venenatis, consequat tellus eu, tristique orci. Duis tristique sem ut nulla ullamcorper, a porta risus efficitur. Cras sed neque et nisl tincidunt vestibulum. Phasellus tristique tempor facilisis. Sed facilisis lectus eros, sed aliquet lacus elementum sed. Integer vel dictum mi. Maecenas pharetra tempus eros, efficitur mattis erat cursus in. Nulla sit amet quam velit. Nullam tempus dictum lacus id porttitor. Vestibulum facilisis pulvinar fermentum. Ut elementum maximus feugiat. In at mollis leo, eu facilisis magna. Vestibulum sed nisi ultricies, tincidunt enim ac, fringilla ex. Phasellus pharetra mollis nisi a fermentum. In nec faucibus nulla, eget molestie magna. Vivamus in gravida ex. Aenean scelerisque gravida ipsum, nec congue enim posuere sit amet. Donec vitae felis id sem congue blandit eget non justo quis." }) 
+                for y in range(10):
                     el_B1 = getAndDel(B1)
-                el_B2 = getAndDel(B2)
-                if el_B2 == "pythonSucks":
-                    B2 = populateList(N_B2)
+                    if el_B1 == "pythonSucks":
+                        B1 = populateList(N_B1)
+                        el_B1 = getAndDel(B1)
                     el_B2 = getAndDel(B2)
-                el_B3 = getAndDel(B3)
-                if el_B3 == "pythonSucks":
-                    B3 = populateList(N_B3)
+                    if el_B2 == "pythonSucks":
+                        B2 = populateList(N_B2)
+                        el_B2 = getAndDel(B2)
                     el_B3 = getAndDel(B3)
-                s += ((BK, AK, el_B1, el_B2, el_B3, el_B1, el_B2, el_B3, tt),)
-        file_A.write("INSERT INTO A VALUES ")
-        file_A.write(str(t) + ";\n\n")
-        file_A.write("\nINSERT INTO B VALUES ")
-        file_A.write(str(s)+ ";\n\n")
+                    if el_B3 == "pythonSucks":
+                        B3 = populateList(N_B3)
+                        el_B3 = getAndDel(B3)
+                    writerB.writerow({"BK" : getAndDel(B), "FAK" : AK, "B1" : el_B1, "B2" : el_B2, "B3" : el_B3, "B4" : el_B1, "B5" : el_B2, "B6" : el_B3 , "B7" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce lacinia eget arcu et maximus. Ut tempus est sit amet tortor commodo, sit amet facilisis mi rhoncus. Donec et elit venenatis, consequat tellus eu, tristique orci. Duis tristique sem ut nulla ullamcorper, a porta risus efficitur. Cras sed neque et nisl tincidunt vestibulum. Phasellus tristique tempor facilisis. Sed facilisis lectus eros, sed aliquet lacus elementum sed. Integer vel dictum mi. Maecenas pharetra tempus eros, efficitur mattis erat cursus in. Nulla sit amet quam velit. Nullam tempus dictum lacus id porttitor. Vestibulum facilisis pulvinar fermentum. Ut elementum maximus feugiat. In at mollis leo, eu facilisis magna. Vestibulum sed nisi ultricies, tincidunt enim ac, fringilla ex. Phasellus pharetra mollis nisi a fermentum. In nec faucibus nulla, eget molestie magna. Vivamus in gravida ex. Aenean scelerisque gravida ipsum, nec congue enim posuere sit amet. Donec vitae felis id sem congue blandit eget non justo quis." })
