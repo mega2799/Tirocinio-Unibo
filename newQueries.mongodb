@@ -22,57 +22,113 @@ db.referencing_B_in_A.aggregate([{$unwind: {  path: "$B"}},{$lookup: {  from: 'r
 
 // ref a in b -> A4 = 89
 
-db.referencing_B_in_A.aggregate([
-    {
-        $match : { "A.A4"  : 89 }
-    }, {
-        /**
-         * from: The target collection.
-         * localField: The local join field.
-         * foreignField: The target join field.
-         * as: The name for the results.
-         * pipeline: The pipeline to run on the joined collection.
-         * let: Optional variables to use in the pipeline field stages.
-         */
-        $lookup: {
-          from: 'referencing_A_in_B',
-          localField: 'A.AK',
-          foreignField: 'B.FAK',
-          as: 'Ad'
-        }
-    },{
-        /**
-         * path: Path to the array field.
-         * includeArrayIndex: Optional name for index.
-         * preserveNullAndEmptyArrays: Optional
-         *   toggle to unwind null and empty values.
-         */
-        $unwind: {
-          path: "$Ad"
-        }
-    }
-])
+//db.referencing_B_in_A.aggregate([
+//    {
+//        $match : { "A.A4"  : 89 }
+//    }, {
+//        $lookup: {
+//          from: 'referencing_A_in_B',
+//          localField: 'A.AK',
+//          foreignField: 'B.FAK',
+//          as: 'Ad'
+//        }
+//    },{
+//        $unwind: {
+//          path: "$Ad"
+//        }
+//    }
+//])
 
 
-db.referencing_B_in_A.aggregate([
- {
-        $match : { "A.A4"  : 89 } 
-    }, {
-        /**
-         * path: Path to the array field.
-         * includeArrayIndex: Optional name for index.
-         * preserveNullAndEmptyArrays: Optional
-         *   toggle to unwind null and empty values.
-         */
-        $unwind: {
-          path: "$B"
-        }
-    }, {
-            $lookup: {
-          from: 'referencing_A_in_B',
-          localField: 'B',
-          foreignField: 'B.BK',
-          as: 'B'
-        }
-    }
-])
+//db.referencing_B_in_A.aggregate([
+// {
+//        $match : { "A.A4"  : 89 } 
+//    }, {
+//        /**
+//         * path: Path to the array field.
+//         * includeArrayIndex: Optional name for index.
+//         * preserveNullAndEmptyArrays: Optional
+//         *   toggle to unwind null and empty values.
+//         */
+//        $unwind: {
+//          path: "$B"
+//        }
+//    }, {
+//            $lookup: {
+//          from: 'referencing_A_in_B',
+//          localField: 'B',
+//          foreignField: 'B.BK',
+//          as: 'B'
+//        }
+//    }
+//])
+
+//Ref A in B
+
+// select A.*, B.*
+// from A join B on (A.AK=B.AK)
+// where Ax='val'
+db.getCollection('A').aggregate([{
+$match: {
+  "A4" : 69
+}},{
+$lookup: {
+  from: 'referencing_A_in_B',
+  localField: 'AK',
+  foreignField: 'AK',
+  as: 'B'
+}}, {
+$project: {
+  "_id" : 0
+}}])
+
+
+// select A.*, B.*
+// from A join B on (A.AK=B.BK)
+// where Bx='val
+db.getCollection('referencing_A_in_B').aggregate([{$match : {"B4" : 69}},{
+$lookup: {
+  from: 'A',
+  localField: 'AK',
+  foreignField: 'AK',
+  as: 'A'
+}},{
+$project: {
+  "A._id" : 0
+}},{$unwind : {path : "$A"}}])
+
+//Ref B in A
+
+// select A.*, B.*
+// from A join B on (A.AK=B.BK)
+// where Bx='val
+db.getCollection('B').aggregate([{
+$match: {
+  "B4" : 69
+}},{
+$lookup: {
+  from: 'referencing_B_in_A',
+  localField: 'FAK',
+  foreignField: 'AK',
+  as: 'A'
+}}, {
+$project: {
+  "_id" : 0,
+  "FAK" : 0,
+  "A.B" : 0
+}},{$unwind : {path : "$A"}}])
+
+
+// select A.*, B.*
+// from A join B on (A.AK=B.AK)
+// where Ax='val'
+db.getCollection('referencing_B_in_A').aggregate([{$match : { "A4": 89 } }, {$unwind: {  path: "$B"}}, {
+$lookup: {
+  from: 'B',
+  localField: 'B',
+  foreignField: 'BK',
+  as: 'B'
+}},{$unwind : {path : "$B"}}, {$project : {"B._id" : 0}}])
+
+
+
