@@ -20,13 +20,13 @@ couch = couchdb.Server("http://admin:admin@127.0.0.1:5984")
 
 try:
     db = couch.create("referencing_a_in_b")
-    with open("../dataJSON/referencing_A_in_B.json") as jsonfile:
+    with open("../dataCouchDB/referencing_A_in_B.json") as jsonfile:
         for row in tqdm(jsonfile):
             db_entry = json.loads(row) 
             db.save(db_entry)
  
     db = couch.create("referencing_b_in_a")
-    with open("../dataJSON/referencing_B_in_A.json") as jsonfile:
+    with open("../dataCouchDB/referencing_B_in_A.json") as jsonfile:
         for row in tqdm(jsonfile):
             db_entry = json.loads(row) 
             db.save(db_entry)
@@ -35,7 +35,7 @@ except IOError:
  
 try:
     db = couch.create("embedding_a_in_b")
-    with open("../dataJSON/embedding_A_in_B.json") as jsonfile:
+    with open("../dataCouchDB/embedding_A_in_B.json") as jsonfile:
         for row in tqdm(jsonfile):
             db_entry = json.loads(row) 
             db.save(db_entry)
@@ -44,7 +44,7 @@ except IOError:
  
 try:
     db = couch.create("embedding_b_in_a")
-    with open("../dataJSON/embedding_B_in_A.json") as jsonfile:
+    with open("../dataCouchDB/embedding_B_in_A.json") as jsonfile:
         for row in tqdm(jsonfile):
             db_entry = json.loads(row) 
             db.save(db_entry)
