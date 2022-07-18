@@ -1,66 +1,93 @@
 {
     "explainVersion": "1",
-    "queryPlanner": {
-        "namespace": "tirocinio.embedding_A_in_B",
-        "indexFilterSet": false,
-        "parsedQuery": {
-            "A.A6": {
-                "$eq": 88
-            }
-        },
-        "optimizedPipeline": true,
-        "maxIndexedOrSolutionsReached": false,
-        "maxIndexedAndSolutionsReached": false,
-        "maxScansToExplodeReached": false,
-        "winningPlan": {
-            "stage": "COLLSCAN",
-            "filter": {
-                "A.A6": {
-                    "$eq": 88
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.embedding_A_in_B",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "A.A6": {
+                            "$eq": 8
+                        }
+                    },
+                    "queryHash": "C5D1B1EC",
+                    "planCacheKey": "2516D150",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "PROJECTION_SIMPLE",
+                        "transformBy": {
+                            "A": true,
+                            "_id": false
+                        },
+                        "inputStage": {
+                            "stage": "COLLSCAN",
+                            "filter": {
+                                "A.A6": {
+                                    "$eq": 8
+                                }
+                            },
+                            "direction": "forward"
+                        }
+                    },
+                    "rejectedPlans": []
+                },
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 100000,
+                    "executionTimeMillis": 2914,
+                    "totalKeysExamined": 0,
+                    "totalDocsExamined": 1000000,
+                    "executionStages": {
+                        "stage": "PROJECTION_SIMPLE",
+                        "nReturned": 100000,
+                        "executionTimeMillisEstimate": 543,
+                        "works": 1000002,
+                        "advanced": 100000,
+                        "needTime": 900001,
+                        "needYield": 0,
+                        "saveState": 1029,
+                        "restoreState": 1029,
+                        "isEOF": 1,
+                        "transformBy": {
+                            "A": true,
+                            "_id": false
+                        },
+                        "inputStage": {
+                            "stage": "COLLSCAN",
+                            "filter": {
+                                "A.A6": {
+                                    "$eq": 8
+                                }
+                            },
+                            "nReturned": 100000,
+                            "executionTimeMillisEstimate": 519,
+                            "works": 1000002,
+                            "advanced": 100000,
+                            "needTime": 900001,
+                            "needYield": 0,
+                            "saveState": 1029,
+                            "restoreState": 1029,
+                            "isEOF": 1,
+                            "direction": "forward",
+                            "docsExamined": 1000000
+                        }
+                    }
                 }
             },
-            "direction": "forward"
+            "nReturned": 100000,
+            "executionTimeMillisEstimate": 2779
         },
-        "rejectedPlans": []
-    },
-    "executionStats": {
-        "executionSuccess": true,
-        "nReturned": 0,
-        "executionTimeMillis": 2685,
-        "totalKeysExamined": 0,
-        "totalDocsExamined": 1000000,
-        "executionStages": {
-            "stage": "COLLSCAN",
-            "filter": {
-                "A.A6": {
-                    "$eq": 88
-                }
+        {
+            "$unwind": {
+                "path": "$A"
             },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 535,
-            "works": 1000002,
-            "advanced": 0,
-            "needTime": 1000001,
-            "needYield": 0,
-            "saveState": 1000,
-            "restoreState": 1000,
-            "isEOF": 1,
-            "direction": "forward",
-            "docsExamined": 1000000
+            "nReturned": 100000,
+            "executionTimeMillisEstimate": 2818
         }
-    },
-    "command": {
-        "aggregate": "embedding_A_in_B",
-        "pipeline": [
-            {
-                "$match": {
-                    "A.A6": 88
-                }
-            }
-        ],
-        "cursor": {},
-        "$db": "tirocinio"
-    },
+    ],
     "serverInfo": {
         "host": "2b39dd094270",
         "port": 27017,
@@ -76,6 +103,29 @@
         "internalQueryProhibitBlockingMergeOnMongoS": 0,
         "internalQueryMaxAddToSetBytes": 104857600,
         "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "embedding_A_in_B",
+        "pipeline": [
+            {
+                "$match": {
+                    "A.A6": 8
+                }
+            },
+            {
+                "$project": {
+                    "A": 1,
+                    "_id": 0
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$A"
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
     },
     "ok": 1.0
 }

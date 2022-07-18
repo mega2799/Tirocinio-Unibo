@@ -5,7 +5,7 @@
         "indexFilterSet": false,
         "parsedQuery": {
             "B4": {
-                "$eq": 99
+                "$eq": 8
             }
         },
         "optimizedPipeline": true,
@@ -31,7 +31,7 @@
                 "direction": "forward",
                 "indexBounds": {
                     "B4": [
-                        "[99, 99]"
+                        "[8, 8]"
                     ]
                 }
             }
@@ -41,13 +41,13 @@
     "executionStats": {
         "executionSuccess": true,
         "nReturned": 10,
-        "executionTimeMillis": 5,
+        "executionTimeMillis": 1,
         "totalKeysExamined": 10,
         "totalDocsExamined": 10,
         "executionStages": {
             "stage": "FETCH",
             "nReturned": 10,
-            "executionTimeMillisEstimate": 4,
+            "executionTimeMillisEstimate": 0,
             "works": 11,
             "advanced": 10,
             "needTime": 0,
@@ -83,7 +83,7 @@
                 "direction": "forward",
                 "indexBounds": {
                     "B4": [
-                        "[99, 99]"
+                        "[8, 8]"
                     ]
                 },
                 "keysExamined": 10,
@@ -98,7 +98,7 @@
         "pipeline": [
             {
                 "$match": {
-                    "B4": 99
+                    "B4": 8
                 }
             }
         ],

@@ -1,128 +1,66 @@
 {
     "explainVersion": "1",
-    "stages": [
-        {
-            "$cursor": {
-                "queryPlanner": {
-                    "namespace": "tirocinio.referencing_B_in_A",
-                    "indexFilterSet": false,
-                    "parsedQuery": {
-                        "A6": {
-                            "$eq": 88
-                        }
-                    },
-                    "queryHash": "53196817",
-                    "planCacheKey": "0BEA492E",
-                    "maxIndexedOrSolutionsReached": false,
-                    "maxIndexedAndSolutionsReached": false,
-                    "maxScansToExplodeReached": false,
-                    "winningPlan": {
-                        "stage": "FETCH",
-                        "inputStage": {
-                            "stage": "IXSCAN",
-                            "keyPattern": {
-                                "A6": 1
-                            },
-                            "indexName": "A6_1",
-                            "isMultiKey": false,
-                            "multiKeyPaths": {
-                                "A6": []
-                            },
-                            "isUnique": false,
-                            "isSparse": false,
-                            "isPartial": false,
-                            "indexVersion": 2,
-                            "direction": "forward",
-                            "indexBounds": {
-                                "A6": [
-                                    "[88, 88]"
-                                ]
-                            }
-                        }
-                    },
-                    "rejectedPlans": []
-                },
-                "executionStats": {
-                    "executionSuccess": true,
-                    "nReturned": 0,
-                    "executionTimeMillis": 0,
-                    "totalKeysExamined": 0,
-                    "totalDocsExamined": 0,
-                    "executionStages": {
-                        "stage": "FETCH",
-                        "nReturned": 0,
-                        "executionTimeMillisEstimate": 0,
-                        "works": 1,
-                        "advanced": 0,
-                        "needTime": 0,
-                        "needYield": 0,
-                        "saveState": 1,
-                        "restoreState": 1,
-                        "isEOF": 1,
-                        "docsExamined": 0,
-                        "alreadyHasObj": 0,
-                        "inputStage": {
-                            "stage": "IXSCAN",
-                            "nReturned": 0,
-                            "executionTimeMillisEstimate": 0,
-                            "works": 1,
-                            "advanced": 0,
-                            "needTime": 0,
-                            "needYield": 0,
-                            "saveState": 1,
-                            "restoreState": 1,
-                            "isEOF": 1,
-                            "keyPattern": {
-                                "A6": 1
-                            },
-                            "indexName": "A6_1",
-                            "isMultiKey": false,
-                            "multiKeyPaths": {
-                                "A6": []
-                            },
-                            "isUnique": false,
-                            "isSparse": false,
-                            "isPartial": false,
-                            "indexVersion": 2,
-                            "direction": "forward",
-                            "indexBounds": {
-                                "A6": [
-                                    "[88, 88]"
-                                ]
-                            },
-                            "keysExamined": 0,
-                            "seeks": 1,
-                            "dupsTested": 0,
-                            "dupsDropped": 0
-                        }
-                    }
+    "queryPlanner": {
+        "namespace": "tirocinio.A",
+        "indexFilterSet": false,
+        "parsedQuery": {
+            "A6": {
+                "$eq": 8
+            }
+        },
+        "optimizedPipeline": true,
+        "maxIndexedOrSolutionsReached": false,
+        "maxIndexedAndSolutionsReached": false,
+        "maxScansToExplodeReached": false,
+        "winningPlan": {
+            "stage": "COLLSCAN",
+            "filter": {
+                "A6": {
+                    "$eq": 8
                 }
             },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 0
+            "direction": "forward"
         },
-        {
-            "$unwind": {
-                "path": "$B"
+        "rejectedPlans": []
+    },
+    "executionStats": {
+        "executionSuccess": true,
+        "nReturned": 10000,
+        "executionTimeMillis": 165,
+        "totalKeysExamined": 0,
+        "totalDocsExamined": 100000,
+        "executionStages": {
+            "stage": "COLLSCAN",
+            "filter": {
+                "A6": {
+                    "$eq": 8
+                }
             },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 0
-        },
-        {
-            "$lookup": {
-                "from": "referencing_A_in_B",
-                "as": "B",
-                "localField": "B",
-                "foreignField": "_id"
-            },
-            "totalDocsExamined": 0,
-            "totalKeysExamined": 0,
-            "collectionScans": 0,
-            "indexesUsed": [],
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 0
+            "nReturned": 10000,
+            "executionTimeMillisEstimate": 32,
+            "works": 100002,
+            "advanced": 10000,
+            "needTime": 90001,
+            "needYield": 0,
+            "saveState": 100,
+            "restoreState": 100,
+            "isEOF": 1,
+            "direction": "forward",
+            "docsExamined": 100000
         }
-    ],
+    },
+    "command": {
+        "aggregate": "A",
+        "pipeline": [
+            {
+                "$match": {
+                    "A6": 8
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
     "serverInfo": {
         "host": "2b39dd094270",
         "port": 27017,
@@ -138,31 +76,6 @@
         "internalQueryProhibitBlockingMergeOnMongoS": 0,
         "internalQueryMaxAddToSetBytes": 104857600,
         "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
-    },
-    "command": {
-        "aggregate": "referencing_B_in_A",
-        "pipeline": [
-            {
-                "$match": {
-                    "A6": 88
-                }
-            },
-            {
-                "$unwind": {
-                    "path": "$B"
-                }
-            },
-            {
-                "$lookup": {
-                    "from": "referencing_A_in_B",
-                    "localField": "B",
-                    "foreignField": "_id",
-                    "as": "B"
-                }
-            }
-        ],
-        "cursor": {},
-        "$db": "tirocinio"
     },
     "ok": 1.0
 }

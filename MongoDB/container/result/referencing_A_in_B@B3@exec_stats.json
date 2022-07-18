@@ -5,7 +5,7 @@
         "indexFilterSet": false,
         "parsedQuery": {
             "B3": {
-                "$eq": 99
+                "$eq": 8
             }
         },
         "optimizedPipeline": true,
@@ -16,7 +16,7 @@
             "stage": "COLLSCAN",
             "filter": {
                 "B3": {
-                    "$eq": 99
+                    "$eq": 8
                 }
             },
             "direction": "forward"
@@ -25,22 +25,22 @@
     },
     "executionStats": {
         "executionSuccess": true,
-        "nReturned": 0,
-        "executionTimeMillis": 1741,
+        "nReturned": 100000,
+        "executionTimeMillis": 1497,
         "totalKeysExamined": 0,
         "totalDocsExamined": 1000000,
         "executionStages": {
             "stage": "COLLSCAN",
             "filter": {
                 "B3": {
-                    "$eq": 99
+                    "$eq": 8
                 }
             },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 268,
+            "nReturned": 100000,
+            "executionTimeMillisEstimate": 186,
             "works": 1000002,
-            "advanced": 0,
-            "needTime": 1000001,
+            "advanced": 100000,
+            "needTime": 900001,
             "needYield": 0,
             "saveState": 1000,
             "restoreState": 1000,
@@ -54,7 +54,7 @@
         "pipeline": [
             {
                 "$match": {
-                    "B3": 99
+                    "B3": 8
                 }
             }
         ],

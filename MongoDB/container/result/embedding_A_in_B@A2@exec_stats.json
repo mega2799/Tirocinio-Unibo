@@ -1,66 +1,93 @@
 {
     "explainVersion": "1",
-    "queryPlanner": {
-        "namespace": "tirocinio.embedding_A_in_B",
-        "indexFilterSet": false,
-        "parsedQuery": {
-            "A.A2": {
-                "$eq": 87
-            }
-        },
-        "optimizedPipeline": true,
-        "maxIndexedOrSolutionsReached": false,
-        "maxIndexedAndSolutionsReached": false,
-        "maxScansToExplodeReached": false,
-        "winningPlan": {
-            "stage": "COLLSCAN",
-            "filter": {
-                "A.A2": {
-                    "$eq": 87
-                }
-            },
-            "direction": "forward"
-        },
-        "rejectedPlans": []
-    },
-    "executionStats": {
-        "executionSuccess": true,
-        "nReturned": 1000,
-        "executionTimeMillis": 2792,
-        "totalKeysExamined": 0,
-        "totalDocsExamined": 1000000,
-        "executionStages": {
-            "stage": "COLLSCAN",
-            "filter": {
-                "A.A2": {
-                    "$eq": 87
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.embedding_A_in_B",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "A.A2": {
+                            "$eq": 8
+                        }
+                    },
+                    "queryHash": "2C977E19",
+                    "planCacheKey": "B0E36426",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "PROJECTION_SIMPLE",
+                        "transformBy": {
+                            "A": true,
+                            "_id": false
+                        },
+                        "inputStage": {
+                            "stage": "COLLSCAN",
+                            "filter": {
+                                "A.A2": {
+                                    "$eq": 8
+                                }
+                            },
+                            "direction": "forward"
+                        }
+                    },
+                    "rejectedPlans": []
+                },
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 1000,
+                    "executionTimeMillis": 2531,
+                    "totalKeysExamined": 0,
+                    "totalDocsExamined": 1000000,
+                    "executionStages": {
+                        "stage": "PROJECTION_SIMPLE",
+                        "nReturned": 1000,
+                        "executionTimeMillisEstimate": 527,
+                        "works": 1000002,
+                        "advanced": 1000,
+                        "needTime": 999001,
+                        "needYield": 0,
+                        "saveState": 1001,
+                        "restoreState": 1001,
+                        "isEOF": 1,
+                        "transformBy": {
+                            "A": true,
+                            "_id": false
+                        },
+                        "inputStage": {
+                            "stage": "COLLSCAN",
+                            "filter": {
+                                "A.A2": {
+                                    "$eq": 8
+                                }
+                            },
+                            "nReturned": 1000,
+                            "executionTimeMillisEstimate": 495,
+                            "works": 1000002,
+                            "advanced": 1000,
+                            "needTime": 999001,
+                            "needYield": 0,
+                            "saveState": 1001,
+                            "restoreState": 1001,
+                            "isEOF": 1,
+                            "direction": "forward",
+                            "docsExamined": 1000000
+                        }
+                    }
                 }
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 592,
-            "works": 1000002,
-            "advanced": 1000,
-            "needTime": 999001,
-            "needYield": 0,
-            "saveState": 1000,
-            "restoreState": 1000,
-            "isEOF": 1,
-            "direction": "forward",
-            "docsExamined": 1000000
+            "executionTimeMillisEstimate": 2528
+        },
+        {
+            "$unwind": {
+                "path": "$A"
+            },
+            "nReturned": 1000,
+            "executionTimeMillisEstimate": 2528
         }
-    },
-    "command": {
-        "aggregate": "embedding_A_in_B",
-        "pipeline": [
-            {
-                "$match": {
-                    "A.A2": 87
-                }
-            }
-        ],
-        "cursor": {},
-        "$db": "tirocinio"
-    },
+    ],
     "serverInfo": {
         "host": "2b39dd094270",
         "port": 27017,
@@ -76,6 +103,29 @@
         "internalQueryProhibitBlockingMergeOnMongoS": 0,
         "internalQueryMaxAddToSetBytes": 104857600,
         "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "embedding_A_in_B",
+        "pipeline": [
+            {
+                "$match": {
+                    "A.A2": 8
+                }
+            },
+            {
+                "$project": {
+                    "A": 1,
+                    "_id": 0
+                }
+            },
+            {
+                "$unwind": {
+                    "path": "$A"
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
     },
     "ok": 1.0
 }

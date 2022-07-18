@@ -1,110 +1,115 @@
 {
     "explainVersion": "1",
-    "queryPlanner": {
-        "namespace": "tirocinio.embedding_B_in_A",
-        "indexFilterSet": false,
-        "parsedQuery": {
-            "A4": {
-                "$eq": 77
-            }
-        },
-        "optimizedPipeline": true,
-        "maxIndexedOrSolutionsReached": false,
-        "maxIndexedAndSolutionsReached": false,
-        "maxScansToExplodeReached": false,
-        "winningPlan": {
-            "stage": "FETCH",
-            "inputStage": {
-                "stage": "IXSCAN",
-                "keyPattern": {
-                    "A4": 1
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.embedding_B_in_A",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "A4": {
+                            "$eq": 8
+                        }
+                    },
+                    "queryHash": "D4A81898",
+                    "planCacheKey": "6C74035B",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "FETCH",
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "keyPattern": {
+                                "A4": 1
+                            },
+                            "indexName": "A4_1",
+                            "isMultiKey": false,
+                            "multiKeyPaths": {
+                                "A4": []
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "A4": [
+                                    "[8, 8]"
+                                ]
+                            }
+                        }
+                    },
+                    "rejectedPlans": []
                 },
-                "indexName": "A4_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "A4": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "A4": [
-                        "[77, 77]"
-                    ]
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 10,
+                    "executionTimeMillis": 1,
+                    "totalKeysExamined": 10,
+                    "totalDocsExamined": 10,
+                    "executionStages": {
+                        "stage": "FETCH",
+                        "nReturned": 10,
+                        "executionTimeMillisEstimate": 0,
+                        "works": 11,
+                        "advanced": 10,
+                        "needTime": 0,
+                        "needYield": 0,
+                        "saveState": 1,
+                        "restoreState": 1,
+                        "isEOF": 1,
+                        "docsExamined": 10,
+                        "alreadyHasObj": 0,
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "nReturned": 10,
+                            "executionTimeMillisEstimate": 0,
+                            "works": 11,
+                            "advanced": 10,
+                            "needTime": 0,
+                            "needYield": 0,
+                            "saveState": 1,
+                            "restoreState": 1,
+                            "isEOF": 1,
+                            "keyPattern": {
+                                "A4": 1
+                            },
+                            "indexName": "A4_1",
+                            "isMultiKey": false,
+                            "multiKeyPaths": {
+                                "A4": []
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "A4": [
+                                    "[8, 8]"
+                                ]
+                            },
+                            "keysExamined": 10,
+                            "seeks": 1,
+                            "dupsTested": 0,
+                            "dupsDropped": 0
+                        }
+                    }
                 }
-            }
-        },
-        "rejectedPlans": []
-    },
-    "executionStats": {
-        "executionSuccess": true,
-        "nReturned": 10,
-        "executionTimeMillis": 23,
-        "totalKeysExamined": 10,
-        "totalDocsExamined": 10,
-        "executionStages": {
-            "stage": "FETCH",
+            },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 10,
-            "works": 11,
-            "advanced": 10,
-            "needTime": 0,
-            "needYield": 0,
-            "saveState": 1,
-            "restoreState": 1,
-            "isEOF": 1,
-            "docsExamined": 10,
-            "alreadyHasObj": 0,
-            "inputStage": {
-                "stage": "IXSCAN",
-                "nReturned": 10,
-                "executionTimeMillisEstimate": 0,
-                "works": 11,
-                "advanced": 10,
-                "needTime": 0,
-                "needYield": 0,
-                "saveState": 1,
-                "restoreState": 1,
-                "isEOF": 1,
-                "keyPattern": {
-                    "A4": 1
-                },
-                "indexName": "A4_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "A4": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "A4": [
-                        "[77, 77]"
-                    ]
-                },
-                "keysExamined": 10,
-                "seeks": 1,
-                "dupsTested": 0,
-                "dupsDropped": 0
-            }
+            "executionTimeMillisEstimate": 0
+        },
+        {
+            "$project": {
+                "B": false,
+                "_id": true
+            },
+            "nReturned": 10,
+            "executionTimeMillisEstimate": 0
         }
-    },
-    "command": {
-        "aggregate": "embedding_B_in_A",
-        "pipeline": [
-            {
-                "$match": {
-                    "A4": 77
-                }
-            }
-        ],
-        "cursor": {},
-        "$db": "tirocinio"
-    },
+    ],
     "serverInfo": {
         "host": "2b39dd094270",
         "port": 27017,
@@ -120,6 +125,23 @@
         "internalQueryProhibitBlockingMergeOnMongoS": 0,
         "internalQueryMaxAddToSetBytes": 104857600,
         "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "embedding_B_in_A",
+        "pipeline": [
+            {
+                "$match": {
+                    "A4": 8
+                }
+            },
+            {
+                "$project": {
+                    "B": 0
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
     },
     "ok": 1.0
 }

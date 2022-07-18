@@ -5,7 +5,7 @@
         "indexFilterSet": false,
         "parsedQuery": {
             "A1": {
-                "$eq": 123
+                "$eq": 8
             }
         },
         "optimizedPipeline": true,
@@ -16,7 +16,7 @@
             "stage": "COLLSCAN",
             "filter": {
                 "A1": {
-                    "$eq": 123
+                    "$eq": 8
                 }
             },
             "direction": "forward"
@@ -26,18 +26,18 @@
     "executionStats": {
         "executionSuccess": true,
         "nReturned": 10,
-        "executionTimeMillis": 198,
+        "executionTimeMillis": 214,
         "totalKeysExamined": 0,
         "totalDocsExamined": 100000,
         "executionStages": {
             "stage": "COLLSCAN",
             "filter": {
                 "A1": {
-                    "$eq": 123
+                    "$eq": 8
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 35,
+            "executionTimeMillisEstimate": 30,
             "works": 100002,
             "advanced": 10,
             "needTime": 99991,
@@ -54,7 +54,7 @@
         "pipeline": [
             {
                 "$match": {
-                    "A1": 123
+                    "A1": 8
                 }
             }
         ],

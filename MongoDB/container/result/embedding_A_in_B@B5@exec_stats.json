@@ -1,110 +1,115 @@
 {
     "explainVersion": "1",
-    "queryPlanner": {
-        "namespace": "tirocinio.embedding_A_in_B",
-        "indexFilterSet": false,
-        "parsedQuery": {
-            "B5": {
-                "$eq": 12
-            }
-        },
-        "optimizedPipeline": true,
-        "maxIndexedOrSolutionsReached": false,
-        "maxIndexedAndSolutionsReached": false,
-        "maxScansToExplodeReached": false,
-        "winningPlan": {
-            "stage": "FETCH",
-            "inputStage": {
-                "stage": "IXSCAN",
-                "keyPattern": {
-                    "B5": 1
+    "stages": [
+        {
+            "$cursor": {
+                "queryPlanner": {
+                    "namespace": "tirocinio.embedding_A_in_B",
+                    "indexFilterSet": false,
+                    "parsedQuery": {
+                        "B5": {
+                            "$eq": 8
+                        }
+                    },
+                    "queryHash": "33576753",
+                    "planCacheKey": "B3449093",
+                    "maxIndexedOrSolutionsReached": false,
+                    "maxIndexedAndSolutionsReached": false,
+                    "maxScansToExplodeReached": false,
+                    "winningPlan": {
+                        "stage": "FETCH",
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "keyPattern": {
+                                "B5": 1
+                            },
+                            "indexName": "B5_1",
+                            "isMultiKey": false,
+                            "multiKeyPaths": {
+                                "B5": []
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "B5": [
+                                    "[8, 8]"
+                                ]
+                            }
+                        }
+                    },
+                    "rejectedPlans": []
                 },
-                "indexName": "B5_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "B5": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "B5": [
-                        "[12, 12]"
-                    ]
+                "executionStats": {
+                    "executionSuccess": true,
+                    "nReturned": 1000,
+                    "executionTimeMillis": 71,
+                    "totalKeysExamined": 1000,
+                    "totalDocsExamined": 1000,
+                    "executionStages": {
+                        "stage": "FETCH",
+                        "nReturned": 1000,
+                        "executionTimeMillisEstimate": 66,
+                        "works": 1001,
+                        "advanced": 1000,
+                        "needTime": 0,
+                        "needYield": 0,
+                        "saveState": 5,
+                        "restoreState": 5,
+                        "isEOF": 1,
+                        "docsExamined": 1000,
+                        "alreadyHasObj": 0,
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "nReturned": 1000,
+                            "executionTimeMillisEstimate": 0,
+                            "works": 1001,
+                            "advanced": 1000,
+                            "needTime": 0,
+                            "needYield": 0,
+                            "saveState": 5,
+                            "restoreState": 5,
+                            "isEOF": 1,
+                            "keyPattern": {
+                                "B5": 1
+                            },
+                            "indexName": "B5_1",
+                            "isMultiKey": false,
+                            "multiKeyPaths": {
+                                "B5": []
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "B5": [
+                                    "[8, 8]"
+                                ]
+                            },
+                            "keysExamined": 1000,
+                            "seeks": 1,
+                            "dupsTested": 0,
+                            "dupsDropped": 0
+                        }
+                    }
                 }
-            }
-        },
-        "rejectedPlans": []
-    },
-    "executionStats": {
-        "executionSuccess": true,
-        "nReturned": 1000,
-        "executionTimeMillis": 206,
-        "totalKeysExamined": 1000,
-        "totalDocsExamined": 1000,
-        "executionStages": {
-            "stage": "FETCH",
+            },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 202,
-            "works": 1001,
-            "advanced": 1000,
-            "needTime": 0,
-            "needYield": 0,
-            "saveState": 12,
-            "restoreState": 12,
-            "isEOF": 1,
-            "docsExamined": 1000,
-            "alreadyHasObj": 0,
-            "inputStage": {
-                "stage": "IXSCAN",
-                "nReturned": 1000,
-                "executionTimeMillisEstimate": 3,
-                "works": 1001,
-                "advanced": 1000,
-                "needTime": 0,
-                "needYield": 0,
-                "saveState": 12,
-                "restoreState": 12,
-                "isEOF": 1,
-                "keyPattern": {
-                    "B5": 1
-                },
-                "indexName": "B5_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "B5": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "B5": [
-                        "[12, 12]"
-                    ]
-                },
-                "keysExamined": 1000,
-                "seeks": 1,
-                "dupsTested": 0,
-                "dupsDropped": 0
-            }
+            "executionTimeMillisEstimate": 66
+        },
+        {
+            "$project": {
+                "A": false,
+                "_id": true
+            },
+            "nReturned": 1000,
+            "executionTimeMillisEstimate": 69
         }
-    },
-    "command": {
-        "aggregate": "embedding_A_in_B",
-        "pipeline": [
-            {
-                "$match": {
-                    "B5": 12
-                }
-            }
-        ],
-        "cursor": {},
-        "$db": "tirocinio"
-    },
+    ],
     "serverInfo": {
         "host": "2b39dd094270",
         "port": 27017,
@@ -120,6 +125,23 @@
         "internalQueryProhibitBlockingMergeOnMongoS": 0,
         "internalQueryMaxAddToSetBytes": 104857600,
         "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
+    },
+    "command": {
+        "aggregate": "embedding_A_in_B",
+        "pipeline": [
+            {
+                "$match": {
+                    "B5": 8
+                }
+            },
+            {
+                "$project": {
+                    "A": 0
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
     },
     "ok": 1.0
 }

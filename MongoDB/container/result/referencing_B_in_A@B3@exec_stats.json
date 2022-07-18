@@ -1,94 +1,110 @@
 {
     "explainVersion": "1",
-    "stages": [
-        {
-            "$cursor": {
-                "queryPlanner": {
-                    "namespace": "tirocinio.referencing_A_in_B",
-                    "indexFilterSet": false,
-                    "parsedQuery": {
-                        "B3": {
-                            "$eq": 99
-                        }
-                    },
-                    "queryHash": "9293680B",
-                    "planCacheKey": "1AD42898",
-                    "maxIndexedOrSolutionsReached": false,
-                    "maxIndexedAndSolutionsReached": false,
-                    "maxScansToExplodeReached": false,
-                    "winningPlan": {
-                        "stage": "COLLSCAN",
-                        "filter": {
-                            "B3": {
-                                "$eq": 99
-                            }
-                        },
-                        "direction": "forward"
-                    },
-                    "rejectedPlans": []
+    "queryPlanner": {
+        "namespace": "tirocinio.B",
+        "indexFilterSet": false,
+        "parsedQuery": {
+            "B3": {
+                "$eq": 8
+            }
+        },
+        "optimizedPipeline": true,
+        "maxIndexedOrSolutionsReached": false,
+        "maxIndexedAndSolutionsReached": false,
+        "maxScansToExplodeReached": false,
+        "winningPlan": {
+            "stage": "FETCH",
+            "inputStage": {
+                "stage": "IXSCAN",
+                "keyPattern": {
+                    "B3": 1
                 },
-                "executionStats": {
-                    "executionSuccess": true,
-                    "nReturned": 0,
-                    "executionTimeMillis": 1484,
-                    "totalKeysExamined": 0,
-                    "totalDocsExamined": 1000000,
-                    "executionStages": {
-                        "stage": "COLLSCAN",
-                        "filter": {
-                            "B3": {
-                                "$eq": 99
-                            }
-                        },
-                        "nReturned": 0,
-                        "executionTimeMillisEstimate": 198,
-                        "works": 1000002,
-                        "advanced": 0,
-                        "needTime": 1000001,
-                        "needYield": 0,
-                        "saveState": 1001,
-                        "restoreState": 1001,
-                        "isEOF": 1,
-                        "direction": "forward",
-                        "docsExamined": 1000000
-                    }
+                "indexName": "B3_1",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                    "B3": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                    "B3": [
+                        "[8, 8]"
+                    ]
                 }
-            },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 1478
+            }
         },
-        {
-            "$lookup": {
-                "from": "referencing_B_in_A",
-                "as": "A",
-                "localField": "AK",
-                "foreignField": "_id"
-            },
-            "totalDocsExamined": 0,
-            "totalKeysExamined": 0,
-            "collectionScans": 0,
-            "indexesUsed": [],
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 1478
-        },
-        {
-            "$project": {
-                "A": {
-                    "B": false
+        "rejectedPlans": []
+    },
+    "executionStats": {
+        "executionSuccess": true,
+        "nReturned": 100000,
+        "executionTimeMillis": 811,
+        "totalKeysExamined": 100000,
+        "totalDocsExamined": 100000,
+        "executionStages": {
+            "stage": "FETCH",
+            "nReturned": 100000,
+            "executionTimeMillisEstimate": 420,
+            "works": 100001,
+            "advanced": 100000,
+            "needTime": 0,
+            "needYield": 0,
+            "saveState": 100,
+            "restoreState": 100,
+            "isEOF": 1,
+            "docsExamined": 100000,
+            "alreadyHasObj": 0,
+            "inputStage": {
+                "stage": "IXSCAN",
+                "nReturned": 100000,
+                "executionTimeMillisEstimate": 52,
+                "works": 100001,
+                "advanced": 100000,
+                "needTime": 0,
+                "needYield": 0,
+                "saveState": 100,
+                "restoreState": 100,
+                "isEOF": 1,
+                "keyPattern": {
+                    "B3": 1
                 },
-                "_id": true
-            },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 1478
-        },
-        {
-            "$unwind": {
-                "path": "$A"
-            },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 1478
+                "indexName": "B3_1",
+                "isMultiKey": false,
+                "multiKeyPaths": {
+                    "B3": []
+                },
+                "isUnique": false,
+                "isSparse": false,
+                "isPartial": false,
+                "indexVersion": 2,
+                "direction": "forward",
+                "indexBounds": {
+                    "B3": [
+                        "[8, 8]"
+                    ]
+                },
+                "keysExamined": 100000,
+                "seeks": 1,
+                "dupsTested": 0,
+                "dupsDropped": 0
+            }
         }
-    ],
+    },
+    "command": {
+        "aggregate": "B",
+        "pipeline": [
+            {
+                "$match": {
+                    "B3": 8
+                }
+            }
+        ],
+        "cursor": {},
+        "$db": "tirocinio"
+    },
     "serverInfo": {
         "host": "2b39dd094270",
         "port": 27017,
@@ -104,36 +120,6 @@
         "internalQueryProhibitBlockingMergeOnMongoS": 0,
         "internalQueryMaxAddToSetBytes": 104857600,
         "internalDocumentSourceSetWindowFieldsMaxMemoryBytes": 104857600
-    },
-    "command": {
-        "aggregate": "referencing_A_in_B",
-        "pipeline": [
-            {
-                "$match": {
-                    "B3": 99
-                }
-            },
-            {
-                "$lookup": {
-                    "from": "referencing_B_in_A",
-                    "localField": "AK",
-                    "foreignField": "_id",
-                    "as": "A"
-                }
-            },
-            {
-                "$project": {
-                    "A.B": 0
-                }
-            },
-            {
-                "$unwind": {
-                    "path": "$A"
-                }
-            }
-        ],
-        "cursor": {},
-        "$db": "tirocinio"
     },
     "ok": 1.0
 }

@@ -5,7 +5,7 @@
         "indexFilterSet": false,
         "parsedQuery": {
             "A3": {
-                "$eq": 63
+                "$eq": 8
             }
         },
         "optimizedPipeline": true,
@@ -16,7 +16,7 @@
             "stage": "COLLSCAN",
             "filter": {
                 "A3": {
-                    "$eq": 63
+                    "$eq": 8
                 }
             },
             "direction": "forward"
@@ -25,22 +25,22 @@
     },
     "executionStats": {
         "executionSuccess": true,
-        "nReturned": 0,
-        "executionTimeMillis": 202,
+        "nReturned": 10000,
+        "executionTimeMillis": 107,
         "totalKeysExamined": 0,
         "totalDocsExamined": 100000,
         "executionStages": {
             "stage": "COLLSCAN",
             "filter": {
                 "A3": {
-                    "$eq": 63
+                    "$eq": 8
                 }
             },
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 41,
+            "nReturned": 10000,
+            "executionTimeMillisEstimate": 12,
             "works": 100002,
-            "advanced": 0,
-            "needTime": 100001,
+            "advanced": 10000,
+            "needTime": 90001,
             "needYield": 0,
             "saveState": 100,
             "restoreState": 100,
@@ -54,7 +54,7 @@
         "pipeline": [
             {
                 "$match": {
-                    "A3": 63
+                    "A3": 8
                 }
             }
         ],

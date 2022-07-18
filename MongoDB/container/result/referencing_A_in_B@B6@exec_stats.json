@@ -5,7 +5,7 @@
         "indexFilterSet": false,
         "parsedQuery": {
             "B6": {
-                "$eq": 91
+                "$eq": 8
             }
         },
         "optimizedPipeline": true,
@@ -31,7 +31,7 @@
                 "direction": "forward",
                 "indexBounds": {
                     "B6": [
-                        "[91, 91]"
+                        "[8, 8]"
                     ]
                 }
             }
@@ -40,33 +40,33 @@
     },
     "executionStats": {
         "executionSuccess": true,
-        "nReturned": 0,
-        "executionTimeMillis": 3,
-        "totalKeysExamined": 0,
-        "totalDocsExamined": 0,
+        "nReturned": 100000,
+        "executionTimeMillis": 696,
+        "totalKeysExamined": 100000,
+        "totalDocsExamined": 100000,
         "executionStages": {
             "stage": "FETCH",
-            "nReturned": 0,
-            "executionTimeMillisEstimate": 1,
-            "works": 1,
-            "advanced": 0,
+            "nReturned": 100000,
+            "executionTimeMillisEstimate": 289,
+            "works": 100001,
+            "advanced": 100000,
             "needTime": 0,
             "needYield": 0,
-            "saveState": 0,
-            "restoreState": 0,
+            "saveState": 100,
+            "restoreState": 100,
             "isEOF": 1,
-            "docsExamined": 0,
+            "docsExamined": 100000,
             "alreadyHasObj": 0,
             "inputStage": {
                 "stage": "IXSCAN",
-                "nReturned": 0,
-                "executionTimeMillisEstimate": 1,
-                "works": 1,
-                "advanced": 0,
+                "nReturned": 100000,
+                "executionTimeMillisEstimate": 29,
+                "works": 100001,
+                "advanced": 100000,
                 "needTime": 0,
                 "needYield": 0,
-                "saveState": 0,
-                "restoreState": 0,
+                "saveState": 100,
+                "restoreState": 100,
                 "isEOF": 1,
                 "keyPattern": {
                     "B6": 1
@@ -83,10 +83,10 @@
                 "direction": "forward",
                 "indexBounds": {
                     "B6": [
-                        "[91, 91]"
+                        "[8, 8]"
                     ]
                 },
-                "keysExamined": 0,
+                "keysExamined": 100000,
                 "seeks": 1,
                 "dupsTested": 0,
                 "dupsDropped": 0
@@ -98,7 +98,7 @@
         "pipeline": [
             {
                 "$match": {
-                    "B6": 91
+                    "B6": 8
                 }
             }
         ],

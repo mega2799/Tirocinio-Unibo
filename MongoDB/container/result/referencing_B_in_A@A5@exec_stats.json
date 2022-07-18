@@ -5,7 +5,7 @@
         "indexFilterSet": false,
         "parsedQuery": {
             "A5": {
-                "$eq": 65
+                "$eq": 8
             }
         },
         "optimizedPipeline": true,
@@ -31,7 +31,7 @@
                 "direction": "forward",
                 "indexBounds": {
                     "A5": [
-                        "[65, 65]"
+                        "[8, 8]"
                     ]
                 }
             }
@@ -41,13 +41,13 @@
     "executionStats": {
         "executionSuccess": true,
         "nReturned": 100,
-        "executionTimeMillis": 28,
+        "executionTimeMillis": 19,
         "totalKeysExamined": 100,
         "totalDocsExamined": 100,
         "executionStages": {
             "stage": "FETCH",
             "nReturned": 100,
-            "executionTimeMillisEstimate": 20,
+            "executionTimeMillisEstimate": 14,
             "works": 101,
             "advanced": 100,
             "needTime": 0,
@@ -83,7 +83,7 @@
                 "direction": "forward",
                 "indexBounds": {
                     "A5": [
-                        "[65, 65]"
+                        "[8, 8]"
                     ]
                 },
                 "keysExamined": 100,
@@ -98,7 +98,7 @@
         "pipeline": [
             {
                 "$match": {
-                    "A5": 65
+                    "A5": 8
                 }
             }
         ],

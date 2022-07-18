@@ -37,6 +37,7 @@ def explain_plan(collection, query):
 def exec_cost(collection, query):
     myclient = pymongo.MongoClient("mongodb://root:pass12345@localhost:27017/")
     mydb = myclient["tirocinio"]
+    print(collection, ind)
     return mydb.command(
         'explain', 
         {
@@ -48,7 +49,7 @@ def exec_cost(collection, query):
     ) 
 
 if __name__ == "__main__":
-    val = 63
+    val = 8
 
     collection = "referencing_B_in_A"
     for ind in ind_a:
@@ -142,21 +143,22 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.AK)
         # where Ax='val'
-        query = ([{
-            '$match': {
-                ind : val
-            }},{
-            '$lookup': {
-            'from': 'referencing_A_in_B',
-            'localField' : 'AK',
-            'foreignField' : 'AK',
-            'as': 'B'
-            }}, {
-            '$project': {
-            "_id" : 0
-            }}])
+        query = ([{'$match' : { ind  : val } }, {'$unwind': {  'path': "$B"}},{'$lookup': {'from': 'referencing_A_in_B','localField': 'B','foreignField': '_id','as': 'B'}}])
+       # query = ([{
+       #     '$match': {
+       #         ind : val
+       #     }},{
+       #     '$lookup': {
+       #     'from': 'referencing_A_in_B',
+       #     'localField' : 'AK',
+       #     'foreignField' : 'AK',
+       #     'as': 'B'
+       #     }}, {
+       #     '$project': {
+       #     "_id" : 0
+       #     }}])
         start_time = time.time()
-        res = exec_cost("A", query)
+        res = exec_cost("referencing_B_in_A", query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "join" + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
@@ -233,7 +235,7 @@ if __name__ == "__main__":
         # where Bx='val'
         query = ([{'$match': {"B." + ind : val}},{'$unwind': {'path' : "$B"}},{'$match' : {"B." + ind : val}}, {'$project':{"B" : 1, "_id" : 0}}])
         start_time = time.time()
-        res = exec_cost("B", query)
+        res = exec_cost(collection, query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
@@ -242,7 +244,7 @@ if __name__ == "__main__":
         # where Bx='val
         query = ([{'$match': {"B." + ind : val}},{'$unwind': {'path' : "$B"}},{'$match' : {"B." + ind : val}}])
         start_time = time.time()
-        res = exec_cost("B", query)
+        res = exec_cost(collection, query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "join" + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
@@ -279,7 +281,7 @@ if __name__ == "__main__":
                 ]
             )
         start_time = time.time()
-        res = exec_cost("B", query)
+        res = exec_cost(collection, query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
@@ -294,7 +296,7 @@ if __name__ == "__main__":
                 ]
             )
         start_time = time.time()
-        res = exec_cost("B", query)
+        res = exec_cost(collection, query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "join" + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
