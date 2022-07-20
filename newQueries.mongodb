@@ -132,3 +132,20 @@ $lookup: {
 
 
 
+
+db.A.aggregate([{
+            $match: {
+                "A6" : 8
+            }}
+            ,{
+            $lookup: {
+            from: 'referencing_A_in_B',
+            localField : 'AK',
+            foreignField : 'AK',
+            as: 'B'
+            }}
+            //, {
+           // $project: {
+           // "_id" : 0
+           // }}
+            ])
