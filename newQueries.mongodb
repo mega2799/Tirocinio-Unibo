@@ -132,7 +132,6 @@ $lookup: {
 
 
 
-
 db.A.aggregate([{
             $match: {
                 "A6" : 8
@@ -149,3 +148,23 @@ db.A.aggregate([{
            // "_id" : 0
            // }}
             ])
+// db.getCollection('A').aggregate([{
+// $match: {
+//   "A3" : 6
+// }},{
+// $lookup: {
+//   from: 'referencing_A_in_B',
+//   localField: 'AK',
+//   foreignField: 'AK',
+//   as: 'B'
+// }}, {
+// $project: {
+//   "_id" : 0
+// }}])
+
+
+db.referencing_B_in_A.aggregate([{$match : { "A3": 6 } }, {$unwind: {  path: "$B"}},{$lookup: {from: 'referencing_A_in_B',localField: 'B',foreignField: '_id',as: 'B'}},{/**
+ * Provide the field name for the count.
+ */
+$count: 'string'}])
+
