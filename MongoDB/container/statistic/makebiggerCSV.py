@@ -64,7 +64,7 @@ worksheet.write_string('A25' , 'B6j', bold)
 worksheet.write_string('B1', 'embedding_A_in_B', bold)
 worksheet.write_string('C1', 'embedding_B_in_A', bold)
 worksheet.write_string('D1', 'referencing_A_in_B', bold)
-worksheet.write_string('E1', 'referencing_A_in_B', bold)
+worksheet.write_string('E1', 'referencing_B_in_A', bold)
 
 
 #worksheet.write_string('A2', 'embedding_A_in_B', bold)
