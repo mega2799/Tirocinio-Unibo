@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10,
-                    "executionTimeMillis": 862,
+                    "executionTimeMillis": 796,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 100000,
                     "executionStages": {
@@ -41,7 +41,7 @@
                             }
                         },
                         "nReturned": 10,
-                        "executionTimeMillisEstimate": 481,
+                        "executionTimeMillisEstimate": 414,
                         "works": 100002,
                         "advanced": 10,
                         "needTime": 99991,
@@ -55,7 +55,7 @@
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 859
+            "executionTimeMillisEstimate": 793
         },
         {
             "$project": {
@@ -63,7 +63,7 @@
                 "_id": true
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 859
+            "executionTimeMillisEstimate": 793
         }
     ],
     "serverInfo": {

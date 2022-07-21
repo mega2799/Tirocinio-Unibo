@@ -45,13 +45,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10000,
-                    "executionTimeMillis": 11132,
+                    "executionTimeMillis": 11736,
                     "totalKeysExamined": 10000,
                     "totalDocsExamined": 10000,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 10000,
-                        "executionTimeMillisEstimate": 49,
+                        "executionTimeMillisEstimate": 58,
                         "works": 10001,
                         "advanced": 10000,
                         "needTime": 0,
@@ -99,14 +99,14 @@
                 }
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 74
+            "executionTimeMillisEstimate": 97
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 74
+            "executionTimeMillisEstimate": 98
         },
         {
             "$lookup": {
@@ -125,7 +125,7 @@
                 "BK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11125
+            "executionTimeMillisEstimate": 11726
         },
         {
             "$project": {
@@ -135,7 +135,7 @@
                 "_id": true
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11129
+            "executionTimeMillisEstimate": 11731
         }
     ],
     "serverInfo": {

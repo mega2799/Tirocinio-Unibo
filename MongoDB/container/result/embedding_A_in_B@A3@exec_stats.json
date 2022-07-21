@@ -37,13 +37,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 3019,
+                    "executionTimeMillis": 2879,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 1000000,
                     "executionStages": {
                         "stage": "PROJECTION_SIMPLE",
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 627,
+                        "executionTimeMillisEstimate": 485,
                         "works": 1000002,
                         "advanced": 100000,
                         "needTime": 900001,
@@ -63,7 +63,7 @@
                                 }
                             },
                             "nReturned": 100000,
-                            "executionTimeMillisEstimate": 595,
+                            "executionTimeMillisEstimate": 460,
                             "works": 1000002,
                             "advanced": 100000,
                             "needTime": 900001,
@@ -78,14 +78,14 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 2916
+            "executionTimeMillisEstimate": 2780
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 2966
+            "executionTimeMillisEstimate": 2834
         }
     ],
     "serverInfo": {

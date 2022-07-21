@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 2276,
+                    "executionTimeMillis": 2224,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 1000000,
                     "executionStages": {
@@ -41,13 +41,13 @@
                             }
                         },
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 262,
+                        "executionTimeMillisEstimate": 275,
                         "works": 1000002,
                         "advanced": 100000,
                         "needTime": 900001,
                         "needYield": 0,
-                        "saveState": 1055,
-                        "restoreState": 1055,
+                        "saveState": 1054,
+                        "restoreState": 1054,
                         "isEOF": 1,
                         "direction": "forward",
                         "docsExamined": 1000000
@@ -55,7 +55,7 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 2101
+            "executionTimeMillisEstimate": 2069
         },
         {
             "$project": {
@@ -63,7 +63,7 @@
                 "_id": true
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 2215
+            "executionTimeMillisEstimate": 2182
         }
     ],
     "serverInfo": {

@@ -12,94 +12,50 @@
                         }
                     },
                     "queryHash": "9293680B",
-                    "planCacheKey": "8165EA7C",
+                    "planCacheKey": "1AD42898",
                     "maxIndexedOrSolutionsReached": false,
                     "maxIndexedAndSolutionsReached": false,
                     "maxScansToExplodeReached": false,
                     "winningPlan": {
-                        "stage": "FETCH",
-                        "inputStage": {
-                            "stage": "IXSCAN",
-                            "keyPattern": {
-                                "B3": 1
-                            },
-                            "indexName": "B3_1",
-                            "isMultiKey": false,
-                            "multiKeyPaths": {
-                                "B3": []
-                            },
-                            "isUnique": false,
-                            "isSparse": false,
-                            "isPartial": false,
-                            "indexVersion": 2,
-                            "direction": "forward",
-                            "indexBounds": {
-                                "B3": [
-                                    "[8, 8]"
-                                ]
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "B3": {
+                                "$eq": 8
                             }
-                        }
+                        },
+                        "direction": "forward"
                     },
                     "rejectedPlans": []
                 },
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 10846,
-                    "totalKeysExamined": 100000,
-                    "totalDocsExamined": 100000,
+                    "executionTimeMillis": 11924,
+                    "totalKeysExamined": 0,
+                    "totalDocsExamined": 1000000,
                     "executionStages": {
-                        "stage": "FETCH",
+                        "stage": "COLLSCAN",
+                        "filter": {
+                            "B3": {
+                                "$eq": 8
+                            }
+                        },
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 279,
-                        "works": 100001,
+                        "executionTimeMillisEstimate": 224,
+                        "works": 1000002,
                         "advanced": 100000,
-                        "needTime": 0,
+                        "needTime": 900001,
                         "needYield": 0,
-                        "saveState": 142,
-                        "restoreState": 142,
+                        "saveState": 1052,
+                        "restoreState": 1052,
                         "isEOF": 1,
-                        "docsExamined": 100000,
-                        "alreadyHasObj": 0,
-                        "inputStage": {
-                            "stage": "IXSCAN",
-                            "nReturned": 100000,
-                            "executionTimeMillisEstimate": 20,
-                            "works": 100001,
-                            "advanced": 100000,
-                            "needTime": 0,
-                            "needYield": 0,
-                            "saveState": 142,
-                            "restoreState": 142,
-                            "isEOF": 1,
-                            "keyPattern": {
-                                "B3": 1
-                            },
-                            "indexName": "B3_1",
-                            "isMultiKey": false,
-                            "multiKeyPaths": {
-                                "B3": []
-                            },
-                            "isUnique": false,
-                            "isSparse": false,
-                            "isPartial": false,
-                            "indexVersion": 2,
-                            "direction": "forward",
-                            "indexBounds": {
-                                "B3": [
-                                    "[8, 8]"
-                                ]
-                            },
-                            "keysExamined": 100000,
-                            "seeks": 1,
-                            "dupsTested": 0,
-                            "dupsDropped": 0
-                        }
+                        "direction": "forward",
+                        "docsExamined": 1000000
                     }
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 657
+            "executionTimeMillisEstimate": 1572
         },
         {
             "$lookup": {
@@ -115,7 +71,7 @@
                 "AK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 10842
+            "executionTimeMillisEstimate": 11919
         },
         {
             "$project": {
@@ -126,14 +82,14 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 10843
+            "executionTimeMillisEstimate": 11921
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 10843
+            "executionTimeMillisEstimate": 11921
         }
     ],
     "serverInfo": {

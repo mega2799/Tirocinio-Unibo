@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10000,
-                    "executionTimeMillis": 12184,
+                    "executionTimeMillis": 12460,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 100000,
                     "executionStages": {
@@ -41,7 +41,7 @@
                             }
                         },
                         "nReturned": 10000,
-                        "executionTimeMillisEstimate": 25,
+                        "executionTimeMillisEstimate": 42,
                         "works": 100002,
                         "advanced": 10000,
                         "needTime": 90001,
@@ -55,14 +55,14 @@
                 }
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 186
+            "executionTimeMillisEstimate": 207
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 186
+            "executionTimeMillisEstimate": 207
         },
         {
             "$lookup": {
@@ -78,7 +78,7 @@
                 "_id_"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 12176
+            "executionTimeMillisEstimate": 12450
         }
     ],
     "serverInfo": {

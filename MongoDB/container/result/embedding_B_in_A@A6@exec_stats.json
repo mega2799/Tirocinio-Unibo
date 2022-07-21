@@ -45,32 +45,32 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10000,
-                    "executionTimeMillis": 411,
+                    "executionTimeMillis": 446,
                     "totalKeysExamined": 10000,
                     "totalDocsExamined": 10000,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 10000,
-                        "executionTimeMillisEstimate": 208,
+                        "executionTimeMillisEstimate": 256,
                         "works": 10001,
                         "advanced": 10000,
                         "needTime": 0,
                         "needYield": 0,
-                        "saveState": 57,
-                        "restoreState": 57,
+                        "saveState": 56,
+                        "restoreState": 56,
                         "isEOF": 1,
                         "docsExamined": 10000,
                         "alreadyHasObj": 0,
                         "inputStage": {
                             "stage": "IXSCAN",
                             "nReturned": 10000,
-                            "executionTimeMillisEstimate": 4,
+                            "executionTimeMillisEstimate": 1,
                             "works": 10001,
                             "advanced": 10000,
                             "needTime": 0,
                             "needYield": 0,
-                            "saveState": 57,
-                            "restoreState": 57,
+                            "saveState": 56,
+                            "restoreState": 56,
                             "isEOF": 1,
                             "keyPattern": {
                                 "A6": 1
@@ -99,7 +99,7 @@
                 }
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 335
+            "executionTimeMillisEstimate": 375
         },
         {
             "$project": {
@@ -107,7 +107,7 @@
                 "_id": true
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 366
+            "executionTimeMillisEstimate": 430
         }
     ],
     "serverInfo": {

@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 3071,
+                    "executionTimeMillis": 3102,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 100000,
                     "executionStages": {
@@ -41,13 +41,13 @@
                             }
                         },
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 223,
+                        "executionTimeMillisEstimate": 259,
                         "works": 100002,
                         "advanced": 100000,
                         "needTime": 1,
                         "needYield": 0,
-                        "saveState": 495,
-                        "restoreState": 495,
+                        "saveState": 504,
+                        "restoreState": 504,
                         "isEOF": 1,
                         "direction": "forward",
                         "docsExamined": 100000
@@ -55,14 +55,14 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 1593
+            "executionTimeMillisEstimate": 1632
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 1000000,
-            "executionTimeMillisEstimate": 1935
+            "executionTimeMillisEstimate": 1917
         },
         {
             "$match": {
@@ -71,7 +71,7 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 2932
+            "executionTimeMillisEstimate": 2989
         }
     ],
     "serverInfo": {

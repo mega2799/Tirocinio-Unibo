@@ -37,19 +37,19 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10,
-                    "executionTimeMillis": 1035,
+                    "executionTimeMillis": 1064,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 100000,
                     "executionStages": {
                         "stage": "PROJECTION_SIMPLE",
                         "nReturned": 10,
-                        "executionTimeMillisEstimate": 602,
+                        "executionTimeMillisEstimate": 571,
                         "works": 100002,
                         "advanced": 10,
                         "needTime": 99991,
                         "needYield": 0,
-                        "saveState": 101,
-                        "restoreState": 101,
+                        "saveState": 102,
+                        "restoreState": 102,
                         "isEOF": 1,
                         "transformBy": {
                             "B": 1,
@@ -63,13 +63,13 @@
                                 }
                             },
                             "nReturned": 10,
-                            "executionTimeMillisEstimate": 608,
+                            "executionTimeMillisEstimate": 571,
                             "works": 100002,
                             "advanced": 10,
                             "needTime": 99991,
                             "needYield": 0,
-                            "saveState": 101,
-                            "restoreState": 101,
+                            "saveState": 102,
+                            "restoreState": 102,
                             "isEOF": 1,
                             "direction": "forward",
                             "docsExamined": 100000
@@ -78,14 +78,14 @@
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 1020
+            "executionTimeMillisEstimate": 1047
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 100,
-            "executionTimeMillisEstimate": 1020
+            "executionTimeMillisEstimate": 1047
         },
         {
             "$match": {
@@ -94,7 +94,7 @@
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 1030
+            "executionTimeMillisEstimate": 1057
         },
         {
             "$project": {
@@ -102,7 +102,7 @@
                 "_id": false
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 1030
+            "executionTimeMillisEstimate": 1057
         }
     ],
     "serverInfo": {
