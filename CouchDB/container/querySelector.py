@@ -22,7 +22,7 @@ worksheet.set_column(0, 0, 20)
 worksheet.write_string('A2', 'embedding_A_in_B', bold)
 worksheet.write_string('A3', 'embedding_B_in_A', bold)
 worksheet.write_string('A4', 'referencing_A_in_B', bold)
-worksheet.write_string('A5', 'referencing_A_in_B', bold)
+worksheet.write_string('A5', 'referencing_B_in_A', bold)
 
 worksheet.write_string('B1', 'A1', bold)
 worksheet.write_string('C1', 'A2', bold)

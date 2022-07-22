@@ -47,7 +47,7 @@
         "executionStages": {
             "stage": "FETCH",
             "nReturned": 10,
-            "executionTimeMillisEstimate": 9,
+            "executionTimeMillisEstimate": 5,
             "works": 11,
             "advanced": 10,
             "needTime": 0,
@@ -60,7 +60,7 @@
             "inputStage": {
                 "stage": "IXSCAN",
                 "nReturned": 10,
-                "executionTimeMillisEstimate": 0,
+                "executionTimeMillisEstimate": 5,
                 "works": 11,
                 "advanced": 10,
                 "needTime": 0,

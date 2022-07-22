@@ -13,84 +13,40 @@
         "maxIndexedAndSolutionsReached": false,
         "maxScansToExplodeReached": false,
         "winningPlan": {
-            "stage": "FETCH",
-            "inputStage": {
-                "stage": "IXSCAN",
-                "keyPattern": {
-                    "A3": 1
-                },
-                "indexName": "A3_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "A3": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "A3": [
-                        "[8, 8]"
-                    ]
+            "stage": "COLLSCAN",
+            "filter": {
+                "A3": {
+                    "$eq": 8
                 }
-            }
+            },
+            "direction": "forward"
         },
         "rejectedPlans": []
     },
     "executionStats": {
         "executionSuccess": true,
         "nReturned": 10000,
-        "executionTimeMillis": 49,
-        "totalKeysExamined": 10000,
-        "totalDocsExamined": 10000,
+        "executionTimeMillis": 109,
+        "totalKeysExamined": 0,
+        "totalDocsExamined": 100000,
         "executionStages": {
-            "stage": "FETCH",
+            "stage": "COLLSCAN",
+            "filter": {
+                "A3": {
+                    "$eq": 8
+                }
+            },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 14,
-            "works": 10001,
+            "executionTimeMillisEstimate": 13,
+            "works": 100002,
             "advanced": 10000,
-            "needTime": 0,
+            "needTime": 90001,
             "needYield": 0,
-            "saveState": 10,
-            "restoreState": 10,
+            "saveState": 100,
+            "restoreState": 100,
             "isEOF": 1,
-            "docsExamined": 10000,
-            "alreadyHasObj": 0,
-            "inputStage": {
-                "stage": "IXSCAN",
-                "nReturned": 10000,
-                "executionTimeMillisEstimate": 4,
-                "works": 10001,
-                "advanced": 10000,
-                "needTime": 0,
-                "needYield": 0,
-                "saveState": 10,
-                "restoreState": 10,
-                "isEOF": 1,
-                "keyPattern": {
-                    "A3": 1
-                },
-                "indexName": "A3_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "A3": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "A3": [
-                        "[8, 8]"
-                    ]
-                },
-                "keysExamined": 10000,
-                "seeks": 1,
-                "dupsTested": 0,
-                "dupsDropped": 0
-            }
+            "direction": "forward",
+            "docsExamined": 100000
         }
     },
     "command": {

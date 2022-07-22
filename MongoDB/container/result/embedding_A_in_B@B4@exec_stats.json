@@ -45,13 +45,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10,
-                    "executionTimeMillis": 11,
+                    "executionTimeMillis": 10,
                     "totalKeysExamined": 10,
                     "totalDocsExamined": 10,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 10,
-                        "executionTimeMillisEstimate": 0,
+                        "executionTimeMillisEstimate": 5,
                         "works": 11,
                         "advanced": 10,
                         "needTime": 0,
@@ -64,7 +64,7 @@
                         "inputStage": {
                             "stage": "IXSCAN",
                             "nReturned": 10,
-                            "executionTimeMillisEstimate": 0,
+                            "executionTimeMillisEstimate": 5,
                             "works": 11,
                             "advanced": 10,
                             "needTime": 0,
@@ -99,7 +99,7 @@
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 0
+            "executionTimeMillisEstimate": 5
         },
         {
             "$project": {
@@ -107,7 +107,7 @@
                 "_id": true
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 0
+            "executionTimeMillisEstimate": 5
         }
     ],
     "serverInfo": {

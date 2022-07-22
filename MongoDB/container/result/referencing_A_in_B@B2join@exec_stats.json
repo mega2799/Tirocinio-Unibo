@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 1000,
-                    "executionTimeMillis": 1714,
+                    "executionTimeMillis": 1728,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 1000000,
                     "executionStages": {
@@ -41,7 +41,7 @@
                             }
                         },
                         "nReturned": 1000,
-                        "executionTimeMillisEstimate": 197,
+                        "executionTimeMillisEstimate": 209,
                         "works": 1000002,
                         "advanced": 1000,
                         "needTime": 999001,
@@ -55,7 +55,7 @@
                 }
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1553
+            "executionTimeMillisEstimate": 1564
         },
         {
             "$lookup": {
@@ -71,7 +71,7 @@
                 "AK_1"
             ],
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1714
+            "executionTimeMillisEstimate": 1728
         },
         {
             "$project": {
@@ -81,14 +81,14 @@
                 "_id": true
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1715
+            "executionTimeMillisEstimate": 1728
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1715
+            "executionTimeMillisEstimate": 1728
         }
     ],
     "serverInfo": {

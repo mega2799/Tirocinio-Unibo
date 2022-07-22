@@ -37,13 +37,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 1000,
-                    "executionTimeMillis": 1008,
+                    "executionTimeMillis": 1114,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 100000,
                     "executionStages": {
                         "stage": "PROJECTION_SIMPLE",
                         "nReturned": 1000,
-                        "executionTimeMillisEstimate": 508,
+                        "executionTimeMillisEstimate": 776,
                         "works": 100002,
                         "advanced": 1000,
                         "needTime": 99001,
@@ -63,7 +63,7 @@
                                 }
                             },
                             "nReturned": 1000,
-                            "executionTimeMillisEstimate": 494,
+                            "executionTimeMillisEstimate": 776,
                             "works": 100002,
                             "advanced": 1000,
                             "needTime": 99001,
@@ -78,14 +78,14 @@
                 }
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 994
+            "executionTimeMillisEstimate": 1099
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 994
+            "executionTimeMillisEstimate": 1099
         },
         {
             "$match": {
@@ -94,7 +94,7 @@
                 }
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1005
+            "executionTimeMillisEstimate": 1109
         },
         {
             "$project": {
@@ -102,7 +102,7 @@
                 "_id": false
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1005
+            "executionTimeMillisEstimate": 1109
         }
     ],
     "serverInfo": {

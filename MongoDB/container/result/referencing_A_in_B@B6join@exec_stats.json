@@ -45,13 +45,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 11683,
+                    "executionTimeMillis": 11896,
                     "totalKeysExamined": 100000,
                     "totalDocsExamined": 100000,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 306,
+                        "executionTimeMillisEstimate": 304,
                         "works": 100001,
                         "advanced": 100000,
                         "needTime": 0,
@@ -64,7 +64,7 @@
                         "inputStage": {
                             "stage": "IXSCAN",
                             "nReturned": 100000,
-                            "executionTimeMillisEstimate": 18,
+                            "executionTimeMillisEstimate": 15,
                             "works": 100001,
                             "advanced": 100000,
                             "needTime": 0,
@@ -99,7 +99,7 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 686
+            "executionTimeMillisEstimate": 685
         },
         {
             "$lookup": {
@@ -115,7 +115,7 @@
                 "AK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11676
+            "executionTimeMillisEstimate": 11871
         },
         {
             "$project": {
@@ -125,14 +125,14 @@
                 "_id": true
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11678
+            "executionTimeMillisEstimate": 11884
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11678
+            "executionTimeMillisEstimate": 11886
         }
     ],
     "serverInfo": {
