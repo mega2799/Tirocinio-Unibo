@@ -37,7 +37,7 @@ worksheet.write_string('K1', 'B4', bold)
 worksheet.write_string('L1', 'B5', bold)
 worksheet.write_string('M1', 'B6', bold)
 
-get_rowNum = {'embedding_A_in_B' : 0,'embedding_B_in_A' : 1,'referencing_B_in_A' : 2,'referencing_A_in_B' : 3}
+get_rowNum = {'embedding_a_in_b' : 0,'embedding_b_in_a' : 1,'referencing_b_in_a' : 2,'referencing_a_in_b' : 3}
 get_colNum = {'A1' : 0,'A2' : 1,'A3' : 2,'A4' : 3, 'A5' : 4, 'A6' : 5, 'B1' : 6,'B2' : 7,'B3' : 8,'B4' : 9, 'B5' : 10, 'B6' : 11}
 
 def queryRun(collection, payload):
@@ -116,33 +116,25 @@ def joinQuery(to_col, from_col, ind, value):
   for key in foreign_keys:
     payload = json.dumps({
       "selector": {
-        "AK" : key
+        "_id" : key
       },
       "execution_stats": True
     })
     response = requests.request("POST", url, headers=headers, data=payload)
     resp = json.loads(response.text)
+    print(resp)
     time += resp["execution_stats"]['execution_time_ms']
-    worksheet.write(get_rowNum[to_col] + 1, get_colNum[ind] + 1, time)
+  worksheet.write(get_rowNum[to_col] + 1, get_colNum[ind] + 1, time)
   print("join time: " )
   print(str(time) + " ms") 
 
     
 if __name__ == "__main__":
 
-  print("On which index should i run the query")
-  i = input("0)A1 \n1)A2 \n2)A3 \n3)A4 \n4)A5 \n5)A6   None\n\n")
-  if i != "None":
-      ind = ind_a[int(i)]
-  else:
-      print("On which index should i run the query")
-      i = input("0)B1 \n1)B2 \n2)B3 \n3)B4 \n4)B5 \n5)B6\n\n")
-      ind = ind_b[int(i)]
-  
-  print(ind)
-  val = input("On which value?\n\n")
-
-  if ind in ind_a:
+  val = "8"
+  joinQuery("referencing_a_in_b", "referencing_b_in_a", "A6", val)
+  exit(0)
+  for ind in ind_a:
     simpleSelection("embedding_b_in_a", ind, val)
     simpleSelection("referencing_b_in_a", ind, val)
     joinQuery("referencing_a_in_b", "referencing_b_in_a", ind, val)
@@ -159,7 +151,8 @@ if __name__ == "__main__":
     })
 
     queryRun("embedding_a_in_b", payload)
-  else:
+  
+  for ind in ind_b:
     simpleSelection("embedding_a_in_b", ind, val)
     simpleSelection("referencing_a_in_b", ind, val)
     joinQuery("referencing_b_in_a", "referencing_a_in_b",  ind, val)

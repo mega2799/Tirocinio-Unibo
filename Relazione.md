@@ -2,25 +2,25 @@
 
 ## Santoro Matteo 3CFU
 
-
 # Obbiettivi
 
 Poter capire attraverso la sperimentazione quale modellazione dei dati risulti piu' efficente per poter immagazzinare una grande quantita' di dati per poi poter effettuare delle interrogazioni e valutare le performance.
 
 I sistemi database sulla quale ci siamo basati sono MongoDB, CouchDB per i sistemi non relazionali e Oracle per un database di tipo relazionale.
 
-# Creazione dataset 
+# Creazione dataset
 
-Il nostro caso di studio è quello di una relazione 1,N - 1,N tra due entità, chiamate comunamente A e B, ma che per comprensione abbiamo ipotizzato essere Post e Commenti all'interno del database di un social network, ogni Post contiene 10 Commenti.
+Il nostro caso di studio è quello di una relazione 1,N - 1,N tra due entità, chiamate comunemente A e B, ma che per comprensione abbiamo ipotizzato essere Post e Commenti all'interno del database di un social network, ogni Post contiene 10 Commenti.
 
 La modellazione delle entita' e' stata fatta creando 2 triplette di attributi uguali, sulla seconda tripletta al contrario della prima sono stati costruiti degli indici su ogni attributo, questi attributi generici hanno una propria selettivita':  
- - sel(x1, x4) = 1/10.000 
- - sel(x2, x5) = 1/1000 
- - sel(x3, x6) = 1/100 
+
+- sel(x1, x4) = 1/10.000
+- sel(x2, x5) = 1/1000
+- sel(x3, x6) = 1/100
 
 ![caso](TesiResources/Caso%20Studio.png)
 
-# Modellazione 
+# Modellazione
 
 Per la modellazione dei dati abbiamo usato il referencing e l'embedding di documenti come segue:
 
@@ -34,10 +34,10 @@ Come carico massimo abbiamo testato il database con |Post| = 100.000 e quindi |C
 
 ![embBA](TesiResources/embBA.png)
 
-
-# Docker 
+# Docker
 
 Ho fatto ampio utlizzo di docker, per poter creare dei container all'iterno dei quali fossi più libero di muovermi e per poter limitare l'uso di alcune risorse di sistema, in questo progetto vogliamo arrivare a determinare una stima dei costi di DB non relazionali che facciano il minor uso di cache se non addirittura 0. Ho trovato alcune immagini su dockerhub che sono state un ottimo punto di partenza, alle quali ho poi aggiunto una serie di caratteristiche adatte al nostro caso. Ho creato dei file docker-compose.yml ed una serie di script per poter caricare comodamente i dati non appena il container viene creato
+
 ```yml
 # sharing di directory
     volumes:
@@ -62,10 +62,9 @@ mongoimport --collection referencing_B_in_A --db tirocinio  --username $MONGO_IN
 
 # MongoDB
 
-
 ![mongo](TesiResources/mongoDB.png)
 
-## crezione collezioni 
+## crezione collezioni
 
 ```js
 // referencing_A_in_B
@@ -90,7 +89,8 @@ db.B.aggregate([
 ])
 
 ```
-```js 
+
+```js
 // referencing_B_in_A
 
 db.B.aggregate(
@@ -173,8 +173,8 @@ db.B.aggregate(
 )
 ```
 
-```js 
-
+```js
+// embedding_A_in_B
 db.B.aggregate(
   [
     {
@@ -387,7 +387,7 @@ db.getCollection('referencing_B_in_A').aggregate([{'$match' : { ind : val} }, {'
 
 ![stats](TesiResources/mongoStats.png)
 
-# CouchDb 
+# CouchDb
 
 Per poter usare couchDB ho dovuto studiare il sistema API di couchDB, con il quale ho potuto effettuare le più semplici operazioni tramite programmi in python che effettuava PUT e POST con documenti all'interno del body. CouchDB utilizza un dialetto particolare chiamato MangoQuery, è molto simile a quello di Mongo ma la vera differenza sta nel fatto che non ha l'istruzione di lookup ossia di join.
 
@@ -420,6 +420,7 @@ def simpleSelection(collection, ind, value):
   print("sel time: " )
   print(str(time) + " ms") 
 ```
+
 Per poter eseguire l'operazione di join ho dovuto provvedere manualmente, effettuando una selezione sulla tabella interna dei documenti o meglio chiavi dei documenti coinvolti e poi per ognuno effettuare una query di selezione nella tabella esterna
 
 ```py
@@ -462,7 +463,8 @@ def joinQuery(to_col, from_col, ind, value):
   print(str(time) + " ms") 
 ```
 
-# Oracle 
+# Oracle
+
 Per ogni indice presente nella collezione ho eseguito queste query dimostrative
 
 ```sql
@@ -485,9 +487,11 @@ where Bx='val
 
 ![statOra](TesiResources/oracleStats.png)
 
-# Risultati 
+# Risultati
 
 Fin ora abbiamo ottenuto risultati ottimi ma non ancora del tutto completi, questo progetto verrà ulteriormente approfondito nella mia tesi triennale.
-Al momento sembrerebbe che la modellazione ad embedding sia quella più efficace e completa, ci aspettiamo di poter migliorare ulteriormente le performance creando un modello ibrido tra embedding e referencing che però sia modellato su un caso reale con adeguato carico di lavoro, ad es. nell'esempio social network si potrebberò inserire nel referencing dei post anche i 10 commenti più recenti. Inoltre poi si devono valutare le altre operazioni del CRUD (delete, update) ed arrivare a stimare un effettiva stima dei costi.  
+Al momento sembrerebbe che la modellazione ad embedding sia quella più efficace e completa, ci aspettiamo di poter migliorare ulteriormente le performance creando un modello ibrido tra embedding e referencing che però sia modellato su un caso reale con adeguato carico di lavoro, ad es. nell'esempio social network si potrebberò inserire nel referencing dei post anche i 10 commenti più recenti. Inoltre poi si devono valutare le altre operazioni del CRUD (delete, update) ed arrivare a stimare un effettiva stima dei costi. 
 
 # Commenti
+
+Questo tirocinio e' stato molto interessante, l'ho scelto perche' ho trovato altrettanto interessante il corso di basi di dati, tutto cio' che ho fatto fin ora verra' approfondito nella mia tesi triennale. Ho potuto lavorare in autonomia ma ad ogni problema o dubbio la prof.ssa Lumini e' sempre stata disponibile nel risolverlo insieme e nel correggermi dove potevo fare qualcosa in un modo migliore. 

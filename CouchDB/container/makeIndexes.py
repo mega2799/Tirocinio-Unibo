@@ -50,3 +50,19 @@ for collection in collections_b:
 
         print(response.text)
 
+url = "http://admin:admin@127.0.0.1:5984/referencing_a_in_b/_index?partitioned=true"
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "AK"
+    ]
+  },
+  "name": "AK" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
