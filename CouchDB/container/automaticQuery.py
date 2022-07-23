@@ -61,7 +61,7 @@ get_colNum = {
     'A1join' : 12,'A2join' : 13,'A3join' : 14,'A4join' : 15, 'A5join' : 16, 'A6join' : 17, 'B1join' : 18,'B2join' : 19,'B3join' : 20,'B4join' : 21, 'B5join' : 22, 'B6join' : 23
 }
 
-def queryRun(collection, payload):
+def queryRun(collection, ind, payload):
   url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
 
   time = 0
@@ -357,10 +357,70 @@ if __name__ == "__main__":
     worksheet.write(get_rowNum[collection] + 1, get_colNum[ind] + 1, time)
     print("join time: " )
     print(str(time) + " ms")
-############################# FINIRE CON EMBEDDING ##################
 
-
-
+  collection = "embedding_B_in_A"
+  for ind in ind_a:
+      # select A.*
+      # from A
+      # where Ax='val'
+      payload = json.dumps({
+      "selector": {
+          ind : int(val) 
+      },
+      "fields": [
+          "_id",
+          "AK",
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "A7"
+      ],
+      "execution_stats": True
+    })
+      queryRun(collection, ind, payload) 
+      # select A.*, B.*
+      # from A join B on (A.AK=B.AK)
+      # where Ax='val'
+      simpleSelection(collection, ind, val)
+  for ind in ind_b:
+      # select B.*
+      # from B
+      # where Bx='val'
+    payload = json.dumps({
+      "selector": {
+          "AK": {
+            "$gt": 0
+          },
+          "B": {
+            "$elemMatch": {
+                ind : int(val) 
+            }
+          }
+      },
+      "fields": [
+          "B"
+      ],
+      "execution_stats": True
+    })
+    queryRun(collection, ind, payload) 
+      # select A.*, B.*
+      # from A join B on (A.AK=B.BK)
+      # where Bx='val
+    payload = json.dumps({
+      "selector": {
+          "B": {
+            "$elemMatch": {
+                ind : int(val)
+            }
+          }
+      },
+      "execution_stats": True
+    })
+    queryRun(collection, ind, payload) 
+############################# FINIRE CON EMBEDDING AB ##################
 
 
 
