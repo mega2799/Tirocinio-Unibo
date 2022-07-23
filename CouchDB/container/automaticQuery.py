@@ -166,12 +166,7 @@ if __name__ == "__main__":
 
 ##################### TESTARE ##################################################
 # join tra referencing_B_in_A (esterna) e referencing_a_in_B (interna)
-  
-
-
-
   url = "http://admin:admin@127.0.0.1:5984/" + "referencing_b_in_a" +"/_find"
-
   payload = json.dumps({
    "selector": {
       ind : int(val)
@@ -190,19 +185,16 @@ if __name__ == "__main__":
    ,
     "execution_stats": True
     })
-
   headers = {
     'Content-Type': 'application/json'
   }
-
   time = 0
   response = requests.request("POST", url, headers=headers, data=payload)
-
   resp = json.loads(response.text)
   time += resp["execution_stats"]['execution_time_ms']
 ### qui dovrei prendere le chiavi di AK e per ognuna selezionare il doc di B
   foreign_keys = [list(x.values())[0] for x in resp["docs"]]
-  url = "http://admin:admin@127.0.0.1:5984/" + "referencing_b_in_a" +"/_find"
+  url = "http://admin:admin@127.0.0.1:5984/" + "b" +"/_find"
   for key in foreign_keys:
     payload = json.dumps({
       "selector": {
@@ -218,10 +210,154 @@ if __name__ == "__main__":
   print("join time: " )
   print(str(time) + " ms") 
 
+  for ind in ind_b:
+      # select B.*
+      # from B
+      # where Bx='val'
+    simpleSelection("b", ind, val)
+      # select A.*, B.*
+      # from A join B on (A.AK=B.BK)
+      # where Bx='val
+    url = "http://admin:admin@127.0.0.1:5984/" + "b" +"/_find"
+    payload = json.dumps({
+    "selector": {
+        ind : int(val)
+    }
+    # ,
+    # "fields": [
+        # "BK",                
+        # "B1",
+        # "B2",
+        # "B3",
+        # "B4",
+        # "B5",
+        # "B6",
+        # "B7",
+    # ]
+    ,
+      "execution_stats": True
+      })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    time = 0
+    response = requests.request("POST", url, headers=headers, data=payload)
+    resp = json.loads(response.text)
+    time += resp["execution_stats"]['execution_time_ms']
+##################### TESTARE ##################################################
+  ### qui dovrei prendere le chiavi di BK e per ognuna selezionare il doc del refBA
+    foreign_keys = [list(x.values())[0] for x in resp["docs"]]
+    url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
+    for key in foreign_keys:
+      payload = json.dumps({
+        "selector": {
+          "_id" : key
+        },
+        "execution_stats": True
+      })
+      response = requests.request("POST", url, headers=headers, data=payload)
+      resp = json.loads(response.text)
+      print(resp)
+      time += resp["execution_stats"]['execution_time_ms']
+    worksheet.write(get_rowNum[collection] + 1, get_colNum[ind] + 1, time)
+    print("join time: " )
+    print(str(time) + " ms") 
 
-
-
-
+  collection = "referencing_A_in_B"
+  for ind in ind_a:
+      # select A.*
+      # from A
+      # where Ax='val'
+    simpleSelection("a", ind, val)
+      # select A.*, B.*
+      # from A join B on (A.AK=B.AK)
+      # where Ax='val'
+    url = "http://admin:admin@127.0.0.1:5984/" + "a" +"/_find"
+    payload = json.dumps({
+    "selector": {
+        ind : int(val)
+    }
+    # ,
+    # "fields": [
+        # "AK",                
+        # "A1",
+        # "A2",
+        # "A3",
+        # "A4",
+        # "A5",
+        # "A6",
+        # "A7",
+    # ]
+    ,
+      "execution_stats": True
+      })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    time = 0
+    response = requests.request("POST", url, headers=headers, data=payload)
+    resp = json.loads(response.text)
+    time += resp["execution_stats"]['execution_time_ms']
+##################### TESTARE ##################################################
+  ### qui dovrei prendere le chiavi di AK e per ognuna selezionare il doc del refAB
+    foreign_keys = [list(x.values())[0] for x in resp["docs"]]
+    url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
+    for key in foreign_keys:
+      payload = json.dumps({
+        "selector": {
+          "_id" : key
+        },
+        "execution_stats": True
+      })
+      response = requests.request("POST", url, headers=headers, data=payload)
+      resp = json.loads(response.text)
+      print(resp)
+      time += resp["execution_stats"]['execution_time_ms']
+    worksheet.write(get_rowNum[collection] + 1, get_colNum[ind] + 1, time)
+    print("join time: " )
+    print(str(time) + " ms") 
+  for ind in ind_b:
+      # select B.*
+      # from B
+      # where Bx='val'
+    simpleSelection(collection, ind, val)
+      # select A.*, B.*
+      # from A join B on (A.AK=B.BK)
+      # where Bx='val
+  ##################### TESTARE ##################################################
+  # join tra referencing_A_in_B (esterna) e A (interna)
+    url = "http://admin:admin@127.0.0.1:5984/" + "referencing_a_in_b" +"/_find"
+    payload = json.dumps({
+    "selector": {
+        ind : int(val)
+    },
+      "execution_stats": True
+      })
+    headers = {
+      'Content-Type': 'application/json'
+    }
+    time = 0
+    response = requests.request("POST", url, headers=headers, data=payload)
+    resp = json.loads(response.text)
+    time += resp["execution_stats"]['execution_time_ms']
+  ### qui dovrei prendere le chiavi di AK e per ognuna selezionare il doc di A
+    foreign_keys = [list(x.values())[0] for x in resp["docs"]]
+    url = "http://admin:admin@127.0.0.1:5984/" + "a" +"/_find"
+    for key in foreign_keys:
+      payload = json.dumps({
+        "selector": {
+          "_id" : key
+        },
+        "execution_stats": True
+      })
+      response = requests.request("POST", url, headers=headers, data=payload)
+      resp = json.loads(response.text)
+      print(resp)
+      time += resp["execution_stats"]['execution_time_ms']
+    worksheet.write(get_rowNum[collection] + 1, get_colNum[ind] + 1, time)
+    print("join time: " )
+    print(str(time) + " ms")
+############################# FINIRE CON EMBEDDING ##################
 
 
 

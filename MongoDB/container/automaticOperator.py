@@ -143,7 +143,7 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.AK)
         # where Ax='val'
-        query = ([{'$match' : { ind  : val } }, {'$unwind': {  'path': "$B"}},{'$lookup': {'from': 'referencing_A_in_B','localField': 'B','foreignField': '_id','as': 'B'}}])
+        query = ([{'$match' : { ind  : val } }, {'$unwind': {  'path': "$B"}},{'$lookup': {'from': 'referencing_A_in_B','localField': 'B','foreignField': 'BK','as': 'B'}}])
        # query = ([{
        #     '$match': {
        #         ind : val
