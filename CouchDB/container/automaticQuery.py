@@ -69,11 +69,17 @@ def queryRun(collection, ind, payload):
   response = requests.request("POST", url, headers=headers, data=payload)
 
   resp = json.loads(response.text)
+  check(resp)
   time += resp["execution_stats"]['execution_time_ms']
   # worksheet.write(get_rowNum[collection] + 1, get_colNum[ind] + 1, time)
   print("sel time: " )
   print(str(time) + " ms") 
   return time
+
+def check(p):
+  if p["execution_stats"]['results_returned'] == 0:
+    print("ERRROR")
+    exit(1)
 
 def simpleSelection(collection, ind, value):
   url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
@@ -90,10 +96,9 @@ def simpleSelection(collection, ind, value):
   headers = {
     'Content-Type': 'application/json'
   }
-  print(payload)
   response = requests.request("POST", url, headers=headers, data=payload)
-
   resp = json.loads(response.text)
+  check(resp)
   time += resp["execution_stats"]['execution_time_ms']
   # worksheet.write(get_rowNum[collection] + 1, get_colNum[ind] + 1, time)
   print("sel time: " )
@@ -142,7 +147,7 @@ def joinQuery(to_col, from_col, ind, value):
     })
     response = requests.request("POST", url, headers=headers, data=payload)
     resp = json.loads(response.text)
-    print(resp)
+    check(resp)
     time += resp["execution_stats"]['execution_time_ms']
   worksheet.write(get_rowNum[to_col] + 1, get_colNum[ind] + 1, time)
   print("join time: " )
@@ -190,6 +195,7 @@ def refBA():
     time = 0
     response = requests.request("POST", url, headers=headers, data=payload)
     resp = json.loads(response.text)
+    check(resp)
     time += resp["execution_stats"]['execution_time_ms']
     # print(resp["docs"])
     foreign_keys = [list(x.values())[10] for x in resp["docs"]]
@@ -204,6 +210,7 @@ def refBA():
           })
           response = requests.request("POST", url, headers=headers, data=payload)
           resp = json.loads(response.text)
+          check(resp)
           time += resp["execution_stats"]['execution_time_ms']
     worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, time)
     print("join time: " )
@@ -218,7 +225,7 @@ def refBA():
       # from A join B on (A.AK=B.BK)
       # where Bx='val
     print("index on B")
-    url = "http://admin:admin@127.0.0.1:5984/" + "referencing_a_in_b" +"/_find"
+    url = "http://admin:admin@127.0.0.1:5984/" + "b" +"/_find"
     payload = json.dumps({
     "selector": {
         ind : int(val)
@@ -243,6 +250,7 @@ def refBA():
     time = 0
     response = requests.request("POST", url, headers=headers, data=payload)
     resp = json.loads(response.text)
+    check(resp)
     time += resp["execution_stats"]['execution_time_ms']
     foreign_keys = [str(list(x.values())[2]) for x in resp["docs"]]
     url = "http://admin:admin@127.0.0.1:5984/referencing_a_in_b/_find"
@@ -254,6 +262,7 @@ def refBA():
         "execution_stats": True
       })
       response = requests.request("POST", url, headers=headers, data=payload)
+      check(resp)
       resp = json.loads(response.text)
       time += resp["execution_stats"]['execution_time_ms']
     worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, time)
@@ -272,7 +281,7 @@ def refAB():
       # select A.*, B.*
       # from A join B on (A.AK=B.AK)
       # where Ax='val'
-    url = "http://admin:admin@127.0.0.1:5984/" + "referencing_b_in_a" +"/_find"
+    url = "http://admin:admin@127.0.0.1:5984/" + "a" +"/_find"
     payload = json.dumps({
     "selector": {
        ind : int(val)
@@ -297,22 +306,22 @@ def refAB():
     time = 0
     response = requests.request("POST", url, headers=headers, data=payload)
     resp = json.loads(response.text)
+    check(resp)
     time += resp["execution_stats"]['execution_time_ms']
 ##################### TESTARE ##################################################
-  ### qui dovrei prendere le chiavi di AK e per ognuna selezionare il doc del refAB
-    foreign_keys = [list(x.values())[10] for x in resp["docs"]]
+    foreign_keys = [list(x.values())[2] for x in resp["docs"]]
     url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
-    for lis in foreign_keys:
-      for key in lis:
-        payload = json.dumps({
-          "selector": {
-            "_id" : str(key)
-          },
-          "execution_stats": True
-        })
-        response = requests.request("POST", url, headers=headers, data=payload)
-        resp = json.loads(response.text)
-        time += resp["execution_stats"]['execution_time_ms']
+    for key in foreign_keys:
+      payload = json.dumps({
+        "selector": {
+          "_id" : str(key)
+        },
+        "execution_stats": True
+      })
+      response = requests.request("POST", url, headers=headers, data=payload)
+      resp = json.loads(response.text)
+      check(resp)
+      time += resp["execution_stats"]['execution_time_ms']
     worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, time)
     print("join time: " )
     print(str(time) + " ms") 
@@ -327,7 +336,7 @@ def refAB():
       # where Bx='val
   ##################### TESTARE ##################################################
   # join tra referencing_A_in_B (esterna) e A (interna)
-    url = "http://admin:admin@127.0.0.1:5984/" + "a" +"/_find"
+    url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
     payload = json.dumps({
     "selector": {
         ind : int(val)
@@ -340,10 +349,11 @@ def refAB():
     time = 0
     response = requests.request("POST", url, headers=headers, data=payload)
     resp = json.loads(response.text)
+    check(resp)
     time += resp["execution_stats"]['execution_time_ms']
   ### qui dovrei prendere le chiavi di AK e per ognuna selezionare il doc di A
-    foreign_keys = [list(x.values())[2] for x in resp["docs"]]
-    url = "http://admin:admin@127.0.0.1:5984/" + "referencing_b_in_a" +"/_find"
+    foreign_keys = [list(x.values())[3] for x in resp["docs"]]
+    url = "http://admin:admin@127.0.0.1:5984/" + "a" +"/_find"
     for key in foreign_keys:
       payload = json.dumps({
         "selector": {
@@ -353,6 +363,7 @@ def refAB():
       })
       response = requests.request("POST", url, headers=headers, data=payload)
       resp = json.loads(response.text)
+      check(resp)
       time += resp["execution_stats"]['execution_time_ms']
     worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, time)
     print("join time: " )
@@ -433,8 +444,72 @@ if __name__ == "__main__":
     t = queryRun(collection, ind, payload)  
     worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
 
+  collection = "embedding_a_in_b"
+  for ind in ind_a:
+      # select A.*
+      # from A
+      # where Ax='val'
+      payload = json.dumps({
+   "selector": {
+      "A": {
+         "$elemMatch": {
+            ind : int(val)
+         }
+      }
+   },
+      "fields": [
+          "A"
+      ],
+      "execution_stats": True
+    })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+      # select A.*, B.*
+      # from A join B on (A.AK=B.AK)
+      # where Ax='val'
+      payload = json.dumps({
+   "selector": {
+      "A": {
+         "$elemMatch": {
+            ind : int(val)
+         }
+      }
+   },
+      "execution_stats": True
+    })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+  for ind in ind_b:
+      # select B.*
+      # from B
+      # where Bx='val'
+    payload = json.dumps({
+   "selector": {
+      ind : int(val) 
+      },
+      "fields": [
+          "_id",
+          "BK",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7"
+      ],
+      "execution_stats": True
+    })
+    t = queryRun(collection, ind, payload) 
+    worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+    ########################################################################################## fin qua
+      # select A.*, B.*
+      # from A join B on (A.AK=B.BK)
+      # where Bx='val
+    t = simpleSelection(collection, ind, payload)  
+    worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+
   workbook.close() 
-############################# FINIRE CON EMBEDDING AB ##################
 
 
 
