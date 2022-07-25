@@ -76,3 +76,13 @@ tramite postman sono in grado di effettuare delle query con l'uso di POST e GET
 
 esiste l'immagine su docker hub di [couchDB](https://hub.docker.com/_/couchdb), in questo modo si potrebbe poter limitare l'uso di cache (?)
 attraverso docker potrebbe essere facile poter creare un cluster.
+
+
+
+
+## NO CACHE 
+
+ docker-compose rm --all &&
+ docker-compose pull &&
+ docker-compose build --no-cache &&
+ docker-compose up -d --force-recreate 
