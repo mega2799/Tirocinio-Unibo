@@ -1,0 +1,25 @@
+// MongoDB Playground
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+const database = 'tirocinio';
+
+// The current database to use.
+use(database);
+
+db.A.aggregate([
+  {
+    $project: {
+      "_id" : "$AK",
+      "AK" : "$AK",
+      "A1" : "$A1", 
+      "A2" : "$A2", 
+      "A3" : "$A3", 
+      "A4" : "$A4",
+      "A5" : "$A5",
+      "A6" : "$A6",
+      "A7" : "$A7",
+    }
+  },{
+    $out: "betterA"
+  }
+])
