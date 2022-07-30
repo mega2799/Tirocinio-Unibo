@@ -45,7 +45,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10,
-                    "executionTimeMillis": 2,
+                    "executionTimeMillis": 1,
                     "totalKeysExamined": 10,
                     "totalDocsExamined": 10,
                     "executionStages": {
@@ -115,7 +115,7 @@
                 "AK_1"
             ],
             "nReturned": 10,
-            "executionTimeMillisEstimate": 2
+            "executionTimeMillisEstimate": 1
         },
         {
             "$project": {
@@ -126,14 +126,14 @@
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 2
+            "executionTimeMillisEstimate": 1
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 2
+            "executionTimeMillisEstimate": 1
         }
     ],
     "serverInfo": {

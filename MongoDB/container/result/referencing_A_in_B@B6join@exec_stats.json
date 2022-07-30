@@ -45,32 +45,32 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 11896,
+                    "executionTimeMillis": 3177,
                     "totalKeysExamined": 100000,
                     "totalDocsExamined": 100000,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 304,
+                        "executionTimeMillisEstimate": 375,
                         "works": 100001,
                         "advanced": 100000,
                         "needTime": 0,
                         "needYield": 0,
-                        "saveState": 141,
-                        "restoreState": 141,
+                        "saveState": 142,
+                        "restoreState": 142,
                         "isEOF": 1,
                         "docsExamined": 100000,
                         "alreadyHasObj": 0,
                         "inputStage": {
                             "stage": "IXSCAN",
                             "nReturned": 100000,
-                            "executionTimeMillisEstimate": 15,
+                            "executionTimeMillisEstimate": 34,
                             "works": 100001,
                             "advanced": 100000,
                             "needTime": 0,
                             "needYield": 0,
-                            "saveState": 141,
-                            "restoreState": 141,
+                            "saveState": 142,
+                            "restoreState": 142,
                             "isEOF": 1,
                             "keyPattern": {
                                 "B6": 1
@@ -99,7 +99,7 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 685
+            "executionTimeMillisEstimate": 725
         },
         {
             "$lookup": {
@@ -108,14 +108,12 @@
                 "localField": "AK",
                 "foreignField": "AK"
             },
-            "totalDocsExamined": 100000,
-            "totalKeysExamined": 100000,
+            "totalDocsExamined": 0,
+            "totalKeysExamined": 0,
             "collectionScans": 0,
-            "indexesUsed": [
-                "AK_1"
-            ],
+            "indexesUsed": [],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11871
+            "executionTimeMillisEstimate": 3177
         },
         {
             "$project": {
@@ -125,14 +123,14 @@
                 "_id": true
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11884
+            "executionTimeMillisEstimate": 3177
         },
         {
             "$unwind": {
                 "path": "$A"
             },
-            "nReturned": 100000,
-            "executionTimeMillisEstimate": 11886
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 3177
         }
     ],
     "serverInfo": {

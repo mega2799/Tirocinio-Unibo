@@ -45,7 +45,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10000,
-                    "executionTimeMillis": 446,
+                    "executionTimeMillis": 426,
                     "totalKeysExamined": 10000,
                     "totalDocsExamined": 10000,
                     "executionStages": {
@@ -56,8 +56,8 @@
                         "advanced": 10000,
                         "needTime": 0,
                         "needYield": 0,
-                        "saveState": 56,
-                        "restoreState": 56,
+                        "saveState": 55,
+                        "restoreState": 55,
                         "isEOF": 1,
                         "docsExamined": 10000,
                         "alreadyHasObj": 0,
@@ -69,8 +69,8 @@
                             "advanced": 10000,
                             "needTime": 0,
                             "needYield": 0,
-                            "saveState": 56,
-                            "restoreState": 56,
+                            "saveState": 55,
+                            "restoreState": 55,
                             "isEOF": 1,
                             "keyPattern": {
                                 "A6": 1
@@ -99,7 +99,7 @@
                 }
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 375
+            "executionTimeMillisEstimate": 374
         },
         {
             "$project": {
@@ -107,7 +107,7 @@
                 "_id": true
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 430
+            "executionTimeMillisEstimate": 407
         }
     ],
     "serverInfo": {

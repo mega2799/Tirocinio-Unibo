@@ -45,13 +45,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100,
-                    "executionTimeMillis": 108,
+                    "executionTimeMillis": 123,
                     "totalKeysExamined": 100,
                     "totalDocsExamined": 100,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 100,
-                        "executionTimeMillisEstimate": 5,
+                        "executionTimeMillisEstimate": 7,
                         "works": 101,
                         "advanced": 100,
                         "needTime": 0,
@@ -99,30 +99,30 @@
                 }
             },
             "nReturned": 100,
-            "executionTimeMillisEstimate": 5
+            "executionTimeMillisEstimate": 7
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 5
+            "executionTimeMillisEstimate": 7
         },
         {
             "$lookup": {
                 "from": "referencing_A_in_B",
                 "as": "B",
                 "localField": "B",
-                "foreignField": "_id"
+                "foreignField": "BK"
             },
             "totalDocsExamined": 1000,
             "totalKeysExamined": 1000,
             "collectionScans": 0,
             "indexesUsed": [
-                "_id_"
+                "BK_1"
             ],
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 108
+            "executionTimeMillisEstimate": 124
         }
     ],
     "serverInfo": {
@@ -158,7 +158,7 @@
                 "$lookup": {
                     "from": "referencing_A_in_B",
                     "localField": "B",
-                    "foreignField": "_id",
+                    "foreignField": "BK",
                     "as": "B"
                 }
             }

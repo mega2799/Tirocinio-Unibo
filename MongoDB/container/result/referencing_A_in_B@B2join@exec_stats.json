@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 1000,
-                    "executionTimeMillis": 1728,
+                    "executionTimeMillis": 1449,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 1000000,
                     "executionStages": {
@@ -41,7 +41,7 @@
                             }
                         },
                         "nReturned": 1000,
-                        "executionTimeMillisEstimate": 209,
+                        "executionTimeMillisEstimate": 188,
                         "works": 1000002,
                         "advanced": 1000,
                         "needTime": 999001,
@@ -55,7 +55,7 @@
                 }
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1564
+            "executionTimeMillisEstimate": 1422
         },
         {
             "$lookup": {
@@ -64,14 +64,12 @@
                 "localField": "AK",
                 "foreignField": "AK"
             },
-            "totalDocsExamined": 1000,
-            "totalKeysExamined": 1000,
+            "totalDocsExamined": 0,
+            "totalKeysExamined": 0,
             "collectionScans": 0,
-            "indexesUsed": [
-                "AK_1"
-            ],
+            "indexesUsed": [],
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1728
+            "executionTimeMillisEstimate": 1448
         },
         {
             "$project": {
@@ -81,14 +79,14 @@
                 "_id": true
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1728
+            "executionTimeMillisEstimate": 1448
         },
         {
             "$unwind": {
                 "path": "$A"
             },
-            "nReturned": 1000,
-            "executionTimeMillisEstimate": 1728
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1448
         }
     ],
     "serverInfo": {

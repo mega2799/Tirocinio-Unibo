@@ -1,7 +1,7 @@
 {
     "explainVersion": "1",
     "queryPlanner": {
-        "namespace": "tirocinio.A",
+        "namespace": "tirocinio.Ap",
         "indexFilterSet": false,
         "parsedQuery": {
             "A5": {
@@ -13,88 +13,44 @@
         "maxIndexedAndSolutionsReached": false,
         "maxScansToExplodeReached": false,
         "winningPlan": {
-            "stage": "FETCH",
-            "inputStage": {
-                "stage": "IXSCAN",
-                "keyPattern": {
-                    "A5": 1
-                },
-                "indexName": "A5_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "A5": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "A5": [
-                        "[8, 8]"
-                    ]
+            "stage": "COLLSCAN",
+            "filter": {
+                "A5": {
+                    "$eq": 8
                 }
-            }
+            },
+            "direction": "forward"
         },
         "rejectedPlans": []
     },
     "executionStats": {
         "executionSuccess": true,
         "nReturned": 100,
-        "executionTimeMillis": 21,
-        "totalKeysExamined": 100,
-        "totalDocsExamined": 100,
+        "executionTimeMillis": 125,
+        "totalKeysExamined": 0,
+        "totalDocsExamined": 100000,
         "executionStages": {
-            "stage": "FETCH",
+            "stage": "COLLSCAN",
+            "filter": {
+                "A5": {
+                    "$eq": 8
+                }
+            },
             "nReturned": 100,
             "executionTimeMillisEstimate": 15,
-            "works": 101,
+            "works": 100002,
             "advanced": 100,
-            "needTime": 0,
+            "needTime": 99901,
             "needYield": 0,
-            "saveState": 1,
-            "restoreState": 1,
+            "saveState": 100,
+            "restoreState": 100,
             "isEOF": 1,
-            "docsExamined": 100,
-            "alreadyHasObj": 0,
-            "inputStage": {
-                "stage": "IXSCAN",
-                "nReturned": 100,
-                "executionTimeMillisEstimate": 0,
-                "works": 101,
-                "advanced": 100,
-                "needTime": 0,
-                "needYield": 0,
-                "saveState": 1,
-                "restoreState": 1,
-                "isEOF": 1,
-                "keyPattern": {
-                    "A5": 1
-                },
-                "indexName": "A5_1",
-                "isMultiKey": false,
-                "multiKeyPaths": {
-                    "A5": []
-                },
-                "isUnique": false,
-                "isSparse": false,
-                "isPartial": false,
-                "indexVersion": 2,
-                "direction": "forward",
-                "indexBounds": {
-                    "A5": [
-                        "[8, 8]"
-                    ]
-                },
-                "keysExamined": 100,
-                "seeks": 1,
-                "dupsTested": 0,
-                "dupsDropped": 0
-            }
+            "direction": "forward",
+            "docsExamined": 100000
         }
     },
     "command": {
-        "aggregate": "A",
+        "aggregate": "Ap",
         "pipeline": [
             {
                 "$match": {

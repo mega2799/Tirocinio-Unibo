@@ -12,57 +12,105 @@
                         }
                     },
                     "queryHash": "E3CCE1EA",
-                    "planCacheKey": "6E3DD660",
+                    "planCacheKey": "92482ABD",
                     "maxIndexedOrSolutionsReached": false,
                     "maxIndexedAndSolutionsReached": false,
                     "maxScansToExplodeReached": false,
                     "winningPlan": {
-                        "stage": "COLLSCAN",
-                        "filter": {
-                            "B.B5": {
-                                "$eq": 8
+                        "stage": "FETCH",
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "keyPattern": {
+                                "B.B5": 1
+                            },
+                            "indexName": "B.B5_1",
+                            "isMultiKey": true,
+                            "multiKeyPaths": {
+                                "B.B5": [
+                                    "B"
+                                ]
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "B.B5": [
+                                    "[8, 8]"
+                                ]
                             }
-                        },
-                        "direction": "forward"
+                        }
                     },
                     "rejectedPlans": []
                 },
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 1000,
-                    "executionTimeMillis": 1267,
-                    "totalKeysExamined": 0,
-                    "totalDocsExamined": 100000,
+                    "executionTimeMillis": 53,
+                    "totalKeysExamined": 1000,
+                    "totalDocsExamined": 1000,
                     "executionStages": {
-                        "stage": "COLLSCAN",
-                        "filter": {
-                            "B.B5": {
-                                "$eq": 8
-                            }
-                        },
+                        "stage": "FETCH",
                         "nReturned": 1000,
-                        "executionTimeMillisEstimate": 820,
-                        "works": 100002,
+                        "executionTimeMillisEstimate": 13,
+                        "works": 1001,
                         "advanced": 1000,
-                        "needTime": 99001,
+                        "needTime": 0,
                         "needYield": 0,
-                        "saveState": 107,
-                        "restoreState": 107,
+                        "saveState": 5,
+                        "restoreState": 5,
                         "isEOF": 1,
-                        "direction": "forward",
-                        "docsExamined": 100000
+                        "docsExamined": 1000,
+                        "alreadyHasObj": 0,
+                        "inputStage": {
+                            "stage": "IXSCAN",
+                            "nReturned": 1000,
+                            "executionTimeMillisEstimate": 0,
+                            "works": 1001,
+                            "advanced": 1000,
+                            "needTime": 0,
+                            "needYield": 0,
+                            "saveState": 5,
+                            "restoreState": 5,
+                            "isEOF": 1,
+                            "keyPattern": {
+                                "B.B5": 1
+                            },
+                            "indexName": "B.B5_1",
+                            "isMultiKey": true,
+                            "multiKeyPaths": {
+                                "B.B5": [
+                                    "B"
+                                ]
+                            },
+                            "isUnique": false,
+                            "isSparse": false,
+                            "isPartial": false,
+                            "indexVersion": 2,
+                            "direction": "forward",
+                            "indexBounds": {
+                                "B.B5": [
+                                    "[8, 8]"
+                                ]
+                            },
+                            "keysExamined": 1000,
+                            "seeks": 1,
+                            "dupsTested": 1000,
+                            "dupsDropped": 0
+                        }
                     }
                 }
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1251
+            "executionTimeMillisEstimate": 20
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 1252
+            "executionTimeMillisEstimate": 20
         },
         {
             "$match": {
@@ -71,7 +119,7 @@
                 }
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 1259
+            "executionTimeMillisEstimate": 50
         }
     ],
     "serverInfo": {

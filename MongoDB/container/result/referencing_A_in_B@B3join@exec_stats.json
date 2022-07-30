@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 12948,
+                    "executionTimeMillis": 3827,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 1000000,
                     "executionStages": {
@@ -41,7 +41,7 @@
                             }
                         },
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 183,
+                        "executionTimeMillisEstimate": 191,
                         "works": 1000002,
                         "advanced": 100000,
                         "needTime": 900001,
@@ -55,7 +55,7 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 1576
+            "executionTimeMillisEstimate": 1503
         },
         {
             "$lookup": {
@@ -64,14 +64,12 @@
                 "localField": "AK",
                 "foreignField": "AK"
             },
-            "totalDocsExamined": 100000,
-            "totalKeysExamined": 100000,
+            "totalDocsExamined": 0,
+            "totalKeysExamined": 0,
             "collectionScans": 0,
-            "indexesUsed": [
-                "AK_1"
-            ],
+            "indexesUsed": [],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 12936
+            "executionTimeMillisEstimate": 3828
         },
         {
             "$project": {
@@ -81,14 +79,14 @@
                 "_id": true
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 12942
+            "executionTimeMillisEstimate": 3828
         },
         {
             "$unwind": {
                 "path": "$A"
             },
-            "nReturned": 100000,
-            "executionTimeMillisEstimate": 12942
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 3828
         }
     ],
     "serverInfo": {
