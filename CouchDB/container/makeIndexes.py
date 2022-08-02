@@ -69,7 +69,7 @@ payload = json.dumps({
       "BK"
     ]
   },
-  "name": "AK" + "-index",
+  "name": "BK" + "-index",
   "type": "json"
 })
 headers = {

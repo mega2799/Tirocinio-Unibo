@@ -16,10 +16,7 @@ colls = []
 indexes = []
 
 get_rowNum = {'embedding_A_in_B' : 0,'embedding_B_in_A' : 1,'referencing_B_in_A' : 2,'referencing_A_in_B' : 3}
-get_colNum = {
-    'A1' : 0,'A2' : 1,'A3' : 2,'A4' : 3, 'A5' : 4, 'A6' : 5, 'B1' : 6,'B2' : 7,'B3' : 8,'B4' : 9, 'B5' : 10, 'B6' : 11, 
-    'A1join' : 12,'A2join' : 13,'A3join' : 14,'A4join' : 15, 'A5join' : 16, 'A6join' : 17, 'B1join' : 18,'B2join' : 19,'B3join' : 20,'B4join' : 21, 'B5join' : 22, 'B6join' : 23
-}
+get_colNum = {'A0' : 0,'A1' : 1,'A2' : 2,'A3' : 3,'A4' : 4,'A5' : 5,'A6' : 6,'B0' : 6,'B1' : 7,'B2' : 8,'B3' : 9,'B4' : 10,'B5' : 11,'B6' : 12,'A0join' : 12,'A1join' : 13,'A2join' : 14,'A3join' : 15,'A4join' : 16,'A5join' : 17,'A6join' : 18,'B0join' : 18,'B1join' : 19,'B2join' : 20,'B3join' : 21,'B4join' : 22,'B5join' : 23,'B6join' : 24}
 
 
 files = os.listdir("../result/")
@@ -33,30 +30,34 @@ worksheet.set_column(2, 2, 20)
 worksheet.set_column(3, 3, 20)
 worksheet.set_column(4, 4, 20)
 
-worksheet.write_string('A2', 'A1', bold)
-worksheet.write_string('A3', 'A2', bold)
-worksheet.write_string('A4', 'A3', bold)
-worksheet.write_string('A5', 'A4', bold)
-worksheet.write_string('A6', 'A5', bold)
-worksheet.write_string('A7', 'A6', bold)
-worksheet.write_string('A8', 'B1', bold)
-worksheet.write_string('A9', 'B2', bold)
-worksheet.write_string('A10', 'B3', bold)
-worksheet.write_string('A11', 'B4', bold)
-worksheet.write_string('A12', 'B5', bold)
-worksheet.write_string('A13', 'B6', bold)
-worksheet.write_string('A14' , 'A1j', bold)
-worksheet.write_string('A15' , 'A2j', bold)
-worksheet.write_string('A16' , 'A3j', bold)
-worksheet.write_string('A17' , 'A4j', bold)
-worksheet.write_string('A18' , 'A5j', bold)
-worksheet.write_string('A19' , 'A6j', bold)
-worksheet.write_string('A20' , 'B1j', bold)
-worksheet.write_string('A21' , 'B2j', bold)
-worksheet.write_string('A22' , 'B3j', bold)
-worksheet.write_string('A23' , 'B4j', bold)
-worksheet.write_string('A24' , 'B5j', bold)
-worksheet.write_string('A25' , 'B6j', bold)
+worksheet.write_string('A2', 'A0', bold)
+worksheet.write_string('A3', 'A1', bold)
+worksheet.write_string('A4', 'A2', bold)
+worksheet.write_string('A5', 'A3', bold)
+worksheet.write_string('A6', 'A4', bold)
+worksheet.write_string('A7', 'A5', bold)
+worksheet.write_string('A8', 'A6', bold)
+worksheet.write_string('A9', 'B0', bold)
+worksheet.write_string('A10', 'B1', bold)
+worksheet.write_string('A11', 'B2', bold)
+worksheet.write_string('A12', 'B3', bold)
+worksheet.write_string('A13', 'B4', bold)
+worksheet.write_string('A14', 'B5', bold)
+worksheet.write_string('A15', 'B6', bold)
+worksheet.write_string('A16' , 'A0j', bold)
+worksheet.write_string('A17' , 'A1j', bold)
+worksheet.write_string('A18' , 'A2j', bold)
+worksheet.write_string('A19' , 'A3j', bold)
+worksheet.write_string('A20' , 'A4j', bold)
+worksheet.write_string('A21' , 'A5j', bold)
+worksheet.write_string('A22' , 'A6j', bold)
+worksheet.write_string('A23' , 'B0j', bold)
+worksheet.write_string('A24' , 'B1j', bold)
+worksheet.write_string('A25' , 'B2j', bold)
+worksheet.write_string('A26' , 'B3j', bold)
+worksheet.write_string('A27' , 'B4j', bold)
+worksheet.write_string('A28' , 'B5j', bold)
+worksheet.write_string('A29' , 'B6j', bold)
 
 
 
