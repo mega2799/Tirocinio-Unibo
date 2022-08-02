@@ -2,3 +2,4 @@
 *.sql
 Oracle/A.csv
 Oracle/B.csv
+CouchDB/container/dbdata/* 
