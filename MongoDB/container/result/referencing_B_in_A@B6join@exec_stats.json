@@ -45,32 +45,32 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 11478,
+                    "executionTimeMillis": 11310,
                     "totalKeysExamined": 100000,
                     "totalDocsExamined": 100000,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 569,
+                        "executionTimeMillisEstimate": 316,
                         "works": 100001,
                         "advanced": 100000,
                         "needTime": 0,
                         "needYield": 0,
-                        "saveState": 152,
-                        "restoreState": 152,
+                        "saveState": 141,
+                        "restoreState": 141,
                         "isEOF": 1,
                         "docsExamined": 100000,
                         "alreadyHasObj": 0,
                         "inputStage": {
                             "stage": "IXSCAN",
                             "nReturned": 100000,
-                            "executionTimeMillisEstimate": 54,
+                            "executionTimeMillisEstimate": 35,
                             "works": 100001,
                             "advanced": 100000,
                             "needTime": 0,
                             "needYield": 0,
-                            "saveState": 152,
-                            "restoreState": 152,
+                            "saveState": 141,
+                            "restoreState": 141,
                             "isEOF": 1,
                             "keyPattern": {
                                 "B6": 1
@@ -99,7 +99,7 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 1049
+            "executionTimeMillisEstimate": 705
         },
         {
             "$lookup": {
@@ -115,7 +115,7 @@
                 "AK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11477
+            "executionTimeMillisEstimate": 11304
         },
         {
             "$project": {
@@ -126,14 +126,14 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11478
+            "executionTimeMillisEstimate": 11308
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11478
+            "executionTimeMillisEstimate": 11308
         }
     ],
     "serverInfo": {

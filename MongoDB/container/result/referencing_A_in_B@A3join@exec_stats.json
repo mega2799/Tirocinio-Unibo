@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10000,
-                    "executionTimeMillis": 12460,
+                    "executionTimeMillis": 12094,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 100000,
                     "executionStages": {
@@ -41,7 +41,7 @@
                             }
                         },
                         "nReturned": 10000,
-                        "executionTimeMillisEstimate": 42,
+                        "executionTimeMillisEstimate": 20,
                         "works": 100002,
                         "advanced": 10000,
                         "needTime": 90001,
@@ -55,30 +55,30 @@
                 }
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 207
+            "executionTimeMillisEstimate": 178
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 207
+            "executionTimeMillisEstimate": 178
         },
         {
             "$lookup": {
                 "from": "referencing_A_in_B",
                 "as": "B",
                 "localField": "B",
-                "foreignField": "_id"
+                "foreignField": "BK"
             },
             "totalDocsExamined": 100000,
             "totalKeysExamined": 100000,
             "collectionScans": 0,
             "indexesUsed": [
-                "_id_"
+                "BK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 12450
+            "executionTimeMillisEstimate": 12091
         }
     ],
     "serverInfo": {
@@ -114,7 +114,7 @@
                 "$lookup": {
                     "from": "referencing_A_in_B",
                     "localField": "B",
-                    "foreignField": "_id",
+                    "foreignField": "BK",
                     "as": "B"
                 }
             }

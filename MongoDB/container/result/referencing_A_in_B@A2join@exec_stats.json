@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100,
-                    "executionTimeMillis": 452,
+                    "executionTimeMillis": 405,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 100000,
                     "executionStages": {
@@ -41,7 +41,7 @@
                             }
                         },
                         "nReturned": 100,
-                        "executionTimeMillisEstimate": 15,
+                        "executionTimeMillisEstimate": 17,
                         "works": 100002,
                         "advanced": 100,
                         "needTime": 99901,
@@ -55,30 +55,30 @@
                 }
             },
             "nReturned": 100,
-            "executionTimeMillisEstimate": 137
+            "executionTimeMillisEstimate": 136
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 137
+            "executionTimeMillisEstimate": 136
         },
         {
             "$lookup": {
                 "from": "referencing_A_in_B",
                 "as": "B",
                 "localField": "B",
-                "foreignField": "_id"
+                "foreignField": "BK"
             },
             "totalDocsExamined": 1000,
             "totalKeysExamined": 1000,
             "collectionScans": 0,
             "indexesUsed": [
-                "_id_"
+                "BK_1"
             ],
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 451
+            "executionTimeMillisEstimate": 404
         }
     ],
     "serverInfo": {
@@ -114,7 +114,7 @@
                 "$lookup": {
                     "from": "referencing_A_in_B",
                     "localField": "B",
-                    "foreignField": "_id",
+                    "foreignField": "BK",
                     "as": "B"
                 }
             }

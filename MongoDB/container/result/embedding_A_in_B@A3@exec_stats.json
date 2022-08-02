@@ -37,19 +37,19 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 2879,
+                    "executionTimeMillis": 2966,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 1000000,
                     "executionStages": {
                         "stage": "PROJECTION_SIMPLE",
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 485,
+                        "executionTimeMillisEstimate": 566,
                         "works": 1000002,
                         "advanced": 100000,
                         "needTime": 900001,
                         "needYield": 0,
-                        "saveState": 1029,
-                        "restoreState": 1029,
+                        "saveState": 1030,
+                        "restoreState": 1030,
                         "isEOF": 1,
                         "transformBy": {
                             "A": true,
@@ -63,13 +63,13 @@
                                 }
                             },
                             "nReturned": 100000,
-                            "executionTimeMillisEstimate": 460,
+                            "executionTimeMillisEstimate": 527,
                             "works": 1000002,
                             "advanced": 100000,
                             "needTime": 900001,
                             "needYield": 0,
-                            "saveState": 1029,
-                            "restoreState": 1029,
+                            "saveState": 1030,
+                            "restoreState": 1030,
                             "isEOF": 1,
                             "direction": "forward",
                             "docsExamined": 1000000
@@ -78,14 +78,14 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 2780
+            "executionTimeMillisEstimate": 2860
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 2834
+            "executionTimeMillisEstimate": 2929
         }
     ],
     "serverInfo": {

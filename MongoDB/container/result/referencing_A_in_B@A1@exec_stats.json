@@ -1,7 +1,7 @@
 {
     "explainVersion": "1",
     "queryPlanner": {
-        "namespace": "tirocinio.A",
+        "namespace": "tirocinio.Ap",
         "indexFilterSet": false,
         "parsedQuery": {
             "A1": {
@@ -26,7 +26,7 @@
     "executionStats": {
         "executionSuccess": true,
         "nReturned": 10,
-        "executionTimeMillis": 179,
+        "executionTimeMillis": 174,
         "totalKeysExamined": 0,
         "totalDocsExamined": 100000,
         "executionStages": {
@@ -37,7 +37,7 @@
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 34,
+            "executionTimeMillisEstimate": 36,
             "works": 100002,
             "advanced": 10,
             "needTime": 99991,
@@ -50,7 +50,7 @@
         }
     },
     "command": {
-        "aggregate": "A",
+        "aggregate": "Ap",
         "pipeline": [
             {
                 "$match": {

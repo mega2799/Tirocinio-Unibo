@@ -45,7 +45,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10,
-                    "executionTimeMillis": 2,
+                    "executionTimeMillis": 1,
                     "totalKeysExamined": 10,
                     "totalDocsExamined": 10,
                     "executionStages": {
@@ -108,14 +108,12 @@
                 "localField": "AK",
                 "foreignField": "AK"
             },
-            "totalDocsExamined": 10,
-            "totalKeysExamined": 10,
+            "totalDocsExamined": 0,
+            "totalKeysExamined": 0,
             "collectionScans": 0,
-            "indexesUsed": [
-                "AK_1"
-            ],
+            "indexesUsed": [],
             "nReturned": 10,
-            "executionTimeMillisEstimate": 2
+            "executionTimeMillisEstimate": 1
         },
         {
             "$project": {
@@ -125,14 +123,14 @@
                 "_id": true
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 2
+            "executionTimeMillisEstimate": 1
         },
         {
             "$unwind": {
                 "path": "$A"
             },
-            "nReturned": 10,
-            "executionTimeMillisEstimate": 2
+            "nReturned": 0,
+            "executionTimeMillisEstimate": 1
         }
     ],
     "serverInfo": {

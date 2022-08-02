@@ -45,13 +45,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10000,
-                    "executionTimeMillis": 11736,
+                    "executionTimeMillis": 11593,
                     "totalKeysExamined": 10000,
                     "totalDocsExamined": 10000,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 10000,
-                        "executionTimeMillisEstimate": 58,
+                        "executionTimeMillisEstimate": 53,
                         "works": 10001,
                         "advanced": 10000,
                         "needTime": 0,
@@ -64,7 +64,7 @@
                         "inputStage": {
                             "stage": "IXSCAN",
                             "nReturned": 10000,
-                            "executionTimeMillisEstimate": 0,
+                            "executionTimeMillisEstimate": 7,
                             "works": 10001,
                             "advanced": 10000,
                             "needTime": 0,
@@ -99,14 +99,14 @@
                 }
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 97
+            "executionTimeMillisEstimate": 71
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 98
+            "executionTimeMillisEstimate": 72
         },
         {
             "$lookup": {
@@ -125,7 +125,7 @@
                 "BK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11726
+            "executionTimeMillisEstimate": 11577
         },
         {
             "$project": {
@@ -135,7 +135,7 @@
                 "_id": true
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11731
+            "executionTimeMillisEstimate": 11586
         }
     ],
     "serverInfo": {

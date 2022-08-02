@@ -12,7 +12,7 @@
                         }
                     },
                     "queryHash": "225DE580",
-                    "planCacheKey": "2319BF86",
+                    "planCacheKey": "11E43DB6",
                     "maxIndexedOrSolutionsReached": false,
                     "maxIndexedAndSolutionsReached": false,
                     "maxScansToExplodeReached": false,
@@ -23,13 +23,30 @@
                             "_id": 0
                         },
                         "inputStage": {
-                            "stage": "COLLSCAN",
-                            "filter": {
-                                "B.B4": {
-                                    "$eq": 8
+                            "stage": "FETCH",
+                            "inputStage": {
+                                "stage": "IXSCAN",
+                                "keyPattern": {
+                                    "B.B4": 1
+                                },
+                                "indexName": "B.B4_1",
+                                "isMultiKey": true,
+                                "multiKeyPaths": {
+                                    "B.B4": [
+                                        "B"
+                                    ]
+                                },
+                                "isUnique": false,
+                                "isSparse": false,
+                                "isPartial": false,
+                                "indexVersion": 2,
+                                "direction": "forward",
+                                "indexBounds": {
+                                    "B.B4": [
+                                        "[8, 8]"
+                                    ]
                                 }
-                            },
-                            "direction": "forward"
+                            }
                         }
                     },
                     "rejectedPlans": []
@@ -37,55 +54,86 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10,
-                    "executionTimeMillis": 1127,
-                    "totalKeysExamined": 0,
-                    "totalDocsExamined": 100000,
+                    "executionTimeMillis": 11,
+                    "totalKeysExamined": 10,
+                    "totalDocsExamined": 10,
                     "executionStages": {
                         "stage": "PROJECTION_SIMPLE",
                         "nReturned": 10,
-                        "executionTimeMillisEstimate": 699,
-                        "works": 100002,
+                        "executionTimeMillisEstimate": 1,
+                        "works": 11,
                         "advanced": 10,
-                        "needTime": 99991,
+                        "needTime": 0,
                         "needYield": 0,
-                        "saveState": 102,
-                        "restoreState": 102,
+                        "saveState": 1,
+                        "restoreState": 1,
                         "isEOF": 1,
                         "transformBy": {
                             "B": 1,
                             "_id": 0
                         },
                         "inputStage": {
-                            "stage": "COLLSCAN",
-                            "filter": {
-                                "B.B4": {
-                                    "$eq": 8
-                                }
-                            },
+                            "stage": "FETCH",
                             "nReturned": 10,
-                            "executionTimeMillisEstimate": 699,
-                            "works": 100002,
+                            "executionTimeMillisEstimate": 1,
+                            "works": 11,
                             "advanced": 10,
-                            "needTime": 99991,
+                            "needTime": 0,
                             "needYield": 0,
-                            "saveState": 102,
-                            "restoreState": 102,
+                            "saveState": 1,
+                            "restoreState": 1,
                             "isEOF": 1,
-                            "direction": "forward",
-                            "docsExamined": 100000
+                            "docsExamined": 10,
+                            "alreadyHasObj": 0,
+                            "inputStage": {
+                                "stage": "IXSCAN",
+                                "nReturned": 10,
+                                "executionTimeMillisEstimate": 1,
+                                "works": 11,
+                                "advanced": 10,
+                                "needTime": 0,
+                                "needYield": 0,
+                                "saveState": 1,
+                                "restoreState": 1,
+                                "isEOF": 1,
+                                "keyPattern": {
+                                    "B.B4": 1
+                                },
+                                "indexName": "B.B4_1",
+                                "isMultiKey": true,
+                                "multiKeyPaths": {
+                                    "B.B4": [
+                                        "B"
+                                    ]
+                                },
+                                "isUnique": false,
+                                "isSparse": false,
+                                "isPartial": false,
+                                "indexVersion": 2,
+                                "direction": "forward",
+                                "indexBounds": {
+                                    "B.B4": [
+                                        "[8, 8]"
+                                    ]
+                                },
+                                "keysExamined": 10,
+                                "seeks": 1,
+                                "dupsTested": 10,
+                                "dupsDropped": 0
+                            }
                         }
                     }
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 1125
+            "executionTimeMillisEstimate": 1
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 100,
-            "executionTimeMillisEstimate": 1125
+            "executionTimeMillisEstimate": 1
         },
         {
             "$match": {
@@ -94,7 +142,7 @@
                 }
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 1125
+            "executionTimeMillisEstimate": 2
         },
         {
             "$project": {
@@ -102,7 +150,7 @@
                 "_id": false
             },
             "nReturned": 10,
-            "executionTimeMillisEstimate": 1125
+            "executionTimeMillisEstimate": 2
         }
     ],
     "serverInfo": {

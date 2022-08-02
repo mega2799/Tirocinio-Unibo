@@ -56,8 +56,8 @@
                         "advanced": 1000,
                         "needTime": 0,
                         "needYield": 0,
-                        "saveState": 3,
-                        "restoreState": 3,
+                        "saveState": 4,
+                        "restoreState": 4,
                         "isEOF": 1,
                         "docsExamined": 1000,
                         "alreadyHasObj": 0,
@@ -69,8 +69,8 @@
                             "advanced": 1000,
                             "needTime": 0,
                             "needYield": 0,
-                            "saveState": 3,
-                            "restoreState": 3,
+                            "saveState": 4,
+                            "restoreState": 4,
                             "isEOF": 1,
                             "keyPattern": {
                                 "B5": 1

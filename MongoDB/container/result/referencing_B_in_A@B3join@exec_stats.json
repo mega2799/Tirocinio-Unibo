@@ -30,7 +30,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100000,
-                    "executionTimeMillis": 11924,
+                    "executionTimeMillis": 12086,
                     "totalKeysExamined": 0,
                     "totalDocsExamined": 1000000,
                     "executionStages": {
@@ -41,13 +41,13 @@
                             }
                         },
                         "nReturned": 100000,
-                        "executionTimeMillisEstimate": 224,
+                        "executionTimeMillisEstimate": 196,
                         "works": 1000002,
                         "advanced": 100000,
                         "needTime": 900001,
                         "needYield": 0,
-                        "saveState": 1052,
-                        "restoreState": 1052,
+                        "saveState": 1045,
+                        "restoreState": 1045,
                         "isEOF": 1,
                         "direction": "forward",
                         "docsExamined": 1000000
@@ -55,7 +55,7 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 1572
+            "executionTimeMillisEstimate": 1539
         },
         {
             "$lookup": {
@@ -71,7 +71,7 @@
                 "AK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11919
+            "executionTimeMillisEstimate": 12084
         },
         {
             "$project": {
@@ -82,14 +82,14 @@
                 }
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11921
+            "executionTimeMillisEstimate": 12085
         },
         {
             "$unwind": {
                 "path": "$A"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11921
+            "executionTimeMillisEstimate": 12085
         }
     ],
     "serverInfo": {

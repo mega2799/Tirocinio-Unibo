@@ -45,7 +45,7 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 100,
-                    "executionTimeMillis": 98,
+                    "executionTimeMillis": 101,
                     "totalKeysExamined": 100,
                     "totalDocsExamined": 100,
                     "executionStages": {
@@ -125,7 +125,7 @@
                 "BK_1"
             ],
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 99
+            "executionTimeMillisEstimate": 101
         },
         {
             "$project": {
@@ -135,7 +135,7 @@
                 "_id": true
             },
             "nReturned": 1000,
-            "executionTimeMillisEstimate": 99
+            "executionTimeMillisEstimate": 101
         }
     ],
     "serverInfo": {

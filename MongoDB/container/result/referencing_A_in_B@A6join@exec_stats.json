@@ -45,13 +45,13 @@
                 "executionStats": {
                     "executionSuccess": true,
                     "nReturned": 10000,
-                    "executionTimeMillis": 11632,
+                    "executionTimeMillis": 10994,
                     "totalKeysExamined": 10000,
                     "totalDocsExamined": 10000,
                     "executionStages": {
                         "stage": "FETCH",
                         "nReturned": 10000,
-                        "executionTimeMillisEstimate": 56,
+                        "executionTimeMillisEstimate": 63,
                         "works": 10001,
                         "advanced": 10000,
                         "needTime": 0,
@@ -64,7 +64,7 @@
                         "inputStage": {
                             "stage": "IXSCAN",
                             "nReturned": 10000,
-                            "executionTimeMillisEstimate": 0,
+                            "executionTimeMillisEstimate": 2,
                             "works": 10001,
                             "advanced": 10000,
                             "needTime": 0,
@@ -99,30 +99,30 @@
                 }
             },
             "nReturned": 10000,
-            "executionTimeMillisEstimate": 107
+            "executionTimeMillisEstimate": 115
         },
         {
             "$unwind": {
                 "path": "$B"
             },
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 107
+            "executionTimeMillisEstimate": 115
         },
         {
             "$lookup": {
                 "from": "referencing_A_in_B",
                 "as": "B",
                 "localField": "B",
-                "foreignField": "_id"
+                "foreignField": "BK"
             },
             "totalDocsExamined": 100000,
             "totalKeysExamined": 100000,
             "collectionScans": 0,
             "indexesUsed": [
-                "_id_"
+                "BK_1"
             ],
             "nReturned": 100000,
-            "executionTimeMillisEstimate": 11624
+            "executionTimeMillisEstimate": 10991
         }
     ],
     "serverInfo": {
@@ -158,7 +158,7 @@
                 "$lookup": {
                     "from": "referencing_A_in_B",
                     "localField": "B",
-                    "foreignField": "_id",
+                    "foreignField": "BK",
                     "as": "B"
                 }
             }
