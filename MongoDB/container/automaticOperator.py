@@ -38,6 +38,7 @@ def exec_cost(collection, query):
     myclient = pymongo.MongoClient("mongodb://root:pass12345@localhost:27017/")
     mydb = myclient["tirocinio"]
     print(collection, ind)
+    print("plan", query)
     return mydb.command(
         'explain', 
         {
@@ -52,6 +53,79 @@ if __name__ == "__main__":
     val = 8
 
     collection = "referencing_B_in_A"
+    #key 
+    query = ([
+  {
+    '$match' : {
+      "_id" : 5192 
+    }
+  }
+])  
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    # foreign key 
+    query = ([
+  {
+    '$match': {
+      "B" : {
+        "$elemMatch" : {"$eq" : 5192}
+      }
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #join on PK 
+    query = ([
+  {
+    '$unwind': {
+      'path': "$B",
+    }
+  },{
+    '$lookup': {
+      'from': 'B',
+      'localField': 'B',
+      'foreignField': 'BK',
+      'as': 'B'
+    }
+  },{
+    '$match': {
+      "_id" : 5192 
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #join on FK 
+    query = ([
+  {
+    '$match': {
+      "BK" : 5192
+    }
+  },
+  {
+    '$lookup': {
+      'from': 'referencing_B_in_A',
+      'localField': 'BK',
+      'foreignField': 'BK',
+      'as': 'B'
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost("B", query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
     for ind in ind_a:
         # select A.*
         # from A
@@ -124,6 +198,76 @@ if __name__ == "__main__":
         file.write(json.dumps(res, indent=4))
 
     collection = "referencing_A_in_B"
+    #key 
+    query = ([
+  {
+    '$match' : {
+      "_id" : 5192 
+    }
+  }
+])  
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #foreign key 
+    query = ([
+  {
+    '$match': {
+      "AK" : 5192
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #join on PK 
+    query = ([
+  {
+    '$unwind': {
+      'path': "$A",
+    }
+  },{
+    '$lookup': {
+      'from': 'A',
+      'localField': 'AK',
+      'foreignField': 'AK',
+      'as': 'A'
+    }
+  },{
+    '$match': {
+      "_id" : 5192 
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #join on FK 
+    query = ([
+  {
+    '$match': {
+      "AK" : 5192
+    }
+  },{
+    '$lookup': {
+      'from': 'referencing_A_in_B',
+      'localField': 'AK',
+      'foreignField': 'AK',
+      'as': 'A'
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost("A", query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
     for ind in ind_a:
         # select A.*
         # from A
@@ -136,7 +280,7 @@ if __name__ == "__main__":
                 ]
             )
         start_time = time.time()
-        res = exec_cost("A", query)
+        res = exec_cost("Ap", query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
@@ -198,6 +342,65 @@ if __name__ == "__main__":
         file.write(json.dumps(res, indent=4))
 
     collection = "embedding_B_in_A"
+    #key 
+    query = ([
+  {
+    '$match': {
+      "_id" : 5192 
+    }
+  },{
+    '$project': {
+      "A" : 0
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #foreign key 
+    query = ([
+  {
+    '$match': {
+      "B.BK" : 5192 
+    }
+  },{
+  '$project': {
+    "B" : 1
+  }}
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #join on PK 
+    query = ([
+  {
+    '$match': {
+      "_id" : 5192 
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #join on FK 
+    query = ([
+  {
+    '$match': {
+      "B.BK" : 5192 
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
     for ind in ind_a:
         # select A.*
         # from A
@@ -250,6 +453,65 @@ if __name__ == "__main__":
         file.write(json.dumps(res, indent=4))
 
     collection = "embedding_A_in_B"
+    #key 
+    query = ([
+  {
+    '$match': {
+      "_id" : 5192 
+    }
+  },{
+    '$project': {
+      "B" : 0
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    #foreign key 
+    query = ([
+  {
+    '$match': {
+      "A.AK" : 5192 
+    }
+  },{
+  '$project': {
+    "A" : 1
+  }}
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    # join on PK 
+    query = ([
+  {
+    '$match': {
+      "_id" : 5192 
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "B0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
+    # join on FK 
+    query = ([
+  {
+    '$match': {
+      "A.AK" : 5192 
+    }
+  }
+])
+    start_time = time.time()
+    res = exec_cost(collection, query)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    file = open("result/" + collection + "@" + "A0join" + "@exec_stats.json", "w") 
+    file.write(json.dumps(res, indent=4))
     for ind in ind_a:
         # select A.*
         # from A
