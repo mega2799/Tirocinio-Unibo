@@ -25,9 +25,58 @@ headers = {
 }
 
 response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
 
-print(response)
+url = "http://admin:admin@127.0.0.1:5984/a/_index?partitioned=true"
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "A4"
+    ]
+  },
+  "name": "A4" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
 
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
+
+url = "http://admin:admin@127.0.0.1:5984/a/_index?partitioned=true"
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "A5"
+    ]
+  },
+  "name": "A5" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
+
+url = "http://admin:admin@127.0.0.1:5984/a/_index?partitioned=true"
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "A6"
+    ]
+  },
+  "name": "A6" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
 
 url = "http://admin:admin@127.0.0.1:5984/b/_index?partitioned=true"
 payload = json.dumps({
@@ -44,8 +93,53 @@ headers = {
 }
 
 response = requests.request("POST", url, headers=headers, data=payload)
-print(response)
-exit(0)
+print(response.text)
+
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "B4"
+    ]
+  },
+  "name": "B4" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
+
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "B5"
+    ]
+  },
+  "name": "B5" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
+
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "B6"
+    ]
+  },
+  "name": "B6" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
 
 for collection in collections_a:
     url = "http://admin:admin@127.0.0.1:5984/" + collection + "/_index?partitioned=true"
