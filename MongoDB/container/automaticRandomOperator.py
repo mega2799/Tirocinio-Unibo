@@ -1,6 +1,28 @@
+from random import randint
 import pymongo
 import json
 import time
+
+
+expA = 5
+
+expB = 6
+
+N_A = 10**expA 
+
+N_B = 10**expB
+
+N_A1 = N_A/10
+
+N_A2 = N_A/10**(round(expA/2))
+
+N_A3 = N_A/10**(expA - 1)
+
+N_B1 = N_B/10
+
+N_B2 = N_B/10**(round(expB/2))
+
+N_B3 = N_B/10**(expB - 1)
 
 
 ind_a= ["A1",  "A2",  "A3",  "A4",  "A5", "A6"]
@@ -8,7 +30,21 @@ ind_b= ["B1",  "B2",  "B3",  "B4",  "B5", "B6"]
 
 collections = ["embedding_A_in_B", "embedding_B_in_A",  "referencing_A_in_B",  "referencing_B_in_A"]
 
+def get_random_indexed_int_A(ind):
+  if "1" in ind or "4" in ind :
+    return randint(0, N_A1 - 1)
+  elif "2" in ind or "5" in ind:
+    return randint(0, N_A2 - 1)
+  elif "3" in ind or "6" in ind:
+    return randint(0, N_A3 - 1)
 
+def get_random_indexed_int_B(ind):
+  if "1" in ind or "4" in ind :
+    return randint(0, N_B1 - 1)
+  elif "2" in ind or "5" in ind:
+    return randint(0, N_B2 - 1)
+  elif "3" in ind or "6" in ind:
+    return randint(0, N_B3 - 1)
 
 def simple_aggregate(collection ,query):
     myclient = pymongo.MongoClient("mongodb://root:pass12345@localhost:27017/")
@@ -34,10 +70,23 @@ def explain_plan(collection, query):
     )
 
 
+def exec_cost_once(collection, query):
+    myclient = pymongo.MongoClient("mongodb://root:pass12345@localhost:27017/")
+    mydb = myclient["tirocinio"]
+    print("plan", query)
+    return mydb.command(
+        'explain', 
+        {
+            'aggregate': collection, 
+            'pipeline': query, 
+            'cursor': {}
+        }, 
+        verbosity='executionStats'
+    ) 
+
 def exec_cost(collection, query):
     myclient = pymongo.MongoClient("mongodb://root:pass12345@localhost:27017/")
     mydb = myclient["tirocinio"]
-    print(collection, ind)
     print("plan", query)
     return mydb.command(
         'explain', 
@@ -50,7 +99,6 @@ def exec_cost(collection, query):
     ) 
 
 if __name__ == "__main__":
-    val = 8
 
     collection = "referencing_B_in_A"
     #key 
@@ -60,7 +108,7 @@ if __name__ == "__main__":
       "_id" : 5192 
     }
   }
-])  
+  ])  
     start_time = time.time()
     res = exec_cost(collection, query)
     print("--- %s seconds ---" % (time.time() - start_time))
@@ -133,7 +181,7 @@ if __name__ == "__main__":
         query = (
                 [
                     {
-                        '$match' : { ind : val}
+                        '$match' : { ind : get_random_indexed_int_A(ind)}
                     }
                 ]
             )
@@ -145,7 +193,7 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.AK)
         # where Ax='val'
-        query = ([{'$match' : { ind : val} }, {'$unwind' : {  'path': "$B"}}, {
+        query = ([{'$match' : { ind : get_random_indexed_int_A(ind)} }, {'$unwind' : {  'path': "$B"}}, {
         '$lookup': {
         'from': 'B',
         'localField': 'B',
@@ -164,7 +212,7 @@ if __name__ == "__main__":
         query = (
             [
                 {
-                    '$match' : { ind : val}
+                    '$match' : { ind : get_random_indexed_int_B(ind)}
                 }
             ]
         )
@@ -178,7 +226,7 @@ if __name__ == "__main__":
         # where Bx='val
         query = ([{
         '$match': {
-            ind : val
+            ind : get_random_indexed_int_B(ind)
         }},{
         '$lookup': {
         'from' : 'referencing_B_in_A',
@@ -232,7 +280,7 @@ if __name__ == "__main__":
     }
   },{
     '$lookup': {
-      'from': 'A',
+      'from': 'Ap',
       'localField': 'AK',
       'foreignField': 'AK',
       'as': 'A'
@@ -264,7 +312,7 @@ if __name__ == "__main__":
   }
 ])
     start_time = time.time()
-    res = exec_cost("A", query)
+    res = exec_cost("Ap", query)
     print("--- %s seconds ---" % (time.time() - start_time))
     file = open("result/" + collection + "@" + "A0join" + "@exec_stats.json", "w") 
     file.write(json.dumps(res, indent=4))
@@ -275,7 +323,7 @@ if __name__ == "__main__":
         query = (
                 [
                     {
-                        '$match' : { ind : val}
+                        '$match' : { ind : get_random_indexed_int_A(ind)}
                     }
                 ]
             )
@@ -287,7 +335,7 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.AK)
         # where Ax='val'
-        query = ([{'$match' : { ind  : val } },{'$lookup': {'from': 'referencing_A_in_B','localField': 'AK','foreignField': 'BK','as': 'B'}},{'$unwind': {'path': "$B"}},{'$project' : {"_id" : 0, "B._id" : 0}}])
+        query = ([{'$match' : { ind  : get_random_indexed_int_A(ind) } }, {'$unwind': {  'path': "$B"}},{'$lookup': {'from': 'referencing_A_in_B','localField': 'B','foreignField': 'BK','as': 'B'}}])
        # query = ([{
        #     '$match': {
        #         ind : val
@@ -302,7 +350,7 @@ if __name__ == "__main__":
        #     "_id" : 0
        #     }}])
         start_time = time.time()
-        res = exec_cost("A", query)
+        res = exec_cost("referencing_B_in_A", query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "join" + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
@@ -313,7 +361,7 @@ if __name__ == "__main__":
         query = (
             [
                 {
-                    '$match' : { ind : val}
+                    '$match' : { ind : get_random_indexed_int_B(ind)}
                 }
             ]
         )
@@ -325,7 +373,7 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.BK)
         # where Bx='val
-        query = ([{'$match' : {ind : val}},{
+        query = ([{'$match' : {ind : get_random_indexed_int_B(ind)}},{
             '$lookup': {
             'from': 'A',
             'localField': 'AK',
@@ -408,7 +456,7 @@ if __name__ == "__main__":
         query = (
                 [
                     {
-                        '$match' : { ind : val}
+                        '$match' : { ind : get_random_indexed_int_A(ind)}
                     },{ '$project' : { "B" : 0}}
                 ]
             )
@@ -423,7 +471,7 @@ if __name__ == "__main__":
         query =(
                 [
                     {
-                        '$match' : { ind : val}
+                        '$match' : { ind : get_random_indexed_int_A(ind)}
                     }
                 ]
             )
@@ -436,6 +484,7 @@ if __name__ == "__main__":
         # select B.*
         # from B
         # where Bx='val'
+        val = get_random_indexed_int_B(ind)
         query = ([{'$match': {"B." + ind : val}},{'$unwind': {'path' : "$B"}},{'$match' : {"B." + ind : val}}, {'$project':{"B" : 1, "_id" : 0}}])
         start_time = time.time()
         res = exec_cost(collection, query)
@@ -445,6 +494,7 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.BK)
         # where Bx='val
+        val = get_random_indexed_int_B(ind)
         query = ([{'$match': {"B." + ind : val}},{'$unwind': {'path' : "$B"}},{'$match' : {"B." + ind : val}}])
         start_time = time.time()
         res = exec_cost(collection, query)
@@ -516,7 +566,7 @@ if __name__ == "__main__":
         # select A.*
         # from A
         # where Ax='val'
-        query = ([{'$match': {"A." + ind : val}},{'$project': {"A" : 1, "_id" : 0}},{'$unwind' : {'path' : "$A"}}])
+        query = ([{'$match': {"A." + ind : get_random_indexed_int_A(ind)}},{'$project': {"A" : 1, "_id" : 0}},{'$unwind' : {'path' : "$A"}}])
         start_time = time.time()
         res = exec_cost(collection, query)
         print("--- %s seconds ---" % (time.time() - start_time))
@@ -525,7 +575,7 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.AK)
         # where Ax='val'
-        query = ([{'$match': {"A." + ind : val}}])
+        query = ([{'$match': {"A." + ind : get_random_indexed_int_A(ind)}}])
         start_time = time.time()
         res = exec_cost(collection, query)
         print("--- %s seconds ---" % (time.time() - start_time))
@@ -538,7 +588,7 @@ if __name__ == "__main__":
         query =(
                 [
                     {
-                        '$match' : { ind : val}
+                        '$match' : { ind : get_random_indexed_int_B(ind)}
                     },{ '$project' : { "A" : 0}}
                 ]
             )
@@ -553,7 +603,7 @@ if __name__ == "__main__":
         query = (
                 [
                     {
-                        '$match' : { ind : val}
+                        '$match' : { ind : get_random_indexed_int_B(ind)}
                     }
                 ]
             )
