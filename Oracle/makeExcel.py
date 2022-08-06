@@ -111,8 +111,6 @@ finally:
         # NON VUOLE ANDARE A CAPO !
         # print(str(['\n'.join(x) for x in cursor.fetchall()]).strip('[]'))
         for x in cursor.fetchall():
-            file_A.write(expl + "select * from A where AK")
-            file_A.write('\n')
             file_A.write(str(x).strip('(),\''))
             file_A.write('\n')
         worksheet.write(get_colNum["A0"] + 1, get_rowNum[collection] + 1 , int(t))
