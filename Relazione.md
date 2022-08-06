@@ -463,6 +463,7 @@ def joinQuery(to_col, from_col, ind, value):
   print(str(time) + " ms") 
 ```
 
+![resCouch](TesiResources/couchDb%20stats.png)
 # Oracle
 
 Per ogni indice presente nella collezione ho eseguito queste query dimostrative

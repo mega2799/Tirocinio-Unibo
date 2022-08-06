@@ -143,7 +143,7 @@ if __name__ == "__main__":
         # select A.*, B.*
         # from A join B on (A.AK=B.AK)
         # where Ax='val'
-        query = ([{'$match' : { ind  : val } }, {'$unwind': {  'path': "$B"}},{'$lookup': {'from': 'referencing_A_in_B','localField': 'B','foreignField': 'BK','as': 'B'}}])
+        query = ([{'$match' : { ind  : val } },{'$lookup': {'from': 'referencing_A_in_B','localField': 'AK','foreignField': 'BK','as': 'B'}},{'$unwind': {'path': "$B"}},{'$project' : {"_id" : 0, "B._id" : 0}}])
        # query = ([{
        #     '$match': {
        #         ind : val
@@ -158,7 +158,7 @@ if __name__ == "__main__":
        #     "_id" : 0
        #     }}])
         start_time = time.time()
-        res = exec_cost("referencing_B_in_A", query)
+        res = exec_cost("A", query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "join" + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))
