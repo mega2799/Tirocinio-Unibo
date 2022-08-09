@@ -37,7 +37,6 @@ def explain_plan(collection, query):
 def exec_cost(collection, query):
     myclient = pymongo.MongoClient("mongodb://root:pass12345@localhost:27017/")
     mydb = myclient["tirocinio"]
-    print(collection, ind)
     print("plan", query)
     return mydb.command(
         'explain', 
@@ -232,7 +231,7 @@ if __name__ == "__main__":
     }
   },{
     '$lookup': {
-      'from': 'A',
+      'from': 'Ap',
       'localField': 'AK',
       'foreignField': 'AK',
       'as': 'A'
@@ -264,7 +263,7 @@ if __name__ == "__main__":
   }
 ])
     start_time = time.time()
-    res = exec_cost("A", query)
+    res = exec_cost("Ap", query)
     print("--- %s seconds ---" % (time.time() - start_time))
     file = open("result/" + collection + "@" + "A0join" + "@exec_stats.json", "w") 
     file.write(json.dumps(res, indent=4))
