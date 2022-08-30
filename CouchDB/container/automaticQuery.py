@@ -1,9 +1,32 @@
+from random import randint
 from ntpath import join
 import requests
 import json
 import xlsxwriter
 import numpy as np
 import os
+
+
+expA = 4
+
+expB = 5
+
+N_A = 10**expA 
+
+N_B = 10**expB
+
+N_A1 = N_A/10
+
+N_A2 = N_A/10**(round(expA/2))
+
+N_A3 = N_A/10**(expA - 1)
+
+N_B1 = N_B/10
+
+N_B2 = N_B/10**(round(expB/2))
+
+N_B3 = N_B/10**(expB - 1)
+
 
 ind_a= ["A1",  "A2",  "A3",  "A4",  "A5", "A6"]
 
@@ -57,18 +80,48 @@ worksheet.write_string('A29' , 'B6j', bold)
 
 
 get_rowNum = {'embedding_a_in_b' : 0,'embedding_b_in_a' : 1,'referencing_b_in_a' : 2,'referencing_a_in_b' : 3}
-get_colNum = {'A0' : 0,'A1' : 1,'A2' : 2,'A3' : 3,'A4' : 4,'A5' : 5,'A6' : 6,'B0' : 6,'B1' : 7,'B2' : 8,'B3' : 9,'B4' : 10,'B5' : 11,'B6' : 12,'A0join' : 12,'A1join' : 13,'A2join' : 14,'A3join' : 15,'A4join' : 16,'A5join' : 17,'A6join' : 18,'B0join' : 18,'B1join' : 19,'B2join' : 20,'B3join' : 21,'B4join' : 22,'B5join' : 23,'B6join' : 24}
+get_colNum = {'A0' : 0,'A1' : 1,'A2' : 2,'A3' : 3,'A4' : 4,'A5' : 5,'A6' : 6,
+'B0' : 7,'B1' : 8,'B2' : 9,'B3' : 10,'B4' : 11,'B5' : 12,
+    'B6' : 13,
+'A0join' : 14,
+'A1join' : 15,
+'A2join' : 16,
+'A3join' : 17,
+'A4join' : 18,
+'A5join' : 19,
+'A6join' : 20,
+'B0join' : 21,
+'B1join' : 22,
+'B2join' : 23,
+'B3join' : 24,
+'B4join' : 25,
+'B5join' : 26,
+'B6join' : 27}
+
+
+def get_random_indexed_int_A(ind):
+  if "1" in ind or "4" in ind :
+    return randint(0, N_A1 - 1)
+  elif "2" in ind or "5" in ind:
+    return randint(0, N_A2 - 1)
+  elif "3" in ind or "6" in ind:
+    return randint(0, N_A3 - 1)
+
+def get_random_indexed_int_B(ind):
+  if "1" in ind or "4" in ind :
+    return randint(0, N_B1 - 1)
+  elif "2" in ind or "5" in ind:
+    return randint(0, N_B2 - 1)
+  elif "3" in ind or "6" in ind:
+    return randint(0, N_B3 - 1)
 
 def queryRun(collection, ind, payload):
   url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
-
   time = 0
   headers = {
     'Content-Type': 'application/json'
   }
-
   response = requests.request("POST", url, headers=headers, data=payload)
-
   resp = json.loads(response.text)
   check(resp, collection, ind)
   time += resp["execution_stats"]['execution_time_ms']
@@ -136,6 +189,81 @@ def refBA():
   # key 
   t = simpleSelection(collection, "AK", val)
   worksheet.write( get_colNum["A0"] + 1, get_rowNum[collection] + 1,t)
+  # foreign key 
+  t = simpleSelection("b", "BK", 67)
+  worksheet.write(get_colNum["B0"] + 1, get_rowNum[collection] + 1,t)
+  # key join 
+  url = "http://admin:admin@127.0.0.1:5984/" + "referencing_b_in_a" +"/_find"
+  payload = json.dumps({
+  "selector": {
+      "_id" : val
+  }
+  # ,
+  # "fields": [
+      # "BK",                
+      # "B1",
+      # "B2",
+      # "B3",
+      # "B4",
+      # "B5",
+      # "B6",
+      # "B7",
+  # ]
+  ,
+    "execution_stats": True
+    })
+  headers = {
+    'Content-Type': 'application/json'
+  }
+  time = 0
+  response = requests.request("POST", url, headers=headers, data=payload)
+  resp = json.loads(response.text)
+  time += resp["execution_stats"]['execution_time_ms']
+  # print(resp["docs"])
+  foreign_keys = [list(x.values())[10] for x in resp["docs"]]
+  url = "http://admin:admin@127.0.0.1:5984/" + "b" +"/_find"
+  for lis in foreign_keys:
+      for key in lis:
+        payload = json.dumps({
+          "selector": {
+            "_id" : str(key)
+          },
+          "execution_stats": True
+        })
+        response = requests.request("POST", url, headers=headers, data=payload)
+        resp = json.loads(response.text)
+        time += resp["execution_stats"]['execution_time_ms']
+  worksheet.write(get_colNum["A0join"] + 1,get_rowNum[collection] + 1, time)
+  # FK join 
+  url = "http://admin:admin@127.0.0.1:5984/" + "b" +"/_find"
+  payload = json.dumps({
+  "selector": {
+      "_id" : val
+  }
+  # ,
+  # "fields": [
+      # "BK",                
+      # "B1",
+      # "B2",
+      # "B3",
+      # "B4",
+      # "B5",
+      # "B6",
+      # "B7",
+  # ]
+  ,
+    "execution_stats": True
+    })
+  headers = {
+    'Content-Type': 'application/json'
+  }
+  time = 0
+  response = requests.request("POST", url, headers=headers, data=payload)
+  resp = json.loads(response.text)
+  check(resp, collection, "BO")
+  time += resp["execution_stats"]['execution_time_ms']
+  time += simpleSelection(collection, "AK", val)
+  worksheet.write(get_colNum["B0join"] + 1, get_rowNum[collection] + 1,t)
   for ind in ind_a:
       # select A.*
       # from A
@@ -174,7 +302,7 @@ def refBA():
     time += resp["execution_stats"]['execution_time_ms']
     # print(resp["docs"])
     foreign_keys = [list(x.values())[10] for x in resp["docs"]]
-    url = "http://admin:admin@127.0.0.1:5984/" + "referencing_a_in_b" +"/_find"
+    url = "http://admin:admin@127.0.0.1:5984/" + "b" +"/_find"
     for lis in foreign_keys:
         for key in lis:
           payload = json.dumps({
@@ -250,10 +378,18 @@ def refAB():
   # key 
   t = simpleSelection(collection, "BK", val)
   worksheet.write( get_colNum["B0"] + 1, get_rowNum[collection] + 1,t)
-  # key join Aj0
-  t,resp = simpleSelectionResp("a", "AK", val)
+  # for key 
+  t = simpleSelection("a", "AK", val)
+  worksheet.write(get_colNum["A0"] + 1, get_rowNum[collection] + 1,t)
+  # join 
+  t, resp = simpleSelectionResp(collection, "BK", val)
   fk = [str(list(x.values())[2]) for x in resp["docs"]]
-  t += simpleSelection(collection, "AK", int(fk[0]))[0]
+  t += simpleSelection("a", "AK", val)
+  worksheet.write( get_colNum["B0join"] + 1, get_rowNum[collection] + 1,t)
+  # key join Aj0
+  t,resp = simpleSelectionResp("a", "AK", int(fk[0]))
+  fk = [str(list(x.values())[2]) for x in resp["docs"]]
+  t += simpleSelection(collection, "AK", int(fk[0]))
   worksheet.write( get_colNum["A0join"] + 1, get_rowNum[collection] + 1,t)
   for ind in ind_a:
       # select A.*
@@ -357,14 +493,67 @@ if __name__ == "__main__":
 
   val = "8"
 
-  # refBA()
-
-  refAB()
+  #refBA()
+  #refAB()
 
   collection = "embedding_b_in_a"
-  # key 
+  # foreign key 
+  payload = json.dumps({
+      "selector": {
+          "AK": {
+            "$gt": 0
+          },
+          "B": {
+            "$elemMatch": {
+                "BK" : int(val) 
+            }
+          }
+      },
+      "fields": [
+          "B"
+      ],
+      "execution_stats": True
+    })
+  t = queryRun(collection, "BK", payload) 
+  worksheet.write( get_colNum["B0"] + 1,get_rowNum[collection] + 1, t)
+  # foreign key join
+  payload = json.dumps({
+      "selector": {
+          "AK": {
+            "$gt": 0
+          },
+          "B": {
+            "$elemMatch": {
+                "BK" : int(val) 
+            }
+          }
+      },
+      "execution_stats": True
+    })
+  t = queryRun(collection, "BK", payload) 
+  worksheet.write( get_colNum["B0join"] + 1,get_rowNum[collection] + 1, t)
+  payload = json.dumps({
+      "selector": {
+          "AK" : int(val) 
+      },
+      "fields": [
+          "_id",
+          "AK",
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "A7"
+      ],
+      "execution_stats": True
+    })
+  t = queryRun(collection, "A0", payload) 
+  worksheet.write( get_colNum["A0"] + 1,get_rowNum[collection] + 1, t)
+  # key join
   t = simpleSelection(collection, "AK", val)
-  worksheet.write( get_colNum["A0"] + 1, get_rowNum[collection] + 1,t)
+  worksheet.write( get_colNum["A0join"] + 1, get_rowNum[collection] + 1,t)
   for ind in ind_a:
       # select A.*
       # from A
@@ -432,10 +621,59 @@ if __name__ == "__main__":
     worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
 
   collection = "embedding_a_in_b"
-  # NON PUOI ANDARE !!!!!! 
   # key 
+  payload = json.dumps({
+   "selector": {
+      "BK": int(val) 
+      },
+      "fields": [
+          "_id",
+          "BK",
+          "B1",
+          "B2",
+          "B3",
+          "B4",
+          "B5",
+          "B6",
+          "B7"
+      ],
+      "execution_stats": True
+    })
+  t = queryRun(collection, "B0", payload) 
+  worksheet.write(get_colNum["B0"] + 1,get_rowNum[collection] + 1, t)
+  # key join 
   t = simpleSelection(collection, "BK", val)
-  worksheet.write( get_colNum["B0"] + 1, get_rowNum[collection] + 1,t)
+  worksheet.write( get_colNum["B0join"] + 1, get_rowNum[collection] + 1,t)
+  # fk 
+  payload = json.dumps({
+   "selector": {
+      "A": {
+         "$elemMatch": {
+            "AK" : int(val)
+         }
+      }
+   },
+      "fields": [
+          "A"
+      ],
+      "execution_stats": True
+    })
+  t = queryRun(collection, "A0", payload) 
+  worksheet.write( get_colNum["A0"] + 1,get_rowNum[collection] + 1, t)
+  # fk  join
+  payload = json.dumps({
+   "selector": {
+      "A": {
+         "$elemMatch": {
+            "AK" : int(val)
+         }
+      }
+   },
+      "execution_stats": True
+    })
+  t = queryRun(collection, "A0join", payload) 
+  worksheet.write( get_colNum["A0join"] + 1,get_rowNum[collection] + 1, t)
+
   for ind in ind_a:
       # select A.*
       # from A
