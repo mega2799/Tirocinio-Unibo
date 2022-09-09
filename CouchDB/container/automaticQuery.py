@@ -7,9 +7,9 @@ import numpy as np
 import os
 
 
-expA = 4
+expA = 3
 
-expB = 5
+expB = 4
 
 N_A = 10**expA 
 
@@ -503,14 +503,14 @@ if __name__ == "__main__":
           "AK": {
             "$gt": 0
           },
-          "B": {
+          "B_ind": {
             "$elemMatch": {
                 "BK" : int(val) 
             }
           }
       },
       "fields": [
-          "B"
+          "B", "B_ind"
       ],
       "execution_stats": True
     })
@@ -522,7 +522,7 @@ if __name__ == "__main__":
           "AK": {
             "$gt": 0
           },
-          "B": {
+          "B_ind": {
             "$elemMatch": {
                 "BK" : int(val) 
             }
@@ -586,39 +586,75 @@ if __name__ == "__main__":
       # select B.*
       # from B
       # where Bx='val'
-    payload = json.dumps({
-      "selector": {
-          "AK": {
-            "$gt": 0
-          },
-          "B": {
-            "$elemMatch": {
-                ind : int(val) 
+    if (ind == "B1" or ind == "B2" or ind == "B3"):
+      payload = json.dumps({
+        "selector": {
+            "AK": {
+              "$gt": 0
+            },
+            "B": {
+              "$elemMatch": {
+                  ind : int(val) 
+              }
             }
-          }
-      },
-      "fields": [
-          "B"
-      ],
-      "execution_stats": True
-    })
-    t = queryRun(collection, ind, payload) 
-    worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
-      # select A.*, B.*
-      # from A join B on (A.AK=B.BK)
-      # where Bx='val
-    payload = json.dumps({
-      "selector": {
-          "B": {
-            "$elemMatch": {
-                ind : int(val)
+        },
+        "fields": [
+            "B", "B_ind"
+        ],
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+        # select A.*, B.*
+        # from A join B on (A.AK=B.BK)
+        # where Bx='val
+      payload = json.dumps({
+        "selector": {
+            "B": {
+              "$elemMatch": {
+                  ind : int(val)
+              }
             }
-          }
-      },
-      "execution_stats": True
-    })
-    t = queryRun(collection, ind, payload)  
-    worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+        },
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload)  
+      worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+    else:
+      payload = json.dumps({
+        "selector": {
+            "AK": {
+              "$gt": 0
+            },
+            "B_ind": {
+              "$elemMatch": {
+                  ind : int(val) 
+              }
+            }
+        },
+        "fields": [
+            "B", "B_ind"
+        ],
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+        # select A.*, B.*
+        # from A join B on (A.AK=B.BK)
+        # where Bx='val
+      payload = json.dumps({
+        "selector": {
+            "B_ind": {
+              "$elemMatch": {
+                  ind : int(val)
+              }
+            }
+        },
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload)  
+      worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+
 
   collection = "embedding_a_in_b"
   # key 
@@ -647,14 +683,14 @@ if __name__ == "__main__":
   # fk 
   payload = json.dumps({
    "selector": {
-      "A": {
+      "A_ind": {
          "$elemMatch": {
             "AK" : int(val)
          }
       }
    },
       "fields": [
-          "A"
+          "A", "A_ind"
       ],
       "execution_stats": True
     })
@@ -663,7 +699,7 @@ if __name__ == "__main__":
   # fk  join
   payload = json.dumps({
    "selector": {
-      "A": {
+      "A_ind": {
          "$elemMatch": {
             "AK" : int(val)
          }
@@ -678,6 +714,7 @@ if __name__ == "__main__":
       # select A.*
       # from A
       # where Ax='val'
+    if (ind == "A1" or ind == "A2" or ind == "A3"):
       payload = json.dumps({
    "selector": {
       "A": {
@@ -699,6 +736,37 @@ if __name__ == "__main__":
       payload = json.dumps({
    "selector": {
       "A": {
+         "$elemMatch": {
+            ind : int(val)
+         }
+      }
+   },
+      "execution_stats": True
+    })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+    else:
+      payload = json.dumps({
+   "selector": {
+      "A_ind": {
+         "$elemMatch": {
+            ind : int(val)
+         }
+      }
+   },
+      "fields": [
+          "A", "A_ind"
+      ],
+      "execution_stats": True
+    })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+      # select A.*, B.*
+      # from A join B on (A.AK=B.AK)
+      # where Ax='val'
+      payload = json.dumps({
+   "selector": {
+      "A_ind": {
          "$elemMatch": {
             ind : int(val)
          }

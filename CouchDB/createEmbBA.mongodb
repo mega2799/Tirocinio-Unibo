@@ -51,6 +51,7 @@ db.B.aggregate(
        *   include or exclude.
        */
       $project: {
+        "B.BK" : 0,
         "B.B4" : 0,
         "B.B5" : 0,
         "B.B6" : 0
@@ -62,7 +63,6 @@ db.B.aggregate(
        */
       $project: {
         "B_ind._id" : 0,
-        "B_ind.BK" : 0,
         "B_ind.B1" : 0,
         "B_ind.B2" : 0,
         "B_ind.B3" : 0,

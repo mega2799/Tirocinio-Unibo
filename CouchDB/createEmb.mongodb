@@ -37,7 +37,6 @@ db.B.aggregate(
       "B5" : 1,
       "B6" : 1,
       "B7" : 1,
-      "A.AK" : 1,
       "A.A1" : 1,
       "A.A2" : 1,
       "A.A3" : 1,
@@ -46,7 +45,6 @@ db.B.aggregate(
     }
   },{
     $project: {
-      "A_ind.AK" : 0,
       "A_ind.A1" : 0,
       "A_ind.A2" : 0,
       "A_ind.A3" : 0
