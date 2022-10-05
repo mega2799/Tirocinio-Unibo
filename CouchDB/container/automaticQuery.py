@@ -500,9 +500,6 @@ if __name__ == "__main__":
   # foreign key 
   payload = json.dumps({
       "selector": {
-          "AK": {
-            "$gt": 0
-          },
           "B_ind": {
             "$elemMatch": {
                 "BK" : int(val) 
@@ -519,9 +516,6 @@ if __name__ == "__main__":
   # foreign key join
   payload = json.dumps({
       "selector": {
-          "AK": {
-            "$gt": 0
-          },
           "B_ind": {
             "$elemMatch": {
                 "BK" : int(val) 
@@ -587,11 +581,9 @@ if __name__ == "__main__":
       # from B
       # where Bx='val'
     if (ind == "B1" or ind == "B2" or ind == "B3"):
+      print("query on B[] ind: ", ind)
       payload = json.dumps({
         "selector": {
-            "AK": {
-              "$gt": 0
-            },
             "B": {
               "$elemMatch": {
                   ind : int(val) 
@@ -621,11 +613,9 @@ if __name__ == "__main__":
       t = queryRun(collection, ind, payload)  
       worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
     else:
+      print("query on B_ind[] ind: ", ind)
       payload = json.dumps({
         "selector": {
-            "AK": {
-              "$gt": 0
-            },
             "B_ind": {
               "$elemMatch": {
                   ind : int(val) 

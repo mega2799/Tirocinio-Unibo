@@ -85,6 +85,7 @@ def get_random_indexed_int_B(ind):
     return randint(0, N_B3 - 1)
 
 def selectAndUpdate(collection, ind, val):
+  start_time = time.time()
   url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
   payload = json.dumps({
     "selector": {
@@ -101,7 +102,6 @@ def selectAndUpdate(collection, ind, val):
   'Content-Type': 'application/json'
   }
 
-  start_time = time.time()
   for doc in resp["docs"]:
     id = doc["_id"]
     url = "http://admin:admin@127.0.0.1:5984/" + collection +"/" + id
@@ -114,6 +114,7 @@ def selectAndUpdate(collection, ind, val):
     return (time.time() - start_time)
     
 def selectAndUpdateEmbedded(collection, payload):
+  start_time = time.time()
   url = "http://admin:admin@127.0.0.1:5984/" + collection +"/_find"
   headers = {
     'Content-Type': 'application/json'
@@ -125,7 +126,6 @@ def selectAndUpdateEmbedded(collection, payload):
   'Content-Type': 'application/json'
   }
 
-  start_time = time.time()
   for doc in resp["docs"]:
     id = doc["_id"]
     url = "http://admin:admin@127.0.0.1:5984/" + collection +"/" + id
@@ -198,10 +198,7 @@ if __name__ == "__main__":
   # foreign key 
   payload = json.dumps({
       "selector": {
-          "AK": {
-            "$gt": 0
-          },
-          "B": {
+          "B_ind": {
             "$elemMatch": {
                 "BK" : 67
             }
@@ -219,19 +216,28 @@ if __name__ == "__main__":
       # select B.*
       # from B
       # where Bx='val'
-    payload = json.dumps({
-      "selector": {
-          "AK": {
-            "$gt": 0
-          },
-          "B": {
-            "$elemMatch": {
-                ind : int(val) 
+    if (ind == "B1" or ind == "B2" or ind == "B3"):
+      payload = json.dumps({
+        "selector": {
+            "B": {
+              "$elemMatch": {
+                  ind : int(val) 
+              }
             }
-          }
-      }    })
-    t = selectAndUpdateEmbedded(collection, payload) 
-    worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+        }    })
+      t = selectAndUpdateEmbedded(collection, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+    else:
+      payload = json.dumps({
+        "selector": {
+            "B_ind": {
+              "$elemMatch": {
+                  ind : int(val) 
+              }
+            }
+        }    })
+      t = selectAndUpdateEmbedded(collection, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
 
   collection = "embedding_a_in_b"
   # key 
@@ -239,7 +245,7 @@ if __name__ == "__main__":
   worksheet.write( get_colNum["B0"] + 1, get_rowNum[collection] + 1,t)
   payload = json.dumps({
    "selector": {
-      "A": {
+      "A_ind": {
          "$elemMatch": {
             "AK" : 67
          }
@@ -253,17 +259,30 @@ if __name__ == "__main__":
       # select A.*
       # from A
       # where Ax='val'
-      payload = json.dumps({
-   "selector": {
-      "A": {
+      if (ind == "A1" or ind == "A2" or ind == "A3"):
+        payload = json.dumps({
+    "selector": {
+        "A": {
+          "$elemMatch": {
+              ind : int(val)
+          }
+        }
+    }
+      })
+        t = selectAndUpdateEmbedded(collection, payload) 
+        worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+      else:
+        payload = json.dumps({
+    "selector": {
+      "A_ind": {
          "$elemMatch": {
             ind : int(val)
          }
       }
    }
     })
-      t = selectAndUpdateEmbedded(collection, payload) 
-      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+        t = selectAndUpdateEmbedded(collection, payload) 
+        worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
   for ind in ind_b:
       # select B.*
       # from B

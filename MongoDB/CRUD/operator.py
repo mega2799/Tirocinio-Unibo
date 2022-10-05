@@ -145,14 +145,14 @@ def update_cost_once(collection, ind, value, mod_ind):
         }, 
         verbosity='executionStats'
     )
+    for key, value in res.items():
+        print("----" ,key, "--->", value)
     if "stages" in list(res.keys()):
         time = (res["stages"][0]["$cursor"]["executionStats"]["executionTimeMillis"])
-        docum = (res["stages"][0]["$cursor"]["executionStats"]["nReturned"])
     else:
         time = (res["executionStats"]["executionTimeMillis"])
-        docum = (res["executionStats"]["nReturned"])
-    if docum == 0:
-        print(collection, ind, docum)
+    if res["executionStats"] == False:
+        print(collection, ind)
         exit(0)
     return time
 
@@ -184,7 +184,7 @@ def exec_cost(collection, query):
       t.append(time)
     return sum(t)/10
       
-workbook = xlsxwriter.Workbook('MongoDBStat.xlsx')
+workbook = xlsxwriter.Workbook('MongoDBStatCRUD.xlsx')
 worksheet = workbook.add_worksheet()
 bold = workbook.add_format({'bold': True})
 worksheet.set_column(1, 1, 20)
@@ -227,8 +227,6 @@ worksheet.write_string('E1', 'referencing_B_in_A', bold)
 
 if __name__ == "__main__":
     collection = "referencing_B_in_A"
-    
-  
     #update_cost_once(collection, "AK", 80176, "A7")
     #key 
     res = update_cost_once(collection, "AK", 5192 , "A7")
@@ -260,7 +258,7 @@ if __name__ == "__main__":
         # select A.*
         # from A
         # where Ax='val'
-        res = update_cost_once("Ap", ind, get_random_indexed_int_A(ind) , "A7")
+        res = update_cost_once("A", ind, get_random_indexed_int_A(ind) , "A7")
         worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , res)
     for ind in ind_b:
         # select B.*
@@ -268,55 +266,14 @@ if __name__ == "__main__":
         # where Bx='val'
         res = update_cost_once(collection, ind, get_random_indexed_int_B(ind) , "B7")
         worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , res)
-
+    
     collection = "embedding_B_in_A"
     #key 
-    query = ([
-  {
-    '$match': {
-      "_id" : 5192 
-    }
-  },{
-    '$project': {
-      "A" : 0
-    }
-  }
-])
-    res = exec_cost(collection, query)
+    res = update_cost_once(collection, "AK", 5192 , "A7")
     worksheet.write(get_colNum["A0"] + 1, get_rowNum[collection] + 1 , res)
     #foreign key 
-    query = ([
-  {
-    '$match': {
-      "B.BK" : 5192 
-    }
-  },{
-  '$project': {
-    "B" : 1
-  }}
-])
-    res = exec_cost(collection, query)
+    res = update_cost_once(collection, "B.BK", 5192 , "A7")
     worksheet.write(get_colNum["B0"] + 1, get_rowNum[collection] + 1 , res)
-    #join on PK 
-    query = ([
-  {
-    '$match': {
-      "_id" : 5192 
-    }
-  }
-])
-    res = exec_cost(collection, query)
-    worksheet.write(get_colNum["A0join"] + 1, get_rowNum[collection] + 1 , res)
-    #join on FK 
-    query = ([
-  {
-    '$match': {
-      "B.BK" : 5192 
-    }
-  }
-])
-    res = exec_cost(collection, query)
-    worksheet.write(get_colNum["B0join"] + 1, get_rowNum[collection] + 1 , res)
     for ind in ind_a:
         # select A.*
         # from A
@@ -328,120 +285,33 @@ if __name__ == "__main__":
                     },{ '$project' : { "B" : 0}}
                 ]
             )
-        res = exec_cost(collection, query)
+        res = update_cost_once(collection, ind, get_random_indexed_int_A(ind) , "A7")
         worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , res)
-        # select A.*, B.*
-        # from A join B on (A.AK=B.AK)
-        # where Ax='val'
-        query =(
-                [
-                    {
-                        '$match' : { ind : get_random_indexed_int_A(ind)}
-                    }
-                ]
-            )
-        res = exec_cost(collection, query)
-        worksheet.write(get_colNum[ind + "join"] + 1, get_rowNum[collection] + 1 , res)
     for ind in ind_b:
         # select B.*
         # from B
         # where Bx='val'
-        val = get_random_indexed_int_B(ind)
-        query = ([{'$match': {"B." + ind : val}},{'$unwind': {'path' : "$B"}},{'$match' : {"B." + ind : val}}, {'$project':{"B" : 1, "_id" : 0}}])
-        res = exec_cost(collection, query)
+        res = update_cost_once(collection, "B." + ind, get_random_indexed_int_B(ind) , "A7")
         worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , res)
-        # select A.*, B.*
-        # from A join B on (A.AK=B.BK)
-        # where Bx='val
-        val = get_random_indexed_int_B(ind)
-        query = ([{'$match': {"B." + ind : val}},{'$unwind': {'path' : "$B"}},{'$match' : {"B." + ind : val}}])
-        res = exec_cost(collection, query)
-        worksheet.write(get_colNum[ind + "join"] + 1, get_rowNum[collection] + 1 , res)
 
     collection = "embedding_A_in_B"
     #key 
-    query = ([
-  {
-    '$match': {
-      "_id" : 5192 
-    }
-  },{
-    '$project': {
-      "B" : 0
-    }
-  }
-])
-    res = exec_cost(collection, query)
+
+    res = update_cost_once(collection, "BK", 5192 , "B7")
     worksheet.write(get_colNum["B0"] + 1, get_rowNum[collection] + 1 , res)
     #foreign key 
-    query = ([
-  {
-    '$match': {
-      "A.AK" : 5192 
-    }
-  },{
-  '$project': {
-    "A" : 1
-  }}
-])
-    res = exec_cost(collection, query)
+    res = update_cost_once(collection, "A.AK", 5192 , "B7")
     worksheet.write(get_colNum["A0"] + 1, get_rowNum[collection] + 1 , res)
-    # join on PK 
-    query = ([
-  {
-    '$match': {
-      "_id" : 5192 
-    }
-  }
-])
-    res = exec_cost(collection, query)
-    worksheet.write(get_colNum["B0join"] + 1, get_rowNum[collection] + 1 , res)
-    # join on FK 
-    query = ([
-  {
-    '$match': {
-      "A.AK" : 5192 
-    }
-  }
-])
-    res = exec_cost(collection, query)
-    worksheet.write(get_colNum["A0join"] + 1, get_rowNum[collection] + 1 , res)
     for ind in ind_a:
         # select A.*
         # from A
         # where Ax='val'
-        query = ([{'$match': {"A." + ind : get_random_indexed_int_A(ind)}},{'$project': {"A" : 1, "_id" : 0}},{'$unwind' : {'path' : "$A"}}])
-        res = exec_cost(collection, query)
+        res = update_cost_once(collection, "A." + ind, get_random_indexed_int_A(ind) , "B7")
         worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , res)
-        # select A.*, B.*
-        # from A join B on (A.AK=B.AK)
-        # where Ax='val'
-        query = ([{'$match': {"A." + ind : get_random_indexed_int_A(ind)}}])
-        res = exec_cost(collection, query)
-        worksheet.write(get_colNum[ind + "join"] + 1, get_rowNum[collection] + 1 , res)
     for ind in ind_b:
         # select B.*
         # from B
         # where Bx='val'
-        query =(
-                [
-                    {
-                        '$match' : { ind : get_random_indexed_int_B(ind)}
-                    },{ '$project' : { "A" : 0}}
-                ]
-            )
-        res = exec_cost(collection, query)
+        res = update_cost_once(collection, ind, get_random_indexed_int_B(ind) , "B7")
         worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , res)
-        # select A.*, B.*
-        # from A join B on (A.AK=B.BK)
-        # where Bx='val
-        query = (
-                [
-                    {
-                        '$match' : { ind : get_random_indexed_int_B(ind)}
-                    }
-                ]
-            )
-        res = exec_cost(collection, query)
-        worksheet.write(get_colNum[ind + "join"] + 1, get_rowNum[collection] + 1 , res)
     workbook.close() 
