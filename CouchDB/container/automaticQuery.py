@@ -226,7 +226,7 @@ def refBA():
       for key in lis:
         payload = json.dumps({
           "selector": {
-            "_id" : str(key)
+            "BK" : key
           },
           "execution_stats": True
         })
@@ -234,11 +234,12 @@ def refBA():
         resp = json.loads(response.text)
         time += resp["execution_stats"]['execution_time_ms']
   worksheet.write(get_colNum["A0join"] + 1,get_rowNum[collection] + 1, time)
+  print('im in FK join ')
   # FK join 
   url = "http://admin:admin@127.0.0.1:5984/" + "b" +"/_find"
   payload = json.dumps({
   "selector": {
-      "_id" : val
+      "BK" : int(val)
   }
   # ,
   # "fields": [
@@ -307,7 +308,7 @@ def refBA():
         for key in lis:
           payload = json.dumps({
             "selector": {
-              "_id" : str(key)
+              "BK" : key
             },
             "execution_stats": True
           })
@@ -650,7 +651,7 @@ if __name__ == "__main__":
   # key 
   payload = json.dumps({
    "selector": {
-      "BK": int(val) 
+      "_id": val 
       },
       "fields": [
           "_id",
@@ -668,7 +669,13 @@ if __name__ == "__main__":
   t = queryRun(collection, "B0", payload) 
   worksheet.write(get_colNum["B0"] + 1,get_rowNum[collection] + 1, t)
   # key join 
-  t = simpleSelection(collection, "BK", val)
+  payload = json.dumps({
+   "selector": {
+      "_id": val 
+      },
+      "execution_stats": True
+    })
+  t = queryRun(collection, "B0j", payload) 
   worksheet.write( get_colNum["B0join"] + 1, get_rowNum[collection] + 1,t)
   # fk 
   payload = json.dumps({
