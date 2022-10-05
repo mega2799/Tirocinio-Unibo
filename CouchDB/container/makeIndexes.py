@@ -246,6 +246,22 @@ for ind in ind_a:
   response = requests.request("POST", url, headers=headers, data=payload)
   print(response.text)
 
+url = "http://admin:admin@127.0.0.1:5984/embedding_a_in_b/_index?partitioned=true"
+for ind in ind_a:
+  payload = json.dumps({
+    "index": {
+      "fields": [
+        "A.AK"
+      ]
+    },
+    "name": "A.AK-index",
+    "type": "json"
+  })
+  headers = {
+    'Content-Type': 'application/json'
+  }
+  response = requests.request("POST", url, headers=headers, data=payload)
+  print(response.text)
 # emb BA
 url = "http://admin:admin@127.0.0.1:5984/embedding_b_in_a/_index?partitioned=true"
 for ind in ind_b:
@@ -264,6 +280,25 @@ for ind in ind_b:
   response = requests.request("POST", url, headers=headers, data=payload)
   print(response.text)
 
+
+url = "http://admin:admin@127.0.0.1:5984/embedding_b_in_a/_index?partitioned=true"
+for ind in ind_b:
+  payload = json.dumps({
+    "index": {
+      "fields": [
+        "B.BK" 
+      ]
+    },
+    "name": "B.BK-index",
+    "type": "json"
+  })
+  headers = {
+    'Content-Type': 'application/json'
+  }
+  response = requests.request("POST", url, headers=headers, data=payload)
+  print(response.text)
+
+
 # ref BA
 url = "http://admin:admin@127.0.0.1:5984/referencing_b_in_a/_index?partitioned=true"
 payload = json.dumps({
@@ -273,6 +308,21 @@ payload = json.dumps({
     ]
   },
   "name": "B" + "-index",
+  "type": "json"
+})
+headers = {
+  'Content-Type': 'application/json'
+}
+response = requests.request("POST", url, headers=headers, data=payload)
+print(response.text)
+
+payload = json.dumps({
+  "index": {
+    "fields": [
+      "BK"
+    ]
+  },
+  "name": "BK" + "-index",
   "type": "json"
 })
 headers = {

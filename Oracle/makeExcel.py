@@ -42,7 +42,7 @@ get_colNumj = {
 'B5' : 26,
 'B6' : 27}
 
-workbook = xlsxwriter.Workbook('OracleStat.xlsx')
+workbook = xlsxwriter.Workbook('OracleStatRemove.xlsx')
 worksheet = workbook.add_worksheet()
 bold = workbook.add_format({'bold': True})
 worksheet.write_string('B1', 'A', bold)
@@ -82,13 +82,10 @@ try:
         config.password,
         config.dsn,
         encoding=config.encoding)
-
-    # show the version of the Oracle Database
     print(connection.version)
 except cx_Oracle.Error as error:
     print(error)
 finally:
-    # release the connection
     if connection:
         file_A = open("A.sql", "w")
         file_B = open("B.sql", "w")
@@ -113,6 +110,7 @@ finally:
         for x in cursor.fetchall():
             file_A.write(str(x).strip('(),\''))
             file_A.write('\n')
+        file_A.write('\n')
         worksheet.write(get_colNum["A0"] + 1, get_rowNum[collection] + 1 , int(t))
         for ind in ind_a:
             match ind:
@@ -125,6 +123,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A2':
                     start_time = time.time()
@@ -135,6 +134,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A3':
                     start_time = time.time()
@@ -145,6 +145,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A4':
                     start_time = time.time()
@@ -155,6 +156,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A5':
                     start_time = time.time()
@@ -165,6 +167,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A6':
                     start_time = time.time()
@@ -175,6 +178,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
             # rows = cursor.fetchall()
             # print('rows: ', len(rows))
@@ -191,8 +195,6 @@ finally:
             file_B.write(str(x).strip('(),\''))
             file_B.write('\n')
         worksheet.write(get_colNum["B0"] + 1, get_rowNum[collection] + 1 , int(t))
-        rows = cursor.fetchall()
-        print('prim key rows: ', len(rows))
         for ind in ind_b:
             match ind:
                 case 'B1':
@@ -204,6 +206,7 @@ finally:
                     for x in cursor.fetchall():
                         file_B.write(str(x).strip('(),\''))
                         file_B.write('\n')
+                    file_B.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'B2':
                     start_time = time.time()
@@ -214,6 +217,7 @@ finally:
                     for x in cursor.fetchall():
                         file_B.write(str(x).strip('(),\''))
                         file_B.write('\n')
+                    file_B.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'B3':
                     start_time = time.time()
@@ -224,6 +228,7 @@ finally:
                     for x in cursor.fetchall():
                         file_B.write(str(x).strip('(),\''))
                         file_B.write('\n')
+                    file_B.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'B4':
                     start_time = time.time()
@@ -234,6 +239,7 @@ finally:
                     for x in cursor.fetchall():
                         file_B.write(str(x).strip('(),\''))
                         file_B.write('\n')
+                    file_B.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'B5':
                     start_time = time.time()
@@ -244,6 +250,7 @@ finally:
                     for x in cursor.fetchall():
                         file_B.write(str(x).strip('(),\''))
                         file_B.write('\n')
+                    file_B.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'B6':
                     start_time = time.time()
@@ -254,6 +261,7 @@ finally:
                     for x in cursor.fetchall():
                         file_B.write(str(x).strip('(),\''))
                         file_B.write('\n')
+                    file_B.write('\n')
                     worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
             # rows = cursor.fetchall()
             # print('rows: ', len(rows))
@@ -270,8 +278,6 @@ finally:
             file_A.write(str(x).strip('(),\''))
             file_A.write('\n')
         worksheet.write(get_colNumj["A0"] + 1, get_rowNum[collection] + 1 , int(t))
-        rows = cursor.fetchall()
-        print('prim key rows: ', len(rows))
         for ind in ind_a:
             match ind:
                 case 'A1':
@@ -283,6 +289,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNumj[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A2':
                     start_time = time.time()
@@ -293,6 +300,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNumj[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A3':
                     start_time = time.time()
@@ -303,6 +311,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNumj[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A4':
                     start_time = time.time()
@@ -313,6 +322,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNumj[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A5':
                     start_time = time.time()
@@ -323,6 +333,7 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNumj[ind] + 1, get_rowNum[collection] + 1 , int(t))
                 case 'A6':
                     start_time = time.time()
@@ -333,9 +344,9 @@ finally:
                     for x in cursor.fetchall():
                         file_A.write(str(x).strip('(),\''))
                         file_A.write('\n')
+                    file_A.write('\n')
                     worksheet.write(get_colNumj[ind] + 1, get_rowNum[collection] + 1 , int(t))
-            rows = cursor.fetchall()
-            print('rows: ', len(rows))
+        
                     # worksheet.write(get_colNum[ind] + 1, get_rowNum[collection] + 1 , int(t))
             # rows = cursor.fetchall()
         collection = "B"
@@ -349,8 +360,6 @@ finally:
             file_B.write(str(x).strip('(),\''))
             file_B.write('\n')
         worksheet.write(get_colNumj["B0"] + 1, get_rowNum[collection] + 1 , int(t))
-        rows = cursor.fetchall()
-        print('prim key rows: ', len(rows))
         for ind in ind_b:
             match ind:
                 case 'B1':
@@ -413,7 +422,5 @@ finally:
                         file_B.write(str(x).strip('(),\''))
                         file_B.write('\n')
                     worksheet.write(get_colNumj[ind] + 1, get_rowNum[collection] + 1 , int(t))
-            rows = cursor.fetchall()
-            print('rows: ', len(rows))
         connection.close()
         workbook.close() 

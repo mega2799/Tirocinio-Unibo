@@ -28,6 +28,7 @@ db.B.aggregate(
    ,{
      $project : {
        "_id" : "$BK",
+       "BK" : 1,
        "B1" : 1,
        "B2" : 1,
        "B3" : 1,

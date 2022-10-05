@@ -3,232 +3,274 @@ Plan hash value: 3484949970
 ------------------------------------------------------------------------------------
 | Id  | Operation                   | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 ------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT            |      |     1 |  1036 |     3   (0)| 00:00:01 |
-|   1 |  TABLE ACCESS BY INDEX ROWID| B    |     1 |  1036 |     3   (0)| 00:00:01 |
-|*  2 |   INDEX UNIQUE SCAN         | PKB  |     1 |       |     2   (0)| 00:00:01 |
+|   0 | SELECT STATEMENT            |      |     1 |  1130 |     2   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID| B    |     1 |  1130 |     2   (0)| 00:00:01 |
+|*  2 |   INDEX UNIQUE SCAN         | PKB  |     1 |       |     1   (0)| 00:00:01 |
 ------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   2 - access("BK"=9641
+   2 - access("BK"=5589
 Plan hash value: 1911541843
  
 --------------------------------------------------------------------------
 | Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 --------------------------------------------------------------------------
-|   0 | SELECT STATEMENT  |      |    10 | 10360 | 46770   (1)| 00:00:02 |
-|*  1 |  TABLE ACCESS FULL| B    |    10 | 10360 | 46770   (1)| 00:00:02 |
+|   0 | SELECT STATEMENT  |      |  8278 |  9134K| 45380   (1)| 00:00:02 |
+|*  1 |  TABLE ACCESS FULL| B    |  8278 |  9134K| 45380   (1)| 00:00:02 |
 --------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   1 - filter("B1"=2340
+   1 - filter("B1"=4039
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+
 Plan hash value: 1911541843
  
 --------------------------------------------------------------------------
 | Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 --------------------------------------------------------------------------
-|   0 | SELECT STATEMENT  |      |  1000 |  1011K| 46771   (1)| 00:00:02 |
-|*  1 |  TABLE ACCESS FULL| B    |  1000 |  1011K| 46771   (1)| 00:00:02 |
+|   0 | SELECT STATEMENT  |      |  8278 |  9134K| 45381   (1)| 00:00:02 |
+|*  1 |  TABLE ACCESS FULL| B    |  8278 |  9134K| 45381   (1)| 00:00:02 |
 --------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   1 - filter("B2"=120
+   1 - filter("B2"=841
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+
 Plan hash value: 1911541843
  
 --------------------------------------------------------------------------
 | Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 --------------------------------------------------------------------------
-|   0 | SELECT STATEMENT  |      |   100K|    98M| 46773   (1)| 00:00:02 |
-|*  1 |  TABLE ACCESS FULL| B    |   100K|    98M| 46773   (1)| 00:00:02 |
+|   0 | SELECT STATEMENT  |      | 90213 |    97M| 45383   (1)| 00:00:02 |
+|*  1 |  TABLE ACCESS FULL| B    | 90213 |    97M| 45383   (1)| 00:00:02 |
 --------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   1 - filter("B3"=7
-Plan hash value: 2534520555
+   1 - filter("B3"=5
  
----------------------------------------------------------------------------------------------------
-| Id  | Operation                           | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
----------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                    |             |    10 | 10360 |     7   (0)| 00:00:01 |
-|   1 |  TABLE ACCESS BY INDEX ROWID BATCHED| B           |    10 | 10360 |     7   (0)| 00:00:01 |
-|   2 |   BITMAP CONVERSION TO ROWIDS       |             |       |       |            |          |
-|*  3 |    BITMAP INDEX SINGLE VALUE        | B_B4_BITMAP |       |       |            |          |
----------------------------------------------------------------------------------------------------
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+
+Plan hash value: 3753266301
  
-Predicate Information (identified by operation id):
----------------------------------------------------
- 
-   3 - access("B4"=9550
-Plan hash value: 3747107881
- 
----------------------------------------------------------------------------------------------------
-| Id  | Operation                           | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
----------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                    |             |  1000 |  1011K|   440   (1)| 00:00:01 |
-|   1 |  TABLE ACCESS BY INDEX ROWID BATCHED| B           |  1000 |  1011K|   440   (1)| 00:00:01 |
-|   2 |   BITMAP CONVERSION TO ROWIDS       |             |       |       |            |          |
-|*  3 |    BITMAP INDEX SINGLE VALUE        | B_B5_BITMAP |       |       |            |          |
----------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+| Id  | Operation                           | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |      |    10 | 11300 |    16   (0)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID BATCHED| B    |    10 | 11300 |    16   (0)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN                  | B_B4 |    10 |       |     3   (0)| 00:00:01 |
+--------------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   3 - access("B5"=78
-Plan hash value: 3217912714
+   2 - access("B4"=1008
  
----------------------------------------------------------------------------------------------------
-| Id  | Operation                           | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
----------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                    |             |   100K|    98M| 39711   (1)| 00:00:02 |
-|   1 |  TABLE ACCESS BY INDEX ROWID BATCHED| B           |   100K|    98M| 39711   (1)| 00:00:02 |
-|   2 |   BITMAP CONVERSION TO ROWIDS       |             |       |       |            |          |
-|*  3 |    BITMAP INDEX SINGLE VALUE        | B_B6_BITMAP |       |       |            |          |
----------------------------------------------------------------------------------------------------
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+
+Plan hash value: 2666462047
+ 
+--------------------------------------------------------------------------------------------
+| Id  | Operation                           | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                    |      |  1000 |  1103K|  1214   (1)| 00:00:01 |
+|   1 |  TABLE ACCESS BY INDEX ROWID BATCHED| B    |  1000 |  1103K|  1214   (1)| 00:00:01 |
+|*  2 |   INDEX RANGE SCAN                  | B_B5 |  1000 |       |     5   (0)| 00:00:01 |
+--------------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   3 - access("B6"=0
+   2 - access("B5"=473
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+
+Plan hash value: 1911541843
+ 
+--------------------------------------------------------------------------
+| Id  | Operation         | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+--------------------------------------------------------------------------
+|   0 | SELECT STATEMENT  |      | 71640 |    77M| 45386   (1)| 00:00:02 |
+|*  1 |  TABLE ACCESS FULL| B    | 71640 |    77M| 45386   (1)| 00:00:02 |
+--------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   1 - filter("B6"=2
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+
 Plan hash value: 2094168580
  
 -------------------------------------------------------------------------------------
 | Id  | Operation                    | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 -------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT             |      |     1 |  2065 |     4   (0)| 00:00:01 |
-|   1 |  NESTED LOOPS                |      |     1 |  2065 |     4   (0)| 00:00:01 |
-|   2 |   TABLE ACCESS BY INDEX ROWID| B    |     1 |  1036 |     3   (0)| 00:00:01 |
-|*  3 |    INDEX UNIQUE SCAN         | PKB  |     1 |       |     2   (0)| 00:00:01 |
-|   4 |   TABLE ACCESS BY INDEX ROWID| A    |     1 |  1029 |     1   (0)| 00:00:01 |
+|   0 | SELECT STATEMENT             |      |     1 |  2247 |     3   (0)| 00:00:01 |
+|   1 |  NESTED LOOPS                |      |     1 |  2247 |     3   (0)| 00:00:01 |
+|   2 |   TABLE ACCESS BY INDEX ROWID| B    |     1 |  1130 |     2   (0)| 00:00:01 |
+|*  3 |    INDEX UNIQUE SCAN         | PKB  |     1 |       |     1   (0)| 00:00:01 |
+|   4 |   TABLE ACCESS BY INDEX ROWID| A    |     1 |  1117 |     1   (0)| 00:00:01 |
 |*  5 |    INDEX UNIQUE SCAN         | PK   |     1 |       |     0   (0)| 00:00:01 |
 -------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   3 - access("B"."BK"=6717
+   3 - access("B"."BK"=8336
    5 - access("AK"="FAK"
-Plan hash value: 3822498632
+Plan hash value: 4028436644
  
 -------------------------------------------------------------------------------------
 | Id  | Operation                    | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 -------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT             |      |    10 | 20650 | 46780   (1)| 00:00:02 |
-|   1 |  NESTED LOOPS                |      |    10 | 20650 | 46780   (1)| 00:00:02 |
-|   2 |   NESTED LOOPS               |      |    10 | 20650 | 46780   (1)| 00:00:02 |
-|*  3 |    TABLE ACCESS FULL         | B    |    10 | 10360 | 46770   (1)| 00:00:02 |
-|*  4 |    INDEX UNIQUE SCAN         | PK   |     1 |       |     0   (0)| 00:00:01 |
-|   5 |   TABLE ACCESS BY INDEX ROWID| A    |     1 |  1029 |     1   (0)| 00:00:01 |
+|   0 | SELECT STATEMENT             |      |  8278 |    17M|  3990   (1)| 00:00:01 |
+|   1 |  NESTED LOOPS                |      |  8278 |    17M|  3990   (1)| 00:00:01 |
+|   2 |   NESTED LOOPS               |      |  1129M|    17M|  3990   (1)| 00:00:01 |
+|   3 |    TABLE ACCESS FULL         | A    | 91380 |    97M|  3989   (1)| 00:00:01 |
+|*  4 |    INDEX RANGE SCAN          | B_FK | 12356 |       |     0   (0)| 00:00:01 |
+|*  5 |   TABLE ACCESS BY INDEX ROWID| B    |     1 |  1130 |     0   (0)| 00:00:01 |
 -------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   3 - filter("B"."B1"=1799
    4 - access("AK"="FAK"
-Plan hash value: 3822498632
+   5 - filter("B"."B1"=6448
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+Plan hash value: 4028436644
  
 -------------------------------------------------------------------------------------
 | Id  | Operation                    | Name | Rows  | Bytes | Cost (%CPU)| Time     |
 -------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT             |      |  1000 |  2016K| 47764   (1)| 00:00:02 |
-|   1 |  NESTED LOOPS                |      |  1000 |  2016K| 47764   (1)| 00:00:02 |
-|   2 |   NESTED LOOPS               |      |  1000 |  2016K| 47764   (1)| 00:00:02 |
-|*  3 |    TABLE ACCESS FULL         | B    |  1000 |  1011K| 46771   (1)| 00:00:02 |
-|*  4 |    INDEX UNIQUE SCAN         | PK   |     1 |       |     0   (0)| 00:00:01 |
-|   5 |   TABLE ACCESS BY INDEX ROWID| A    |     1 |  1029 |     1   (0)| 00:00:01 |
+|   0 | SELECT STATEMENT             |      |  8278 |    17M|  3990   (1)| 00:00:01 |
+|   1 |  NESTED LOOPS                |      |  8278 |    17M|  3990   (1)| 00:00:01 |
+|   2 |   NESTED LOOPS               |      |  1129M|    17M|  3990   (1)| 00:00:01 |
+|   3 |    TABLE ACCESS FULL         | A    | 91380 |    97M|  3989   (1)| 00:00:01 |
+|*  4 |    INDEX RANGE SCAN          | B_FK | 12356 |       |     0   (0)| 00:00:01 |
+|*  5 |   TABLE ACCESS BY INDEX ROWID| B    |     1 |  1130 |     0   (0)| 00:00:01 |
 -------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   3 - filter("B"."B2"=20
    4 - access("AK"="FAK"
-Plan hash value: 652036164
- 
------------------------------------------------------------------------------------
-| Id  | Operation          | Name | Rows  | Bytes |TempSpc| Cost (%CPU)| Time     |
------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT   |      |   100K|   196M|       | 60784   (1)| 00:00:03 |
-|*  1 |  HASH JOIN         |      |   100K|   196M|    99M| 60784   (1)| 00:00:03 |
-|   2 |   TABLE ACCESS FULL| A    |   100K|    98M|       |  4128   (1)| 00:00:01 |
-|*  3 |   TABLE ACCESS FULL| B    |   100K|    98M|       | 46773   (1)| 00:00:02 |
------------------------------------------------------------------------------------
- 
-Predicate Information (identified by operation id):
----------------------------------------------------
- 
-   1 - access("AK"="FAK"
-   3 - filter("B"."B3"=0
+   5 - filter("B"."B2"=123
  
 Note
 -----
-   - this is an adaptive plan
-Plan hash value: 1719974419
+   - dynamic statistics used: dynamic sampling (level=2
+Plan hash value: 4028436644
  
------------------------------------------------------------------------------------------------------
-| Id  | Operation                             | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                      |             |    10 | 20650 |    17   (0)| 00:00:01 |
-|   1 |  NESTED LOOPS                         |             |    10 | 20650 |    17   (0)| 00:00:01 |
-|   2 |   NESTED LOOPS                        |             |    10 | 20650 |    17   (0)| 00:00:01 |
-|   3 |    TABLE ACCESS BY INDEX ROWID BATCHED| B           |    10 | 10360 |     7   (0)| 00:00:01 |
-|   4 |     BITMAP CONVERSION TO ROWIDS       |             |       |       |            |          |
-|*  5 |      BITMAP INDEX SINGLE VALUE        | B_B4_BITMAP |       |       |            |          |
-|*  6 |    INDEX UNIQUE SCAN                  | PK          |     1 |       |     0   (0)| 00:00:01 |
-|   7 |   TABLE ACCESS BY INDEX ROWID         | A           |     1 |  1029 |     1   (0)| 00:00:01 |
------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+| Id  | Operation                    | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT             |      | 84907 |   181M|  3990   (1)| 00:00:01 |
+|   1 |  NESTED LOOPS                |      | 84907 |   181M|  3990   (1)| 00:00:01 |
+|   2 |   NESTED LOOPS               |      |  1129M|   181M|  3990   (1)| 00:00:01 |
+|   3 |    TABLE ACCESS FULL         | A    | 91380 |    97M|  3989   (1)| 00:00:01 |
+|*  4 |    INDEX RANGE SCAN          | B_FK | 12356 |       |     0   (0)| 00:00:01 |
+|*  5 |   TABLE ACCESS BY INDEX ROWID| B    |     1 |  1130 |     0   (0)| 00:00:01 |
+-------------------------------------------------------------------------------------
  
 Predicate Information (identified by operation id):
 ---------------------------------------------------
  
-   5 - access("B"."B4"=5553
-   6 - access("AK"="FAK"
-Plan hash value: 2557943950
- 
------------------------------------------------------------------------------------------------------
-| Id  | Operation                             | Name        | Rows  | Bytes | Cost (%CPU)| Time     |
------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                      |             |  1000 |  2016K|  1432   (1)| 00:00:01 |
-|   1 |  NESTED LOOPS                         |             |  1000 |  2016K|  1432   (1)| 00:00:01 |
-|   2 |   NESTED LOOPS                        |             |  1000 |  2016K|  1432   (1)| 00:00:01 |
-|   3 |    TABLE ACCESS BY INDEX ROWID BATCHED| B           |  1000 |  1011K|   440   (1)| 00:00:01 |
-|   4 |     BITMAP CONVERSION TO ROWIDS       |             |       |       |            |          |
-|*  5 |      BITMAP INDEX SINGLE VALUE        | B_B5_BITMAP |       |       |            |          |
-|*  6 |    INDEX UNIQUE SCAN                  | PK          |     1 |       |     0   (0)| 00:00:01 |
-|   7 |   TABLE ACCESS BY INDEX ROWID         | A           |     1 |  1029 |     1   (0)| 00:00:01 |
------------------------------------------------------------------------------------------------------
- 
-Predicate Information (identified by operation id):
----------------------------------------------------
- 
-   5 - access("B"."B5"=870
-   6 - access("AK"="FAK"
-Plan hash value: 3043942642
- 
-------------------------------------------------------------------------------------------------------------
-| Id  | Operation                            | Name        | Rows  | Bytes |TempSpc| Cost (%CPU)| Time     |
-------------------------------------------------------------------------------------------------------------
-|   0 | SELECT STATEMENT                     |             |   100K|   196M|       | 53722   (1)| 00:00:03 |
-|*  1 |  HASH JOIN                           |             |   100K|   196M|    99M| 53722   (1)| 00:00:03 |
-|   2 |   TABLE ACCESS FULL                  | A           |   100K|    98M|       |  4128   (1)| 00:00:01 |
-|   3 |   TABLE ACCESS BY INDEX ROWID BATCHED| B           |   100K|    98M|       | 39711   (1)| 00:00:02 |
-|   4 |    BITMAP CONVERSION TO ROWIDS       |             |       |       |       |            |          |
-|*  5 |     BITMAP INDEX SINGLE VALUE        | B_B6_BITMAP |       |       |       |            |          |
-------------------------------------------------------------------------------------------------------------
- 
-Predicate Information (identified by operation id):
----------------------------------------------------
- 
-   1 - access("AK"="FAK"
-   5 - access("B"."B6"=2
+   4 - access("AK"="FAK"
+   5 - filter("B"."B3"=9
  
 Note
 -----
-   - this is an adaptive plan
+   - dynamic statistics used: dynamic sampling (level=2
+Plan hash value: 3451358140
+ 
+----------------------------------------------------------------------------------------------
+| Id  | Operation                             | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                      |      |    10 | 22470 |    26   (0)| 00:00:01 |
+|   1 |  NESTED LOOPS                         |      |    10 | 22470 |    26   (0)| 00:00:01 |
+|   2 |   NESTED LOOPS                        |      |    10 | 22470 |    26   (0)| 00:00:01 |
+|   3 |    TABLE ACCESS BY INDEX ROWID BATCHED| B    |    10 | 11300 |    16   (0)| 00:00:01 |
+|*  4 |     INDEX RANGE SCAN                  | B_B4 |    10 |       |     3   (0)| 00:00:01 |
+|*  5 |    INDEX UNIQUE SCAN                  | PK   |     1 |       |     0   (0)| 00:00:01 |
+|   6 |   TABLE ACCESS BY INDEX ROWID         | A    |     1 |  1117 |     1   (0)| 00:00:01 |
+----------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   4 - access("B"."B4"=4410
+   5 - access("AK"="FAK"
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+Plan hash value: 2955774714
+ 
+----------------------------------------------------------------------------------------------
+| Id  | Operation                             | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+----------------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT                      |      |  1000 |  2194K|  2214   (1)| 00:00:01 |
+|   1 |  NESTED LOOPS                         |      |  1000 |  2194K|  2214   (1)| 00:00:01 |
+|   2 |   NESTED LOOPS                        |      |  1000 |  2194K|  2214   (1)| 00:00:01 |
+|   3 |    TABLE ACCESS BY INDEX ROWID BATCHED| B    |  1000 |  1103K|  1214   (1)| 00:00:01 |
+|*  4 |     INDEX RANGE SCAN                  | B_B5 |  1000 |       |     5   (0)| 00:00:01 |
+|*  5 |    INDEX UNIQUE SCAN                  | PK   |     1 |       |     0   (0)| 00:00:01 |
+|   6 |   TABLE ACCESS BY INDEX ROWID         | A    |     1 |  1117 |     1   (0)| 00:00:01 |
+----------------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   4 - access("B"."B5"=191
+   5 - access("AK"="FAK"
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
+Plan hash value: 4028436644
+ 
+-------------------------------------------------------------------------------------
+| Id  | Operation                    | Name | Rows  | Bytes | Cost (%CPU)| Time     |
+-------------------------------------------------------------------------------------
+|   0 | SELECT STATEMENT             |      | 84907 |   181M|  3990   (1)| 00:00:01 |
+|   1 |  NESTED LOOPS                |      | 84907 |   181M|  3990   (1)| 00:00:01 |
+|   2 |   NESTED LOOPS               |      |  1129M|   181M|  3990   (1)| 00:00:01 |
+|   3 |    TABLE ACCESS FULL         | A    | 91380 |    97M|  3989   (1)| 00:00:01 |
+|*  4 |    INDEX RANGE SCAN          | B_FK | 12356 |       |     0   (0)| 00:00:01 |
+|*  5 |   TABLE ACCESS BY INDEX ROWID| B    |     1 |  1130 |     0   (0)| 00:00:01 |
+-------------------------------------------------------------------------------------
+ 
+Predicate Information (identified by operation id):
+---------------------------------------------------
+ 
+   4 - access("AK"="FAK"
+   5 - filter("B"."B6"=3
+ 
+Note
+-----
+   - dynamic statistics used: dynamic sampling (level=2
