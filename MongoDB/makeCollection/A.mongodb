@@ -20,6 +20,6 @@ db.A.aggregate([
       "A7" : "$A7",
     }
   },{
-    $out: "betterA"
+    $out: "A"
   }
 ])
