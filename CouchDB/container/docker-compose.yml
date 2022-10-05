@@ -6,8 +6,8 @@ services:
     restart: always
     ports:
       - "5984:5984"
-    mem_limit: 2048m
-    cpu_count: 8
+    mem_limit: 512m
+    cpu_count: 4
     environment:
       - COUCHDB_USER=admin
       - COUCHDB_PASSWORD=admin

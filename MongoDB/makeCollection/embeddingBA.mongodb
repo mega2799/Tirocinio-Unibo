@@ -38,11 +38,39 @@ db.B.aggregate(
         "A5" : "$AK.A5",
         "A6" : "$AK.A6",
         "A7" : "$AK.A7",
-        "B" : "$BK"} // li voglio in quest ordine
+        "B" : "$BK",
+        "B_ind" : "$BK"
+        } // li voglio in quest ordine
     },{
-        $project : { "A._id" : 0, "B._id" : 0}
+        $project : { "A._id" : 0, "B._id" : 0, 
+        
+        }
     },{
-        $out : "embedding_B_in_A"
-   }
+      /**
+       * specifications: The fields to
+       *   include or exclude.
+       */
+      $project: {
+        "B.BK" : 0,
+        "B.B4" : 0,
+        "B.B5" : 0,
+        "B.B6" : 0
+      }
+    },{
+      /**
+       * specifications: The fields to
+       *   include or exclude.
+       */
+      $project: {
+        "B_ind._id" : 0,
+        "B_ind.B1" : 0,
+        "B_ind.B2" : 0,
+        "B_ind.B3" : 0,
+        "B_ind.B7" : 0
+
+      }
+    },{
+      $out : "embedding_B_in_A"
+   } 
   ],{allowDiskUse:true}
 )

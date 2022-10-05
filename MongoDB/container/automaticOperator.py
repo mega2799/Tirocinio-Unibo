@@ -231,7 +231,7 @@ if __name__ == "__main__":
     }
   },{
     '$lookup': {
-      'from': 'Ap',
+      'from': 'A',
       'localField': 'AK',
       'foreignField': 'AK',
       'as': 'A'
@@ -263,7 +263,7 @@ if __name__ == "__main__":
   }
 ])
     start_time = time.time()
-    res = exec_cost("Ap", query)
+    res = exec_cost("A", query)
     print("--- %s seconds ---" % (time.time() - start_time))
     file = open("result/" + collection + "@" + "A0join" + "@exec_stats.json", "w") 
     file.write(json.dumps(res, indent=4))
@@ -279,7 +279,7 @@ if __name__ == "__main__":
                 ]
             )
         start_time = time.time()
-        res = exec_cost("Ap", query)
+        res = exec_cost("A", query)
         print("--- %s seconds ---" % (time.time() - start_time))
         file = open("result/" + collection + "@" + ind + "@exec_stats.json", "w") 
         file.write(json.dumps(res, indent=4))

@@ -11,6 +11,7 @@ db.B.aggregate([
     $project: {
       "_id" : "$BK",
       "BK" : "$BK",
+      "FAK" : "$FAK",
       "B1" : "$B1", 
       "B2" : "$B2", 
       "B3" : "$B3", 
@@ -20,6 +21,6 @@ db.B.aggregate([
       "B7" : "$B7",
     }
   },{
-    $out: "betterB"
+    $out: "B"
   }
 ])

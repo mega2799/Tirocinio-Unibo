@@ -498,6 +498,7 @@ if __name__ == "__main__":
   #refBA()
   #refAB()
 
+
   # collection = "embedding_b_in_a"
   # # foreign key 
   # payload = json.dumps({
@@ -651,6 +652,155 @@ if __name__ == "__main__":
   #     })
   #     t = queryRun(collection, ind, payload)  
   #     worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+
+  collection = "embedding_b_in_a"
+  # foreign key 
+  payload = json.dumps({
+      "selector": {
+          "B_ind": {
+            "$elemMatch": {
+                "BK" : int(val) 
+            }
+          }
+      },
+      "fields": [
+          "B", "B_ind"
+      ],
+      "execution_stats": True
+    })
+  t = queryRun(collection, "BK", payload) 
+  worksheet.write( get_colNum["B0"] + 1,get_rowNum[collection] + 1, t)
+  # foreign key join
+  payload = json.dumps({
+      "selector": {
+          "B_ind": {
+            "$elemMatch": {
+                "BK" : int(val) 
+            }
+          }
+      },
+      "execution_stats": True
+    })
+  t = queryRun(collection, "BK", payload) 
+  worksheet.write( get_colNum["B0join"] + 1,get_rowNum[collection] + 1, t)
+  payload = json.dumps({
+      "selector": {
+          "AK" : int(val) 
+      },
+      "fields": [
+          "_id",
+          "AK",
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "A7"
+      ],
+      "execution_stats": True
+    })
+  t = queryRun(collection, "A0", payload) 
+  worksheet.write( get_colNum["A0"] + 1,get_rowNum[collection] + 1, t)
+  # key join
+  t = simpleSelection(collection, "AK", val)
+  worksheet.write( get_colNum["A0join"] + 1, get_rowNum[collection] + 1,t)
+  for ind in ind_a:
+      # select A.*
+      # from A
+      # where Ax='val'
+      payload = json.dumps({
+      "selector": {
+          ind : int(val) 
+      },
+      "fields": [
+          "_id",
+          "AK",
+          "A1",
+          "A2",
+          "A3",
+          "A4",
+          "A5",
+          "A6",
+          "A7"
+      ],
+      "execution_stats": True
+    })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+      # select A.*, B.*
+      # from A join B on (A.AK=B.AK)
+      # where Ax='val'
+      t = simpleSelection(collection, ind, val) ###################################### aggiungere indice con join
+      worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+  for ind in ind_b:
+      # select B.*
+      # from B
+      # where Bx='val'
+    if (ind == "B1" or ind == "B2" or ind == "B3"):
+      print("query on B[] ind: ", ind)
+      payload = json.dumps({
+        "selector": {
+            "B": {
+              "$elemMatch": {
+                  ind : int(val) 
+              }
+            }
+        },
+        "fields": [
+            "B", "B_ind"
+        ],
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+        # select A.*, B.*
+        # from A join B on (A.AK=B.BK)
+        # where Bx='val
+      payload = json.dumps({
+        "selector": {
+            "B": {
+              "$elemMatch": {
+                  ind : int(val)
+              }
+            }
+        },
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload)  
+      worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
+    else:
+      print("query on B_ind[] ind: ", ind)
+      payload = json.dumps({
+        "selector": {
+            "B_ind": {
+              "$elemMatch": {
+                  ind : int(val) 
+              }
+            }
+        },
+        "fields": [
+            "B", "B_ind"
+        ],
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload) 
+      worksheet.write( get_colNum[ind] + 1,get_rowNum[collection] + 1, t)
+        # select A.*, B.*
+        # from A join B on (A.AK=B.BK)
+        # where Bx='val
+      payload = json.dumps({
+        "selector": {
+            "B_ind": {
+              "$elemMatch": {
+                  ind : int(val)
+              }
+            }
+        },
+        "execution_stats": True
+      })
+      t = queryRun(collection, ind, payload)  
+      worksheet.write( get_colNum[(ind + "join")] + 1,get_rowNum[collection] + 1, t)
 
 
   collection = "embedding_a_in_b"

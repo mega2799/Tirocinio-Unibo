@@ -11,35 +11,48 @@ use(database);
 db.B.aggregate(
   [
     {
-      
       $lookup: {
         from: 'A',
         localField: 'FAK',
         foreignField: 'AK',
         as: 'A'
       }
-    },{
-      $project: {
-        "FAK" : 0,
-        "_id" : 0,
-        "A._id" : 0
-      }
     }
    ,{
-     $project : {
-       "_id" : "$BK",
-       "BK" : 1,
-       "B1" : 1,
-       "B2" : 1,
-       "B3" : 1,
-       "B4" : 1,
-       "B5" : 1,
-       "B6" : 1,
-       "B7" : 1,
-       "A" : 1
+
+     $project: {
+       "FAK" : 0,
+       "_id" : 0,
+       "A._id" : 0,
+
      }
-   },{
-      $out : "embedding_A_in_B"
+   }
+  ,{
+    $project : {
+      "_id" : "$BK",
+      "BK" : 1,
+      "B1" : 1,
+      "B2" : 1,
+      "B3" : 1,
+      "B4" : 1,
+      "B5" : 1,
+      "B6" : 1,
+      "B7" : 1,
+      "A.A1" : 1,
+      "A.A2" : 1,
+      "A.A3" : 1,
+      "A_ind" : "$A",
+
     }
+  },{
+    $project: {
+      "A_ind.A1" : 0,
+      "A_ind.A2" : 0,
+      "A_ind.A3" : 0
+    }
+  }
+  ,{
+     $out : "embedding_A_in_B"
+   } 
   ]
 )
